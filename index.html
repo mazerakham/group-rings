@@ -70,33 +70,34 @@
 <div class="wrap">
 
 <h1>Group rings — Problem Set 1</h1>
-<p class="sub">Definitions and hand computation in ℝ[D₈] and ℝ[Q₈], then left multiplication as a linear operator, then out through Fourier analysis, Galois fields, quadratic reciprocity, and spherical harmonics. 54 problems. 5 August 2026.</p>
+<p class="sub">Definitions and hand computation in ℝ[D₄] and ℝ[Q₈], then left multiplication as a linear operator, then out through Fourier analysis, Galois fields, quadratic reciprocity, and spherical harmonics. 54 problems. 5 August 2026.</p>
 
 <nav>
 <a href="#secA">A. Definitions and first consequences <span>· 1–7</span></a>
-<a href="#secB">B. Hand computation in ℝ[D₈] <span>· 8–15</span></a>
+<a href="#secB">B. Hand computation in ℝ[D₄] <span>· 8–15</span></a>
 <a href="#secC">C. Hand computation in ℝ[Q₈] <span>· 16–21</span></a>
 <a href="#secD">D. Augmentation, involution, center <span>· 22–25</span></a>
 <a href="#secE">E. Left multiplication as a linear map <span>· 26–31</span></a>
 <a href="#secF">F. The spectrum is a Fourier transform <span>· 32–35</span></a>
 <a href="#secG">G. Semisimple structure <span>· 36–39</span></a>
 <a href="#secH">H. The group determinant, and one quadratic form that explains everything <span>· 40–43</span></a>
-<a href="#secI">I. Build the isomorphism ℂ[D₈] ≅ ℂ[Q₈] <span>· 44, parts a–f</span></a>
+<a href="#secI">I. Build the isomorphism ℂ[D₄] ≅ ℂ[Q₈] <span>· 44, parts a–f</span></a>
 <a href="#secJ">J. Group rings over a Galois field: cyclic codes <span>· 45–48</span></a>
 <a href="#secK">K. Capstone: Gauss sums, cyclotomy, quadratic reciprocity <span>· 49, parts a–g</span></a>
 <a href="#secL">L. The corridor: group rings → Laplacians → manifolds and harmonics <span>· 50–54</span></a>
 </nav>
 
 <div class="card note">
-<p class="p"><strong>On the name.</strong> Yes — these are <strong>group rings</strong>. For a ring <m>R</m> with 1 and a group <m>G</m>, the group ring is written <m>R[G]</m> or <m>RG</m>, coefficients on the outside. So the objects you were pushing around are <m>ℝ[D₈]</m> and <m>ℝ[Q₈]</m>, not <m>D₈[ℝ]</m>. When the coefficient ring is a field (as ℝ is), the standard name sharpens to <strong>group algebra</strong>, since <m>R[G]</m> is then an <m>R</m>-vector space with basis <m>G</m>.</p>
+<p class="p"><strong>On the name.</strong> Yes — these are <strong>group rings</strong>. For a ring <m>R</m> with 1 and a group <m>G</m>, the group ring is written <m>R[G]</m> or <m>RG</m>, coefficients on the outside. So the objects you were pushing around are <m>ℝ[D₄]</m> and <m>ℝ[Q₈]</m>, not <m>D₄[ℝ]</m>. When the coefficient ring is a field (as ℝ is), the standard name sharpens to <strong>group algebra</strong>, since <m>R[G]</m> is then an <m>R</m>-vector space with basis <m>G</m>.</p>
 <p class="p">And the general multiplication formula you derived is almost certainly the <strong>convolution formula</strong>: <m>(αβ)_g = Σ_{hk=g} a_h b_k = Σ_{h∈G} a_h b_{h⁻¹g}</m>. That is the definition, and everything on this page is downstream of it.</p>
-<p class="p">Yes, left multiplication is a linear map, and yes, its spectrum is interesting — that is sections E through H, and it turns out to be the thing that explains why <m>ℝ[D₈] ≇ ℝ[Q₈]</m> but <m>ℂ[D₈] ≅ ℂ[Q₈]</m>. Sections J and K are the payoff: the same formalism gives you the Hamming code and quadratic reciprocity.</p>
+<p class="p">Yes, left multiplication is a linear map, and yes, its spectrum is interesting — that is sections E through H, and it turns out to be the thing that explains why <m>ℝ[D₄] ≇ ℝ[Q₈]</m> but <m>ℂ[D₄] ≅ ℂ[Q₈]</m>. Sections J and K are the payoff: the same formalism gives you the Hamming code and quadratic reciprocity.</p>
 </div>
 
 <div class="card note">
 <p class="p"><strong>Conventions used throughout.</strong></p>
 <ul>
-<li><m>D₈</m> is the dihedral group of order <strong>8</strong>, presented as <m>⟨r, s | r⁴ = s² = 1, sr = r⁻¹s⟩</m>. Normal form <m>r^a s^b</m>, <m>0≤a≤3</m>, <m>0≤b≤1</m>. Some books call this <m>D₄</m>.</li>
+<li><m>D₄</m> is the symmetry group of the <strong>square</strong>: order 8, presented as <m>⟨r, s | r⁴ = s² = 1, sr = r⁻¹s⟩</m>. Normal form <m>r^a s^b</m>, <m>0≤a≤3</m>, <m>0≤b≤1</m>. Here <m>D_n</m> always means the <m>n</m>-gon group, of order <m>2n</m> — so <m>D₃ ≅ S₃</m> and <m>D₂ ≅ C₂×C₂</m>. Dummit &amp; Foote index by order instead and call this same group <m>D₈</m>; if you are reading along in it, halve every subscript.</li>
+<li>The subscripts in <m>D₄</m> and <m>Q₈</m> therefore count different things — <m>D₄</m> has 4 rotations, <m>Q₈</m> has 8 elements — and both groups have order 8. That collision is unfortunate and universal; nobody has fixed it.</li>
 <li><m>Q₈ = {1, z, i, zi, j, zj, k, zk}</m>, where <m>z</m> is the unique element of order 2 (the thing usually written <m>−1</m>). Rules: <m>z</m> central, <m>z² = 1</m>, <m>i² = j² = k² = z</m>, <m>ij = k</m>, <m>jk = i</m>, <m>ki = j</m>, and <m>ji = zk</m>, <m>kj = zi</m>, <m>ik = zj</m>.</li>
 <li>Writing <m>z</m> rather than <m>−1</m> is deliberate; see problem 16.</li>
 </ul>
@@ -155,10 +156,10 @@ and both factors are nonzero since <m>1,g,…,g^{n−1}</m> are distinct basis e
 </div></details>
 </div>
 
-<h2 id="secB">B. Hand computation in ℝ[D₈] <span class="rng">8–15</span></h2>
+<h2 id="secB">B. Hand computation in ℝ[D₄] <span class="rng">8–15</span></h2>
 
 <div class="card" id="p8"><a class="anchor" href="#p8">#8</a>
-<p class="p"><span class="num">8.</span> List the eight basis elements of <m>ℝ[D₈]</m> in normal form and derive the single reduction rule for <m>(r^a s^b)(r^c s^d)</m>.</p>
+<p class="p"><span class="num">8.</span> List the eight basis elements of <m>ℝ[D₄]</m> in normal form and derive the single reduction rule for <m>(r^a s^b)(r^c s^d)</m>.</p>
 <details><summary>Answer</summary><div class="body">
 Basis <m>1, r, r², r³, s, rs, r²s, r³s</m>. From <m>sr = r⁻¹s</m> comes <m>s r^c = r^{−c} s</m>, hence
 <div class="disp">(r^a s^b)(r^c s^d) = r^{a + (−1)^b c} s^{b+d}   (a mod 4, b mod 2)</div>
@@ -167,7 +168,7 @@ Everything below is this rule applied bilinearly. If you derived a general multi
 </div>
 
 <div class="card" id="p9"><a class="anchor" href="#p9">#9</a>
-<p class="p"><span class="num">9.</span> Compute <m>(1 + r)(1 + s)</m> and <m>(1 + s)(1 + r)</m>. Conclude <m>ℝ[D₈]</m> is not commutative, and note which single term is responsible.</p>
+<p class="p"><span class="num">9.</span> Compute <m>(1 + r)(1 + s)</m> and <m>(1 + s)(1 + r)</m>. Conclude <m>ℝ[D₄]</m> is not commutative, and note which single term is responsible.</p>
 <details><summary>Answer</summary><div class="body">
 <div class="disp">(1 + r)(1 + s) = 1 + r + s + rs
 (1 + s)(1 + r) = 1 + r + s + sr = 1 + r + s + r³s</div>
@@ -199,9 +200,9 @@ Three of four terms agree; the discrepancy is entirely <m>rs</m> vs <m>r³s</m>.
 </div>
 
 <div class="card" id="p13"><a class="anchor" href="#p13">#13</a>
-<p class="p"><span class="num">13.</span> Let <m>N = Σ_{g∈D₈} g</m>. (a) Show <m>gN = Ng = N</m> for all <m>g</m>. (b) Deduce <m>N² = 8N</m> and that <m>e = N/8</m> is a central idempotent. (c) Compute <m>αN</m> for general <m>α</m>. (d) Compute <m>(1−e)N</m>.</p>
+<p class="p"><span class="num">13.</span> Let <m>N = Σ_{g∈D₄} g</m>. (a) Show <m>gN = Ng = N</m> for all <m>g</m>. (b) Deduce <m>N² = 8N</m> and that <m>e = N/8</m> is a central idempotent. (c) Compute <m>αN</m> for general <m>α</m>. (d) Compute <m>(1−e)N</m>.</p>
 <details><summary>Answer</summary><div class="body">
-(a) Left multiplication by <m>g</m> permutes <m>D₈</m>. (b) <m>N² = Σ_g gN = 8N</m>. (c) <m>αN = (Σ_g a_g)N = ε(α)N</m> — the augmentation shows up on its own. (d) <m>0</m>, so <m>1−e</m> and <m>N</m> are zero divisors.
+(a) Left multiplication by <m>g</m> permutes <m>D₄</m>. (b) <m>N² = Σ_g gN = 8N</m>. (c) <m>αN = (Σ_g a_g)N = ε(α)N</m> — the augmentation shows up on its own. (d) <m>0</m>, so <m>1−e</m> and <m>N</m> are zero divisors.
 </div></details>
 </div>
 
@@ -213,7 +214,7 @@ Three of four terms agree; the discrepancy is entirely <m>rs</m> vs <m>r³s</m>.
 </div>
 
 <div class="card" id="p15"><a class="anchor" href="#p15">#15</a>
-<p class="p"><span class="num">15.</span> Find the centralizer of <m>s</m> in <m>ℝ[D₈]</m>: all <m>α</m> with <m>sα = αs</m>. Give a basis and the dimension.</p>
+<p class="p"><span class="num">15.</span> Find the centralizer of <m>s</m> in <m>ℝ[D₄]</m>: all <m>α</m> with <m>sα = αs</m>. Give a basis and the dimension.</p>
 <details class="hint"><summary>Hint</summary><div class="body">
 Since <m>s² = 1</m>, the condition is <m>sαs = α</m>. Conjugation by <m>s</m> permutes the basis; find the orbits, take fixed points and orbit sums.
 </div></details>
@@ -275,10 +276,10 @@ Inside the ring <m>ℝ[Q₈]e₋</m> — whose identity is <m>e₋</m>, not <m>1
 </div>
 
 <div class="card" id="p21"><a class="anchor" href="#p21">#21</a>
-<p class="p"><span class="num">21.</span> Write down the conjugacy classes of <m>Q₈</m> and of <m>D₈</m> and their class sums. Verify by hand that <m>C = r + r³ ∈ ℝ[D₈]</m> commutes with both <m>r</m> and <m>s</m>.</p>
+<p class="p"><span class="num">21.</span> Write down the conjugacy classes of <m>Q₈</m> and of <m>D₄</m> and their class sums. Verify by hand that <m>C = r + r³ ∈ ℝ[D₄]</m> commutes with both <m>r</m> and <m>s</m>.</p>
 <details><summary>Answer</summary><div class="body">
 <m>Q₈</m>: <m>{1}, {z}, {i,zi}, {j,zj}, {k,zk}</m>; sums <m>1, z, i+zi, j+zj, k+zk</m>.<br>
-<m>D₈</m>: <m>{1}, {r²}, {r,r³}, {s,r²s}, {rs,r³s}</m>; sums <m>1, r², r+r³, s+r²s, rs+r³s</m>.<br>
+<m>D₄</m>: <m>{1}, {r²}, {r,r³}, {s,r²s}, {rs,r³s}</m>; sums <m>1, r², r+r³, s+r²s, rs+r³s</m>.<br>
 <m>rC = r² + r⁴ = r² + 1 = Cr</m>; <m>sC = r³s + rs = Cs</m>.<br>
 Both groups have <strong>five</strong> classes. Hold onto that for #39.
 </div></details>
@@ -308,7 +309,7 @@ Both groups have <strong>five</strong> classes. Hold onto that for #39.
 </div>
 
 <div class="card" id="p25"><a class="anchor" href="#p25">#25</a>
-<p class="p"><span class="num">25.</span> Prove the class sums form an ℝ-basis of <m>Z(ℝ[G])</m>, so <m>dim Z(ℝ[G])</m> = number of conjugacy classes. Confirm this gives <strong>5</strong> for both <m>ℝ[D₈]</m> and <m>ℝ[Q₈]</m>.</p>
+<p class="p"><span class="num">25.</span> Prove the class sums form an ℝ-basis of <m>Z(ℝ[G])</m>, so <m>dim Z(ℝ[G])</m> = number of conjugacy classes. Confirm this gives <strong>5</strong> for both <m>ℝ[D₄]</m> and <m>ℝ[Q₈]</m>.</p>
 <details class="hint"><summary>Hint</summary><div class="body">
 <m>α</m> is central iff <m>gαg⁻¹ = α</m> for all <m>g ∈ G</m> (testing on basis elements suffices). Conjugation permutes the basis, so <m>α</m> is central iff its coefficient function is constant on conjugacy classes.
 </div></details>
@@ -328,7 +329,7 @@ Both groups have <strong>five</strong> classes. Hold onto that for #39.
 </div>
 
 <div class="card" id="p27"><a class="anchor" href="#p27">#27</a>
-<p class="p"><span class="num">27.</span> In the ordered basis <m>(1, r, r², r³, s, rs, r²s, r³s)</m> of <m>ℝ[D₈]</m>, write the matrices of <m>L_r</m> and <m>L_s</m>. Give the cycle structure of each as a permutation, and the characteristic polynomial of each.</p>
+<p class="p"><span class="num">27.</span> In the ordered basis <m>(1, r, r², r³, s, rs, r²s, r³s)</m> of <m>ℝ[D₄]</m>, write the matrices of <m>L_r</m> and <m>L_s</m>. Give the cycle structure of each as a permutation, and the characteristic polynomial of each.</p>
 <details><summary>Answer</summary><div class="body">
 <m>L_r</m>: <m>1→r→r²→r³→1</m> and <m>s→rs→r²s→r³s→s</m>. Two 4-cycles; <m>char(L_r) = (t⁴ − 1)²</m>; eigenvalues <m>1, −1, i, −i</m> each with multiplicity 2.<br>
 <m>L_s</m>: <m>1↔s</m>, <m>r↔r³s</m>, <m>r²↔r²s</m>, <m>r³↔rs</m>. Four transpositions; <m>char(L_s) = (t² − 1)⁴</m>; eigenvalues <m>±1</m> each with multiplicity 4.<br>
@@ -352,9 +353,9 @@ That last line is the <strong>regular character</strong>. It is the most useful 
 </div>
 
 <div class="card" id="p30"><a class="anchor" href="#p30">#30</a>
-<p class="p"><span class="num">30.</span> Spectra of the idempotents you have already built. (a) If <m>e² = e</m>, show <m>L_e</m> is a projection, so its only eigenvalues are 0 and 1 and <m>rank(L_e) = dim ℝ[G]e</m>. (b) Compute the rank of <m>L_e</m> for <m>e = N/8</m> in <m>ℝ[D₈]</m>. (c) Compute the rank of <m>L_{e₋}</m> for <m>e₋ = (1−z)/2</m> in <m>ℝ[Q₈]</m>. (d) Compute the spectrum of <m>L_N</m>.</p>
+<p class="p"><span class="num">30.</span> Spectra of the idempotents you have already built. (a) If <m>e² = e</m>, show <m>L_e</m> is a projection, so its only eigenvalues are 0 and 1 and <m>rank(L_e) = dim ℝ[G]e</m>. (b) Compute the rank of <m>L_e</m> for <m>e = N/8</m> in <m>ℝ[D₄]</m>. (c) Compute the rank of <m>L_{e₋}</m> for <m>e₋ = (1−z)/2</m> in <m>ℝ[Q₈]</m>. (d) Compute the spectrum of <m>L_N</m>.</p>
 <details><summary>Answer</summary><div class="body">
-(b) <m>ℝ[D₈]e = ℝe</m> since <m>ge = e</m> for all <m>g</m>; rank <strong>1</strong>. (c) <m>ℝ[Q₈]e₋</m> has basis <m>e₋, ie₋, je₋, ke₋</m>; rank <strong>4</strong> — and by #20 that 4-dimensional space is ℍ. (d) <m>N² = 8N</m>, so <m>L_N</m> satisfies <m>t² = 8t</m>: eigenvalue 8 with multiplicity 1, eigenvalue 0 with multiplicity 7.
+(b) <m>ℝ[D₄]e = ℝe</m> since <m>ge = e</m> for all <m>g</m>; rank <strong>1</strong>. (c) <m>ℝ[Q₈]e₋</m> has basis <m>e₋, ie₋, je₋, ke₋</m>; rank <strong>4</strong> — and by #20 that 4-dimensional space is ℍ. (d) <m>N² = 8N</m>, so <m>L_N</m> satisfies <m>t² = 8t</m>: eigenvalue 8 with multiplicity 1, eigenvalue 0 with multiplicity 7.
 </div></details>
 </div>
 
@@ -401,8 +402,8 @@ Schur. An operator commuting with an irreducible action, over an algebraically c
 <div class="card" id="p36"><a class="anchor" href="#p36">#36</a>
 <p class="p"><span class="num">36.</span> State Maschke's theorem and Artin–Wedderburn. For each, identify exactly which hypothesis is doing the work, and where <m>ℝ</m> vs <m>ℂ</m> vs <m>𝔽₂</m> matters.</p>
 <details><summary>Answer</summary><div class="body">
-<strong>Maschke:</strong> <m>G</m> finite and <m>char(k) ∤ |G|</m> ⟹ <m>k[G]</m> semisimple. The hypothesis is that <m>|G|</m> is invertible in <m>k</m>; the averaging idempotent <m>N/|G|</m> of #13 is the entire proof. Over <m>𝔽₂</m>, <m>𝔽₂[D₈]</m> is <em>not</em> semisimple — it is local, with nilpotent radical.<br>
-<strong>Artin–Wedderburn:</strong> a semisimple ring is a finite product <m>Π M_{n_i}(D_i)</m> over division rings. Over ℂ the only finite-dimensional division algebra is ℂ, so you get pure matrix rings. Over ℝ they are ℝ, ℂ, ℍ (Frobenius) — that extra room is what lets <m>ℝ[D₈]</m> and <m>ℝ[Q₈]</m> differ.
+<strong>Maschke:</strong> <m>G</m> finite and <m>char(k) ∤ |G|</m> ⟹ <m>k[G]</m> semisimple. The hypothesis is that <m>|G|</m> is invertible in <m>k</m>; the averaging idempotent <m>N/|G|</m> of #13 is the entire proof. Over <m>𝔽₂</m>, <m>𝔽₂[D₄]</m> is <em>not</em> semisimple — it is local, with nilpotent radical.<br>
+<strong>Artin–Wedderburn:</strong> a semisimple ring is a finite product <m>Π M_{n_i}(D_i)</m> over division rings. Over ℂ the only finite-dimensional division algebra is ℂ, so you get pure matrix rings. Over ℝ they are ℝ, ℂ, ℍ (Frobenius) — that extra room is what lets <m>ℝ[D₄]</m> and <m>ℝ[Q₈]</m> differ.
 </div></details>
 </div>
 
@@ -415,17 +416,17 @@ Central orthogonal idempotents summing to 1 always split a ring as a direct prod
 </div>
 
 <div class="card" id="p38"><a class="anchor" href="#p38">#38</a>
-<p class="p"><span class="num">38.</span> Do the same for <m>ℝ[D₈]</m>, using the idempotent from #14.</p>
+<p class="p"><span class="num">38.</span> Do the same for <m>ℝ[D₄]</m>, using the idempotent from #14.</p>
 <details><summary>Answer</summary><div class="body">
-<div class="disp">ℝ[D₈] ≅ ℝ × ℝ × ℝ × ℝ × M₂(ℝ)</div>
+<div class="disp">ℝ[D₄] ≅ ℝ × ℝ × ℝ × ℝ × M₂(ℝ)</div>
 </div></details>
 </div>
 
 <div class="card" id="p39"><a class="anchor" href="#p39">#39</a>
 <p class="p"><span class="num">39.</span> Compare #37 and #38 and say precisely what goes wrong with the guess: "same order, same number of conjugacy classes, same center dimension, therefore isomorphic."</p>
 <details><summary>Answer</summary><div class="body">
-Every numerical invariant you have computed agrees: dimension 8, four 1-dimensional blocks and one 4-dimensional block, 5-dimensional center. But <m>M₂(ℝ)</m> has zero divisors and ℍ is a division ring, so the two are <strong>not</strong> isomorphic. Concretely, <m>1 − s</m> is a zero divisor sitting in <m>ℝ[D₈]</m>'s 4-dimensional block, and <m>ℝ[Q₈]</m> has nothing like it there.<br><br>
-The sharp version, which is #44: over ℂ the two <em>are</em> isomorphic. <m>D₈</m> and <m>Q₈</m> have identical character tables. Real coefficients see a difference complex coefficients cannot — the Frobenius–Schur indicator.
+Every numerical invariant you have computed agrees: dimension 8, four 1-dimensional blocks and one 4-dimensional block, 5-dimensional center. But <m>M₂(ℝ)</m> has zero divisors and ℍ is a division ring, so the two are <strong>not</strong> isomorphic. Concretely, <m>1 − s</m> is a zero divisor sitting in <m>ℝ[D₄]</m>'s 4-dimensional block, and <m>ℝ[Q₈]</m> has nothing like it there.<br><br>
+The sharp version, which is #44: over ℂ the two <em>are</em> isomorphic. <m>D₄</m> and <m>Q₈</m> have identical character tables. Real coefficients see a difference complex coefficients cannot — the Frobenius–Schur indicator.
 </div></details>
 </div>
 
@@ -444,15 +445,15 @@ The sharp version, which is #44: over ℂ the two <em>are</em> isomorphic. <m>D�
 
 <div class="card" id="p41"><a class="anchor" href="#p41">#41</a>
 <p class="p"><span class="num">41.</span> Now the nonabelian case, by hand. Use the 2-dimensional representations
-<div class="disp">D₈:  ρ(r) = [ i  0 ]   ρ(s) = [ 0  1 ]        Q₈:  ρ(i) = [ i  0 ]   ρ(j) = [ 0  1 ]
+<div class="disp">D₄:  ρ(r) = [ i  0 ]   ρ(s) = [ 0  1 ]        Q₈:  ρ(i) = [ i  0 ]   ρ(j) = [ 0  1 ]
             [ 0 −i ]          [ 1  0 ]                      [ 0 −i ]          [−1  0 ]</div>
 (a) Verify the defining relations hold in each case. (b) For each group, form <m>Σ_g x_g ρ(g)</m> and compute its determinant. Use the abbreviations
-<m>A = x_1 − x_{r²}</m>, <m>B = x_r − x_{r³}</m>, <m>C = x_s − x_{r²s}</m>, <m>D = x_{rs} − x_{r³s}</m> for <m>D₈</m>, and <m>A = x_1 − x_z</m>, <m>B = x_i − x_{zi}</m>, <m>C = x_j − x_{zj}</m>, <m>D = x_k − x_{zk}</m> for <m>Q₈</m>.</p>
+<m>A = x_1 − x_{r²}</m>, <m>B = x_r − x_{r³}</m>, <m>C = x_s − x_{r²s}</m>, <m>D = x_{rs} − x_{r³s}</m> for <m>D₄</m>, and <m>A = x_1 − x_z</m>, <m>B = x_i − x_{zi}</m>, <m>C = x_j − x_{zj}</m>, <m>D = x_k − x_{zk}</m> for <m>Q₈</m>.</p>
 <details class="hint"><summary>Hint</summary><div class="body">
 Each matrix <m>Σ_g x_g ρ(g)</m> collapses to the shape <m>[[A+iB, ?],[?, A−iB]]</m>. The only thing you have to be careful about is the sign in the off-diagonal entries, and that sign is the whole point of the problem.
 </div></details>
 <details><summary>Answer</summary><div class="body">
-For <m>D₈</m>: <m>Σ x_gρ(g) = [[A+iB, C+iD],[C−iD, A−iB]]</m>, so
+For <m>D₄</m>: <m>Σ x_gρ(g) = [[A+iB, C+iD],[C−iD, A−iB]]</m>, so
 <div class="disp">P_D = A² + B² − C² − D²</div>
 For <m>Q₈</m>: <m>Σ x_gρ(g) = [[A+iB, C+iD],[−C+iD, A−iB]]</m>, so
 <div class="disp">P_Q = A² + B² + C² + D²</div>
@@ -463,17 +464,17 @@ And in each case <m>Θ_G = (four linear factors)·P²</m>, degrees <m>4·1 + 2·
 <div class="card big" id="p42"><a class="anchor" href="#p42">#42</a>
 <p class="p"><span class="num">42.</span> <strong>The punchline.</strong> Two quadratic forms in four variables, differing by two signs. Prove all of the following from them alone. <span class="tag">juicy</span></p>
 <p class="part"><b>(a)</b> <m>P_Q</m> is <em>anisotropic</em> over ℝ (vanishes only at the origin); <m>P_D</m> is <em>isotropic</em> (find a nonzero zero).</p>
-<p class="part"><b>(b)</b> Deduce, without invoking Wedderburn, that the 4-dimensional block of <m>ℝ[Q₈]</m> is a division algebra and that of <m>ℝ[D₈]</m> is not — hence <m>ℝ[D₈] ≇ ℝ[Q₈]</m>.</p>
-<p class="part"><b>(c)</b> Show that over ℂ the two forms are equivalent, by an explicit change of variables. Predict what that implies about <m>ℂ[D₈]</m> and <m>ℂ[Q₈]</m>, then go do #44.</p>
-<p class="part"><b>(d)</b> Translate the isotropic vector of <m>P_D</m> back into an actual zero divisor in <m>ℝ[D₈]</m>, and check your answer against #14.</p>
+<p class="part"><b>(b)</b> Deduce, without invoking Wedderburn, that the 4-dimensional block of <m>ℝ[Q₈]</m> is a division algebra and that of <m>ℝ[D₄]</m> is not — hence <m>ℝ[D₄] ≇ ℝ[Q₈]</m>.</p>
+<p class="part"><b>(c)</b> Show that over ℂ the two forms are equivalent, by an explicit change of variables. Predict what that implies about <m>ℂ[D₄]</m> and <m>ℂ[Q₈]</m>, then go do #44.</p>
+<p class="part"><b>(d)</b> Translate the isotropic vector of <m>P_D</m> back into an actual zero divisor in <m>ℝ[D₄]</m>, and check your answer against #14.</p>
 <details><summary>Answer</summary><div class="body">
-(a) Sums of real squares; <m>P_D</m> vanishes at <m>(A,B,C,D) = (1,0,1,0)</m>. (b) On the 4-dimensional block, <m>det</m> of left multiplication vanishes exactly when the element is a zero divisor. <m>P_Q ≠ 0</m> off the origin ⟹ every nonzero element of that block is invertible ⟹ division algebra. <m>P_D</m> has a nontrivial zero ⟹ zero divisors. A ring with zero divisors in that block is not isomorphic to one without. (c) Substitute <m>C ↦ iC</m>, <m>D ↦ iD</m>: <m>A²+B²−C²−D² ↦ A²+B²+C²+D²</m>. Over ℂ every nondegenerate quadratic form of a given rank is equivalent to <m>Σ t_i²</m>, so the distinction evaporates and <m>ℂ[D₈] ≅ ℂ[Q₈]</m> becomes plausible. (d) <m>A = 1, C = 1</m> means <m>x_1 − x_{r²} = 1</m> and <m>x_s − x_{r²s} = 1</m>: take <m>1 + s</m>, whose partner is <m>1 − s</m>. ✓<br><br>
-Worth sitting with: <em>two sign changes in a quadratic form</em> is the entire difference between the quaternions and 2×2 real matrices, and therefore the entire difference between <m>ℝ[Q₈]</m> and <m>ℝ[D₈]</m>. The classification of quadratic forms over ℝ (Sylvester) and the classification of these group algebras are the same classification.
+(a) Sums of real squares; <m>P_D</m> vanishes at <m>(A,B,C,D) = (1,0,1,0)</m>. (b) On the 4-dimensional block, <m>det</m> of left multiplication vanishes exactly when the element is a zero divisor. <m>P_Q ≠ 0</m> off the origin ⟹ every nonzero element of that block is invertible ⟹ division algebra. <m>P_D</m> has a nontrivial zero ⟹ zero divisors. A ring with zero divisors in that block is not isomorphic to one without. (c) Substitute <m>C ↦ iC</m>, <m>D ↦ iD</m>: <m>A²+B²−C²−D² ↦ A²+B²+C²+D²</m>. Over ℂ every nondegenerate quadratic form of a given rank is equivalent to <m>Σ t_i²</m>, so the distinction evaporates and <m>ℂ[D₄] ≅ ℂ[Q₈]</m> becomes plausible. (d) <m>A = 1, C = 1</m> means <m>x_1 − x_{r²} = 1</m> and <m>x_s − x_{r²s} = 1</m>: take <m>1 + s</m>, whose partner is <m>1 − s</m>. ✓<br><br>
+Worth sitting with: <em>two sign changes in a quadratic form</em> is the entire difference between the quaternions and 2×2 real matrices, and therefore the entire difference between <m>ℝ[Q₈]</m> and <m>ℝ[D₄]</m>. The classification of quadratic forms over ℝ (Sylvester) and the classification of these group algebras are the same classification.
 </div></details>
 </div>
 
 <div class="card big" id="p43"><a class="anchor" href="#p43">#43</a>
-<p class="p"><span class="num">43.</span> <strong>Euler's four-square identity, for free.</strong> <m>det</m> is multiplicative, so <m>P_Q</m> is a multiplicative form on the ℍ block. (a) Multiply two general quaternions and read off the identity expressing <m>(a₁²+a₂²+a₃²+a₄²)(b₁²+b₂²+b₃²+b₄²)</m> as a sum of four squares. (b) Explain why the analogous computation in <m>ℝ[D₈]</m> gives a multiplicative identity for <m>A²+B²−C²−D²</m> instead, and write that one down too. (c) Sketch how (a) plus a descent argument yields Lagrange's four-square theorem: <em>every</em> non-negative integer is a sum of four squares. <span class="tag">juicy</span></p>
+<p class="p"><span class="num">43.</span> <strong>Euler's four-square identity, for free.</strong> <m>det</m> is multiplicative, so <m>P_Q</m> is a multiplicative form on the ℍ block. (a) Multiply two general quaternions and read off the identity expressing <m>(a₁²+a₂²+a₃²+a₄²)(b₁²+b₂²+b₃²+b₄²)</m> as a sum of four squares. (b) Explain why the analogous computation in <m>ℝ[D₄]</m> gives a multiplicative identity for <m>A²+B²−C²−D²</m> instead, and write that one down too. (c) Sketch how (a) plus a descent argument yields Lagrange's four-square theorem: <em>every</em> non-negative integer is a sum of four squares. <span class="tag">juicy</span></p>
 <details><summary>Answer</summary><div class="body">
 (a) With <m>a = a₁+a₂i+a₃j+a₄k</m> and <m>b</m> likewise, <m>ab = c₁+c₂i+c₃j+c₄k</m> where
 <div class="disp">c₁ = a₁b₁ − a₂b₂ − a₃b₃ − a₄b₄
@@ -486,12 +487,12 @@ This is the item to notice: you obtained a nontrivial theorem of number theory b
 </div></details>
 </div>
 
-<h2 id="secI">I. Build the isomorphism ℂ[D₈] ≅ ℂ[Q₈] <span class="rng">44</span></h2>
+<h2 id="secI">I. Build the isomorphism ℂ[D₄] ≅ ℂ[Q₈] <span class="rng">44</span></h2>
 
 <div class="card big" id="p44"><a class="anchor" href="#p44">#44</a>
 <p class="p"><span class="num">44.</span> Multi-part. Two non-isomorphic groups whose complex group algebras are isomorphic. Hints are deliberately thin.</p>
 
-<p class="part"><b>(a)</b> Compute <m>[D₈,D₈]</m> and <m>[Q₈,Q₈]</m>, and both abelianizations. What does this tell you about ring homomorphisms <m>ℂ[G] → ℂ</m>, and how many are there?</p>
+<p class="part"><b>(a)</b> Compute <m>[D₄,D₄]</m> and <m>[Q₈,Q₈]</m>, and both abelianizations. What does this tell you about ring homomorphisms <m>ℂ[G] → ℂ</m>, and how many are there?</p>
 <details class="hint"><summary>Hint</summary><div class="body">A homomorphism into a commutative ring kills every commutator, so it factors through something you already understand from #34.</div></details>
 
 <p class="part"><b>(b)</b> Take the two 2-dimensional representations from #41 and check the relations again, carefully. Note which one needs a minus sign and why.</p>
@@ -503,17 +504,17 @@ This is the item to notice: you obtained a nontrivial theorem of number theory b
 <p class="part"><b>(d)</b> Assemble <m>Ψ_G : ℂ[G] → ℂ⁴ × M₂(ℂ)</m> and prove it is an isomorphism, for both <m>G</m>.</p>
 <details class="hint"><summary>Hint</summary><div class="body">Dimensions already match, so surjectivity is enough. To get the components independently, you need one element that dies in the <m>M₂</m> factor and one that dies in all four ℂ factors. You built both in #14 and #20.</div></details>
 
-<p class="part"><b>(e)</b> Conclude <m>ℂ[D₈] ≅ ℂ[Q₈]</m>. Then show that <em>no</em> isomorphism can carry the basis <m>D₈</m> onto <m>±Q₈</m>, and say what this means about how much of <m>G</m> survives inside <m>ℂ[G]</m>.</p>
+<p class="part"><b>(e)</b> Conclude <m>ℂ[D₄] ≅ ℂ[Q₈]</m>. Then show that <em>no</em> isomorphism can carry the basis <m>D₄</m> onto <m>±Q₈</m>, and say what this means about how much of <m>G</m> survives inside <m>ℂ[G]</m>.</p>
 
 <p class="part"><b>(f)</b> Make it explicit: compute <m>Φ(r)</m> and <m>Φ(s)</m> in <m>ℂ[Q₈]</m> for the isomorphism <m>Φ = Ψ_Q^{-1}∘Ψ_D</m> that matches the linear characters via <m>r ↔ i</m>, <m>s ↔ j</m>.</p>
 <details class="hint"><summary>Hint</summary><div class="body">You may choose the five components independently — that is what a direct product means. Four of them want an honest group element. The fifth wants a matrix you cannot get from a group element, but <em>can</em> get from a group element times a scalar. Complex scalars are allowed; that is the whole trick, and it is why this fails over ℝ.</div></details>
 
 <details><summary>Answers</summary><div class="body">
-<strong>(a)</strong> <m>[D₈,D₈] = ⟨r²⟩</m>, <m>[Q₈,Q₈] = ⟨z⟩</m>; both abelianizations are <m>C₂×C₂</m>. So each group algebra has exactly <strong>four</strong> homomorphisms to ℂ, given by <m>(χ(r),χ(s)) ∈ {±1}²</m> and <m>(χ(i),χ(j)) ∈ {±1}²</m>.<br><br>
+<strong>(a)</strong> <m>[D₄,D₄] = ⟨r²⟩</m>, <m>[Q₈,Q₈] = ⟨z⟩</m>; both abelianizations are <m>C₂×C₂</m>. So each group algebra has exactly <strong>four</strong> homomorphisms to ℂ, given by <m>(χ(r),χ(s)) ∈ {±1}²</m> and <m>(χ(i),χ(j)) ∈ {±1}²</m>.<br><br>
 <strong>(b)</strong> <m>ρ(r)⁴ = I</m>, <m>ρ(s)² = I</m>, <m>ρ(s)ρ(r)ρ(s) = diag(−i,i) = ρ(r)⁻¹</m>. ✓ For <m>Q₈</m>: <m>ρ(i)² = ρ(j)² = −I = ρ(z)</m>, <m>ρ(i)ρ(j) = [[0,i],[i,0]] = ρ(k)</m>, and <m>ρ(j)ρ(i) = −ρ(k)</m>. ✓ The minus sign in <m>ρ(j)</m> is what makes <m>ρ(j)² = −I</m> rather than <m>+I</m>.<br><br>
 <strong>(c)</strong> Write <m>E = ρ(r)</m> (or <m>ρ(i)</m>) <m>= diag(i,−i)</m>. Then <m>E₁₁ = (I − iE)/2</m> and <m>E₂₂ = (I + iE)/2</m> lie in the image. Sandwiching: <m>E₁₁ρ(s)E₂₂ = E₁₂</m> and <m>E₂₂ρ(s)E₁₁ = E₂₁</m>. All four matrix units are in the image, so it is all of <m>M₂(ℂ)</m>.<br><br>
-<strong>(d)</strong> Let <m>u = (1−r²)/2</m> in <m>ℂ[D₈]</m> (resp. <m>e₋ = (1−z)/2</m> in <m>ℂ[Q₈]</m>). Since <m>ρ(r²) = −I</m> and <m>χ(r²) = 1</m> for all four linear <m>χ</m>, <m>Ψ(u) = (0,0,0,0,I)</m> and <m>Ψ(1−u) = (1,1,1,1,0)</m>. Multiplying by these projects onto either half, so the combined map is surjective; dimensions are <m>8 = 4 + 4</m> on both sides, so it is an isomorphism.<br><br>
-<strong>(e)</strong> Both are <m>≅ ℂ⁴ × M₂(ℂ)</m>, hence isomorphic to each other. If some isomorphism sent <m>D₈</m> into <m>±Q₈</m> it would induce an injection <m>D₈ → Q₈×{±1}</m> respecting products up to sign, forcing <m>D₈ ≅ Q₈</m> — false, since <m>D₈</m> has five elements of order 2 and <m>Q₈</m> has one. So <m>ℂ[G]</m> does <em>not</em> remember <m>G</m>. (Over ℤ the situation is much better: <m>ℤ[D₈] ≇ ℤ[Q₈]</m>, and the general integral isomorphism problem stood until Hertweck's 2001 counterexample.)<br><br>
+<strong>(d)</strong> Let <m>u = (1−r²)/2</m> in <m>ℂ[D₄]</m> (resp. <m>e₋ = (1−z)/2</m> in <m>ℂ[Q₈]</m>). Since <m>ρ(r²) = −I</m> and <m>χ(r²) = 1</m> for all four linear <m>χ</m>, <m>Ψ(u) = (0,0,0,0,I)</m> and <m>Ψ(1−u) = (1,1,1,1,0)</m>. Multiplying by these projects onto either half, so the combined map is surjective; dimensions are <m>8 = 4 + 4</m> on both sides, so it is an isomorphism.<br><br>
+<strong>(e)</strong> Both are <m>≅ ℂ⁴ × M₂(ℂ)</m>, hence isomorphic to each other. If some isomorphism sent <m>D₄</m> into <m>±Q₈</m> it would induce an injection <m>D₄ → Q₈×{±1}</m> respecting products up to sign, forcing <m>D₄ ≅ Q₈</m> — false, since <m>D₄</m> has five elements of order 2 and <m>Q₈</m> has one. So <m>ℂ[G]</m> does <em>not</em> remember <m>G</m>. (Over ℤ the situation is much better: <m>ℤ[D₄] ≇ ℤ[Q₈]</m>, and the general integral isomorphism problem stood until Hertweck's 2001 counterexample.)<br><br>
 <strong>(f)</strong> <m>Φ(r) = i</m>, since <m>r</m> and <m>i</m> agree on all five components. For <m>s</m> you need the four linear components to read <m>χ(j)</m> and the <m>M₂</m> component to read <m>[[0,1],[1,0]]</m>. Note <m>−i·ρ(k) = [[0,1],[1,0]]</m>. So take
 <div class="disp">Φ(s) = j·e₊ + (−i k)·e₋ = ½(j + zj) − (i/2)(k − zk)</div>
 Check: on the linear components <m>Φ(s)² = 1</m>; on <m>M₂</m>, <m>[[0,1],[1,0]]² = I</m>. And <m>Φ(s)Φ(r)Φ(s) = Φ(r)⁻¹</m>. ✓<br>
@@ -641,7 +642,7 @@ This one lemma is the corridor. Replace "finite group + counting measure" by "co
 <div class="card big" id="p52"><a class="anchor" href="#p52">#52</a>
 <p class="p"><span class="num">52.</span> <strong>Nonabelian: representation theory computes graph spectra.</strong> For a symmetric generating set <m>S ⊆ G</m>, the Cayley graph adjacency operator is <m>L_A</m> with <m>A = Σ_{s∈S} s ∈ ℝ[G]</m>.</p>
 <p class="part"><b>(a)</b> Show that if <m>ℂ[G] ≅ Π_i M_{n_i}(ℂ)</m>, then the eigenvalues of <m>L_A</m> are the eigenvalues of <m>ρ_i(A)</m>, each occurring with multiplicity <m>n_i</m>. (Note this needs no centrality of <m>A</m>.)</p>
-<p class="part"><b>(b)</b> Take <m>G = D₈</m>, <m>S = {r, r³, s}</m>. Compute the full 8-element spectrum by hand using the blocks from #44. Check the trace and the top eigenvalue against what you know about a 3-regular graph.</p>
+<p class="part"><b>(b)</b> Take <m>G = D₄</m>, <m>S = {r, r³, s}</m>. Compute the full 8-element spectrum by hand using the blocks from #44. Check the trace and the top eigenvalue against what you know about a 3-regular graph.</p>
 <p class="part"><b>(c)</b> Take <m>G = Q₈</m>, <m>S = {i, zi, j, zj}</m>. Compute the spectrum. Then identify the graph.</p>
 <details class="hint"><summary>Hint</summary><div class="body">(a) The block <m>M_{n_i}(ℂ)</m> is <m>n_i</m> copies of the <m>n_i</m>-dimensional irreducible module, and left multiplication acts the same way on each copy. (c) The 2×2 block will collapse to something very simple. Then count: a graph with only three distinct eigenvalues, one of them 0 with high multiplicity, is not a mystery.</div></details>
 <details><summary>Answer</summary><div class="body">
@@ -667,7 +668,7 @@ class sums span the center (#25)  central functions; Δ is central
 L_α, translation-invariant (#50)  invariant differential operators</div>
 <details><summary>Answer</summary><div class="body">
 For <m>G = S¹</m>: characters are <m>e_m(θ) = e^{imθ}</m>, and <m>f * e_m = f̂(m)·e_m</m> — every convolution operator is diagonal in the character basis, with eigenvalue the Fourier coefficient. That is #33 word for word, with <m>Σ_j</m> replaced by <m>∫dθ</m>. All the irreducibles are 1-dimensional because <m>S¹</m> is abelian, so the direct sum is over <m>ℤ</m> and the blocks are <m>1×1</m>.<br><br>
-The Peter–Weyl theorem is exactly the statement that the finite-dimensional row survives the limit: <m>L²(G)</m> for compact <m>G</m> decomposes as a Hilbert direct sum of <m>n_π</m> copies of each irreducible <m>V_π</m>, matrix-coefficient by matrix-coefficient. <m>ℂ[G] = Π M_{n_i}(ℂ)</m> is the finite case of it, and you proved that case for <m>D₈</m> and <m>Q₈</m> by hand in #44.
+The Peter–Weyl theorem is exactly the statement that the finite-dimensional row survives the limit: <m>L²(G)</m> for compact <m>G</m> decomposes as a Hilbert direct sum of <m>n_π</m> copies of each irreducible <m>V_π</m>, matrix-coefficient by matrix-coefficient. <m>ℂ[G] = Π M_{n_i}(ℂ)</m> is the finite case of it, and you proved that case for <m>D₄</m> and <m>Q₈</m> by hand in #44.
 </div></details>
 </div>
 
@@ -685,7 +686,7 @@ The Peter–Weyl theorem is exactly the statement that the finite-dimensional ro
 giving <m>1, 3, 5, 7</m> for <m>ℓ = 0,1,2,3</m>.<br>
 (c) #31. <m>Δ_{S²}</m> commutes with the <m>SO(3)</m>-action (rotation invariance), so it is an intertwiner of an irreducible representation, so by Schur it is a scalar. In group-ring language: <m>Δ</m> is a <em>central</em> element of the convolution algebra, and central elements act by scalars on each isotypic block — exactly as <m>N</m> did in #30(d) and as the class sums do in #25.<br>
 (d) <m>L²(S²) = L²(SO(3)/SO(2)) = L²(SO(3))^{SO(2)}</m>, so by Peter–Weyl each irreducible <m>V_π</m> appears with multiplicity <m>dim V_π^{SO(2)}</m>. In the <m>(2ℓ+1)</m>-dimensional irrep the <m>SO(2)</m>-weights are <m>−ℓ, …, 0, …, ℓ</m>: exactly one zero weight, so exactly one fixed vector, so multiplicity one. The even-dimensional irreps have half-integer weights, no zero weight, no fixed vector — and in fact they are representations of <m>SU(2)</m> that do not descend to <m>SO(3)</m> at all. Multiplicity zero.<br><br>
-So: the decomposition of <m>L²(S²)</m> into spherical harmonics, the eigenvalues <m>−ℓ(ℓ+1)</m>, and the degeneracy <m>2ℓ+1</m> of each energy level — the structure that makes the periodic table have the shape it has — is <em>the same theorem</em> as <m>ℂ[D₈] ≅ ℂ⁴ × M₂(ℂ)</m>. One is finite and you can do it by hand in an evening; the other is compact and needs an integral. The algebra is identical.
+So: the decomposition of <m>L²(S²)</m> into spherical harmonics, the eigenvalues <m>−ℓ(ℓ+1)</m>, and the degeneracy <m>2ℓ+1</m> of each energy level — the structure that makes the periodic table have the shape it has — is <em>the same theorem</em> as <m>ℂ[D₄] ≅ ℂ⁴ × M₂(ℂ)</m>. One is finite and you can do it by hand in an evening; the other is compact and needs an integral. The algebra is identical.
 </div></details>
 </div>
 

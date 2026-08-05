@@ -12,6 +12,12 @@ It has a name. They are **group rings**, the notation is `R[G]` with the coeffic
 outside, and the general multiplication formula I had derived is convolution. That was the
 first useful thing I learned that night, and it cost me one sentence to find out.
 
+I had the dihedral subscript wrong too, or at least non-standard. I was writing `D_8` for the
+symmetries of the square, which is what Dummit & Foote does, indexing by order. Most everyone
+else indexes by the polygon: `D_n` has order `2n`, so the square is `D_4` and `D_3` is `S_3`.
+The set uses the polygon convention throughout. The irritating consequence is that `D_4` and
+`Q_8` both have order 8 while looking like they should not, and there is no fixing that.
+
 So I asked for problems. Elementary ones, the kind at the front of a chapter, testing
 definitions and basic manipulation, with enough hand computation that I would actually have
 to hold the multiplication table in my head. That is sections A through D.
@@ -24,11 +30,11 @@ wanted to know whether that spectrum was ever interesting. It is. It is the regu
 representation, and for a cyclic group it is literally the discrete Fourier transform.
 Sections E and F.
 
-Then I wanted the isomorphism `C[D_8] = C[Q_8]` built by hand, with hints thin enough that
+Then I wanted the isomorphism `C[D_4] = C[Q_8]` built by hand, with hints thin enough that
 solving it would still be worth something. Section I.
 
 Then I wanted the group determinant, which I did not know existed, and which turns out to be
-the thing that explains why the *real* group algebras of `D_8` and `Q_8` differ: two
+the thing that explains why the *real* group algebras of `D_4` and `Q_8` differ: two
 quadratic forms in four variables, differing by two signs. Section H. Euler's four-square
 identity falls out of it, which I did not see coming.
 
@@ -38,7 +44,7 @@ element of a group ring, squaring it, and reducing it modulo a second prime.
 
 Then I said the corridor I actually wanted was group rings to algebra to manifolds and
 harmonics, and that is section L. It ends at spherical harmonics, which turn out to be the
-same theorem as `C[D_8] = C^4 x M_2(C)`, only compact.
+same theorem as `C[D_4] = C^4 x M_2(C)`, only compact.
 
 Fifty-four problems. Answers are collapsed. There is a button at the bottom of the page if
 you want them all at once.

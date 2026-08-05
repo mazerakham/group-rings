@@ -14,25 +14,28 @@ harder ones carry a separate hint.
 | | Section | Problems |
 |---|---|---|
 | A | Definitions and first consequences | 1–7 |
-| B | Hand computation in ℝ[D₈] | 8–15 |
+| B | Hand computation in ℝ[D₄] | 8–15 |
 | C | Hand computation in ℝ[Q₈] | 16–21 |
 | D | Augmentation, involution, center | 22–25 |
 | E | Left multiplication as a linear map | 26–31 |
 | F | The spectrum is a Fourier transform | 32–35 |
 | G | Semisimple structure | 36–39 |
 | H | The group determinant, and one quadratic form that explains everything | 40–43 |
-| I | Build the isomorphism ℂ[D₈] ≅ ℂ[Q₈] | 44 (a–f) |
+| I | Build the isomorphism ℂ[D₄] ≅ ℂ[Q₈] | 44 (a–f) |
 | J | Group rings over a Galois field: cyclic codes | 45–48 |
 | K | Capstone: Gauss sums, cyclotomy, quadratic reciprocity | 49 (a–g) |
 | L | The corridor: group rings → Laplacians → manifolds and harmonics | 50–54 |
 
 Sections A–D are chapter-opener exercises: definitions, the convolution formula, and enough
-hand computation in ℝ[D₈] and ℝ[Q₈] to make the multiplication rule automatic. Everything
+hand computation in ℝ[D₄] and ℝ[Q₈] to make the multiplication rule automatic. Everything
 after that is the payoff — the same formalism produces the Hamming code, Euler's four-square
 identity, quadratic reciprocity, and the decomposition of L²(S²).
 
-Conventions: D₈ is the dihedral group of **order 8**; the element of Q₈ usually written −1 is
-called `z` throughout, for reasons problem 16 explains.
+Conventions: `D_n` is the symmetry group of the *n*-gon, of order 2n — so **D₄ is the group of
+the square, order 8**, and D₃ ≅ S₃. Dummit & Foote index by order and call this same group D₈;
+halve every subscript if you are reading along in it. Note that D₄ and Q₈ both have order 8
+despite the subscripts, since the two families count different things. The element of Q₈
+usually written −1 is called `z` throughout, for reasons problem 16 explains.
 
 ## Prerequisites
 
