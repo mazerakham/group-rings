@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Group rings — Problem Set 1</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+
 <style>
   :root{
     --bg:#0e1116; --card:#161b22; --card2:#1b2129; --line:#2a323d;
@@ -11,32 +16,24 @@
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--fg);
-    font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
     padding:40px 20px 120px;}
-  .wrap{max-width:780px;margin:0 auto}
+  .wrap{max-width:820px;margin:0 auto}
   h1{font-size:28px;margin:0 0 4px;letter-spacing:-.01em}
   .sub{color:var(--dim);margin:0 0 24px;font-size:15px}
   h2{font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);
-     margin:42px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+     margin:44px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
   h2 .rng{float:right;color:var(--dim);letter-spacing:0;text-transform:none;font-size:13px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:10px;
-        padding:16px 18px;margin:0 0 12px}
+        padding:16px 20px;margin:0 0 12px}
   .card.note{background:var(--card2)}
   .card.big{border-color:#3d4a5c}
-  .num{display:inline-block;min-width:2.7em;color:var(--accent);font-weight:600;
-       font-variant-numeric:tabular-nums}
+  .num{color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums;margin-right:.5em}
   .p{margin:0}
   .p + .p{margin-top:10px}
-  .part{margin:10px 0 0 0;padding-left:26px;text-indent:-26px}
-  .part b{color:var(--fg);display:inline-block;width:26px;text-indent:0}
-  m{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.94em;
-    background:#0b0e13;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
-    white-space:nowrap;display:inline-block;text-indent:0}
-  .disp{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-        background:#0b0e13;border:1px solid var(--line);border-radius:6px;
-        padding:10px 12px;margin:10px 0;overflow-x:auto;font-size:14px;line-height:1.7;
-        white-space:pre;text-indent:0}
-  details{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+  .part{margin:12px 0 0 0;padding-left:28px;position:relative}
+  .part > .lbl{position:absolute;left:0;font-weight:600}
+  details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
   details summary{cursor:pointer;color:var(--dim);font-size:13px;letter-spacing:.03em;
                   text-transform:uppercase;list-style:none;user-select:none}
   details summary::-webkit-details-marker{display:none}
@@ -44,7 +41,7 @@
   details[open] summary::before{content:"▾ "}
   details.hint summary{color:var(--warn)}
   details.hint summary::before{color:var(--warn)}
-  details .body{margin-top:10px;color:#cdd7e1;font-size:15px}
+  details .body{margin-top:10px;color:#cdd7e1}
   a.anchor{color:var(--line);text-decoration:none;float:right;font-size:13px}
   a.anchor:hover{color:var(--accent)}
   .card:target{border-color:var(--accent)}
@@ -56,644 +53,690 @@
   .tag{display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;
        color:var(--warn);border:1px solid var(--warn);border-radius:4px;padding:0 6px;
        margin-left:8px;vertical-align:2px}
-  .tag.g{color:var(--ok);border-color:var(--ok)}
   ul{margin:10px 0;padding-left:22px}
-  li{margin:4px 0}
-  nav{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px 18px;
+  li{margin:6px 0}
+  nav{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px 20px;
       margin:0 0 8px;font-size:14.5px}
   nav a{color:var(--accent);text-decoration:none;display:block;padding:2px 0}
   nav a:hover{text-decoration:underline}
   nav span{color:var(--dim)}
+  table{border-collapse:collapse;margin:12px 0;font-size:14.5px;width:100%}
+  th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+  th{color:var(--accent);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+  .scroll{overflow-x:auto}
+  .katex{font-size:1.04em}
+  .katex-display{margin:.9em 0;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;
+       background:#0b0e13;border:1px solid var(--line);border-radius:4px;padding:1px 5px}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <h1>Group rings — Problem Set 1</h1>
-<p class="sub">Definitions and hand computation in ℝ[D₄] and ℝ[Q₈], then left multiplication as a linear operator, then out through Fourier analysis, Galois fields, quadratic reciprocity, and spherical harmonics. 54 problems. 5 August 2026.</p>
+<p class="sub">Definitions and hand computation in $\mathbb{R}[D_4]$ and $\mathbb{R}[Q_8]$, then left multiplication as a linear operator, then out through Fourier analysis, Galois fields, quadratic reciprocity, and spherical harmonics. 54 problems. August 2026.</p>
 
 <nav>
 <a href="#secA">A. Definitions and first consequences <span>· 1–7</span></a>
-<a href="#secB">B. Hand computation in ℝ[D₄] <span>· 8–15</span></a>
-<a href="#secC">C. Hand computation in ℝ[Q₈] <span>· 16–21</span></a>
+<a href="#secB">B. Hand computation in $\mathbb{R}[D_4]$ <span>· 8–15</span></a>
+<a href="#secC">C. Hand computation in $\mathbb{R}[Q_8]$ <span>· 16–21</span></a>
 <a href="#secD">D. Augmentation, involution, center <span>· 22–25</span></a>
 <a href="#secE">E. Left multiplication as a linear map <span>· 26–31</span></a>
 <a href="#secF">F. The spectrum is a Fourier transform <span>· 32–35</span></a>
 <a href="#secG">G. Semisimple structure <span>· 36–39</span></a>
 <a href="#secH">H. The group determinant, and one quadratic form that explains everything <span>· 40–43</span></a>
-<a href="#secI">I. Build the isomorphism ℂ[D₄] ≅ ℂ[Q₈] <span>· 44, parts a–f</span></a>
+<a href="#secI">I. Build the isomorphism $\mathbb{C}[D_4]\cong\mathbb{C}[Q_8]$ <span>· 44, parts a–f</span></a>
 <a href="#secJ">J. Group rings over a Galois field: cyclic codes <span>· 45–48</span></a>
 <a href="#secK">K. Capstone: Gauss sums, cyclotomy, quadratic reciprocity <span>· 49, parts a–g</span></a>
 <a href="#secL">L. The corridor: group rings → Laplacians → manifolds and harmonics <span>· 50–54</span></a>
 </nav>
 
 <div class="card note">
-<p class="p"><strong>On the name.</strong> Yes — these are <strong>group rings</strong>. For a ring <m>R</m> with 1 and a group <m>G</m>, the group ring is written <m>R[G]</m> or <m>RG</m>, coefficients on the outside. So the objects you were pushing around are <m>ℝ[D₄]</m> and <m>ℝ[Q₈]</m>, not <m>D₄[ℝ]</m>. When the coefficient ring is a field (as ℝ is), the standard name sharpens to <strong>group algebra</strong>, since <m>R[G]</m> is then an <m>R</m>-vector space with basis <m>G</m>.</p>
-<p class="p">And the general multiplication formula you derived is almost certainly the <strong>convolution formula</strong>: <m>(αβ)_g = Σ_{hk=g} a_h b_k = Σ_{h∈G} a_h b_{h⁻¹g}</m>. That is the definition, and everything on this page is downstream of it.</p>
-<p class="p">Yes, left multiplication is a linear map, and yes, its spectrum is interesting — that is sections E through H, and it turns out to be the thing that explains why <m>ℝ[D₄] ≇ ℝ[Q₈]</m> but <m>ℂ[D₄] ≅ ℂ[Q₈]</m>. Sections J and K are the payoff: the same formalism gives you the Hamming code and quadratic reciprocity.</p>
+<p class="p"><strong>On the name.</strong> These are <strong>group rings</strong>. For a ring $R$ with $1$ and a group $G$, the group ring is written $R[G]$ or $RG$, coefficients on the outside. When the coefficient ring is a field (as $\mathbb{R}$ is), the standard name sharpens to <strong>group algebra</strong>, since $R[G]$ is then an $R$-vector space with basis $G$.</p>
+<p class="p">The general multiplication formula is the <strong>convolution formula</strong>,
+$$(\alpha\beta)_g \;=\; \sum_{hk=g} a_h b_k \;=\; \sum_{h\in G} a_h\, b_{h^{-1}g},$$
+and everything on this page is downstream of it.</p>
+<p class="p">Sections A–D are chapter-opener exercises. E–H develop left multiplication as a linear operator, ending in the one quadratic form that explains why $\mathbb{R}[D_4]\not\cong\mathbb{R}[Q_8]$ while $\mathbb{C}[D_4]\cong\mathbb{C}[Q_8]$. J–L are the payoff: the same formalism produces the Hamming code, quadratic reciprocity, and the decomposition of $L^2(S^2)$.</p>
 </div>
 
 <div class="card note">
-<p class="p"><strong>Conventions used throughout.</strong></p>
+<p class="p"><strong>Conventions.</strong></p>
 <ul>
-<li><m>D₄</m> is the symmetry group of the <strong>square</strong>: order 8, presented as <m>⟨r, s | r⁴ = s² = 1, sr = r⁻¹s⟩</m>. Normal form <m>r^a s^b</m>, <m>0≤a≤3</m>, <m>0≤b≤1</m>. Here <m>D_n</m> always means the <m>n</m>-gon group, of order <m>2n</m> — so <m>D₃ ≅ S₃</m> and <m>D₂ ≅ C₂×C₂</m>. Dummit &amp; Foote index by order instead and call this same group <m>D₈</m>; if you are reading along in it, halve every subscript.</li>
-<li>The subscripts in <m>D₄</m> and <m>Q₈</m> therefore count different things — <m>D₄</m> has 4 rotations, <m>Q₈</m> has 8 elements — and both groups have order 8. That collision is unfortunate and universal; nobody has fixed it.</li>
-<li><m>Q₈ = {1, z, i, zi, j, zj, k, zk}</m>, where <m>z</m> is the unique element of order 2 (the thing usually written <m>−1</m>). Rules: <m>z</m> central, <m>z² = 1</m>, <m>i² = j² = k² = z</m>, <m>ij = k</m>, <m>jk = i</m>, <m>ki = j</m>, and <m>ji = zk</m>, <m>kj = zi</m>, <m>ik = zj</m>.</li>
-<li>Writing <m>z</m> rather than <m>−1</m> is deliberate; see problem 16.</li>
+<li>$D_n$ is the symmetry group of the regular $n$-gon, of order $2n$. So $D_4$ is the group of the square, order $8$, presented as $\langle r,s \mid r^4=s^2=1,\; sr=r^{-1}s\rangle$, with normal form $r^as^b$ for $0\le a\le 3$, $0\le b\le 1$. In this convention $D_3\cong S_3$ and $D_2\cong C_2\times C_2$. Dummit &amp; Foote index by order and call this same group $D_8$; halve every subscript if you are reading along in it.</li>
+<li>$Q_8=\{1,z,i,zi,j,zj,k,zk\}$, where $z$ is the unique element of order $2$ (the thing usually written $-1$). Rules: $z$ central, $z^2=1$, $i^2=j^2=k^2=z$, $ij=k$, $jk=i$, $ki=j$, and $ji=zk$, $kj=zi$, $ik=zj$.</li>
+<li>Writing $z$ rather than $-1$ is deliberate; see problem 16.</li>
+<li>$D_4$ and $Q_8$ both have order $8$ despite the subscripts, because the two families index different things.</li>
 </ul>
 </div>
 
 <h2 id="secA">A. Definitions and first consequences <span class="rng">1–7</span></h2>
 
 <div class="card" id="p1"><a class="anchor" href="#p1">#1</a>
-<p class="p"><span class="num">1.</span> From memory, write down the full definition of <m>R[G]</m>: underlying set, addition, multiplication. Then say precisely where the <strong>finite support</strong> condition is needed, by exhibiting what goes wrong if you allow arbitrary functions <m>G → R</m> with <m>G</m> infinite.</p>
+<p class="p"><span class="num">1.</span> From memory, write down the full definition of $R[G]$: underlying set, addition, multiplication. Then say precisely where the <strong>finite support</strong> condition is needed, by exhibiting what goes wrong if you allow arbitrary functions $G\to R$ with $G$ infinite.</p>
 <details><summary>Answer</summary><div class="body">
-<m>R[G]</m> = functions <m>α: G → R</m> with <m>a_g = 0</m> for all but finitely many <m>g</m>, written <m>α = Σ_g a_g g</m>. Addition coefficientwise. Multiplication:
-<div class="disp">(αβ)_g = Σ_{hk = g} a_h b_k = Σ_{h ∈ G} a_h b_{h⁻¹g}</div>
-Finite support does two jobs. (i) Each coefficient sum is <em>finite</em>, so the product is defined with no notion of convergence. (ii) The product is again finitely supported: if <m>α</m> lives on <m>S</m> and <m>β</m> on <m>T</m>, then <m>αβ</m> lives inside the finite set <m>ST</m>. Drop it with <m>G = ℤ</m> and <m>α = β = Σ_{n∈ℤ} 1·n</m>: every coefficient of the "product" is an infinite sum of 1's.
+<p class="p">$R[G]$ is the set of functions $\alpha:G\to R$ with $a_g=0$ for all but finitely many $g$, written $\alpha=\sum_g a_g g$. Addition is coefficientwise. Multiplication is
+$$(\alpha\beta)_g=\sum_{hk=g}a_hb_k=\sum_{h\in G}a_h b_{h^{-1}g}.$$</p>
+<p class="p">Finite support does two jobs. First, each coefficient sum is finite, so the product is defined with no notion of convergence. Second, the product is again finitely supported: if $\alpha$ lives on $S$ and $\beta$ on $T$, then $\alpha\beta$ lives inside the finite set $ST$. Drop it with $G=\mathbb{Z}$ and $\alpha=\beta=\sum_{n\in\mathbb{Z}}1\cdot n$: every coefficient of the "product" is an infinite sum of $1$'s.</p>
 </div></details>
 </div>
 
 <div class="card" id="p2"><a class="anchor" href="#p2">#2</a>
-<p class="p"><span class="num">2.</span> Prove associativity directly from the formula, by showing that both <m>((αβ)γ)_g</m> and <m>(α(βγ))_g</m> equal <m>Σ_{uvw = g} a_u b_v c_w</m>. Then check both distributive laws.</p>
+<p class="p"><span class="num">2.</span> Prove associativity directly from the formula, by showing that both $((\alpha\beta)\gamma)_g$ and $(\alpha(\beta\gamma))_g$ equal $\sum_{uvw=g}a_ub_vc_w$. Then check both distributive laws.</p>
 <details class="hint"><summary>Hint</summary><div class="body">
-Expand and re-index: <m>((αβ)γ)_g = Σ_{xw=g} (Σ_{uv=x} a_u b_v) c_w</m>. Pairs <m>(x,w)</m> with <m>xw=g</m> together with factorizations <m>x=uv</m> biject with triples <m>(u,v,w)</m>, <m>uvw=g</m>. All sums finite, so reordering is free. That is the whole content: associativity of <m>G</m> lifts to associativity of <m>R[G]</m>.
+<p class="p">Expand and re-index:
+$$((\alpha\beta)\gamma)_g=\sum_{xw=g}\Big(\sum_{uv=x}a_ub_v\Big)c_w.$$
+Pairs $(x,w)$ with $xw=g$ together with factorizations $x=uv$ biject with triples $(u,v,w)$ satisfying $uvw=g$. All sums are finite, so reordering is free. That is the whole content: associativity of $G$ lifts to associativity of $R[G]$.</p>
 </div></details>
 </div>
 
 <div class="card" id="p3"><a class="anchor" href="#p3">#3</a>
-<p class="p"><span class="num">3.</span> Show <m>1_R·1_G</m> is a two-sided identity. Show <m>g ↦ 1_R·g</m> injects <m>G</m> into the unit group <m>R[G]^×</m>. Show <m>r ↦ r·1_G</m> is an injective ring homomorphism <m>R → R[G]</m>, and determine exactly when its image is central.</p>
+<p class="p"><span class="num">3.</span> Show $1_R\cdot 1_G$ is a two-sided identity. Show $g\mapsto 1_R\cdot g$ injects $G$ into the unit group $R[G]^\times$. Show $r\mapsto r\cdot 1_G$ is an injective ring homomorphism $R\to R[G]$, and determine exactly when its image is central.</p>
 <details><summary>Answer</summary><div class="body">
-All immediate from the formula. <m>r·1_G</m> is central iff <m>r</m> is central in <m>R</m>: group elements commute with it automatically, but <m>(r1_G)(sg) = (rs)g</m> while <m>(sg)(r1_G) = (sr)g</m>. For <m>R = ℝ</m> the scalars are central, so <m>ℝ[G]</m> is an ℝ-algebra.
+<p class="p">All immediate from the formula. The element $r\cdot 1_G$ is central if and only if $r$ is central in $R$: group elements commute with it automatically, but $(r1_G)(sg)=(rs)g$ while $(sg)(r1_G)=(sr)g$. For $R=\mathbb{R}$ the scalars are central, so $\mathbb{R}[G]$ is an $\mathbb{R}$-algebra.</p>
 </div></details>
 </div>
 
 <div class="card" id="p4"><a class="anchor" href="#p4">#4</a>
-<p class="p"><span class="num">4.</span> Let <m>R ≠ 0</m>. Prove: <m>R[G]</m> is commutative <strong>iff</strong> <m>R</m> is commutative <em>and</em> <m>G</m> is abelian. Give the one-line reason neither condition implies the other.</p>
+<p class="p"><span class="num">4.</span> Let $R\neq 0$. Prove that $R[G]$ is commutative <strong>if and only if</strong> $R$ is commutative and $G$ is abelian. Give the one-line reason neither condition implies the other.</p>
 </div>
 
 <div class="card" id="p5"><a class="anchor" href="#p5">#5</a>
-<p class="p"><span class="num">5.</span> For <m>G</m> finite, show <m>dim_ℝ ℝ[G] = |G|</m> with <m>G</m> as basis. State carefully what the <em>linear independence</em> of <m>G</m> inside <m>ℝ[G]</m> is asserting, and why it holds by construction rather than by proof.</p>
+<p class="p"><span class="num">5.</span> For $G$ finite, show $\dim_\mathbb{R}\mathbb{R}[G]=|G|$ with $G$ as basis. State carefully what the <em>linear independence</em> of $G$ inside $\mathbb{R}[G]$ is asserting, and why it holds by construction rather than by proof.</p>
 <details><summary>Answer</summary><div class="body">
-It asserts: <m>Σ a_g g = 0 ⟹</m> every <m>a_g = 0</m>. True by fiat — an element of <m>ℝ[G]</m> <em>is</em> its coefficient function and the zero element is the zero function. The content is entirely in the construction: we built the free module on the set <m>G</m>. Worth pinning down, because in a representation <m>ρ: ℝ[G] → End(V)</m> the images <m>ρ(g)</m> are generally <em>not</em> independent, and that failure is exactly the kernel you care about.
+<p class="p">It asserts that $\sum_g a_gg=0$ forces every $a_g=0$. This is true by fiat: an element of $\mathbb{R}[G]$ <em>is</em> its coefficient function, and the zero element is the zero function. The content is entirely in the construction, since we built the free module on the set $G$.</p>
+<p class="p">Worth pinning down, because in a representation $\rho:\mathbb{R}[G]\to\operatorname{End}(V)$ the images $\rho(g)$ are generally <em>not</em> independent, and that failure is exactly the kernel you care about.</p>
 </div></details>
 </div>
 
 <div class="card" id="p6"><a class="anchor" href="#p6">#6</a>
-<p class="p"><span class="num">6.</span> Let <m>C₂ = {1, x}</m>. Show <m>ℝ[C₂] ≅ ℝ × ℝ</m> by writing the isomorphism explicitly on <m>a + bx</m>, and identify the two idempotents giving the splitting.</p>
+<p class="p"><span class="num">6.</span> Let $C_2=\{1,x\}$. Show $\mathbb{R}[C_2]\cong\mathbb{R}\times\mathbb{R}$ by writing the isomorphism explicitly on $a+bx$, and identify the two idempotents giving the splitting.</p>
 <details><summary>Answer</summary><div class="body">
-<div class="disp">a + bx  ⟼  (a + b, a − b)</div>
-Multiplicative because <m>(a+bx)(c+dx) = (ac+bd) + (ad+bc)x</m>. Idempotents <m>e₊ = (1+x)/2</m>, <m>e₋ = (1−x)/2</m>, with <m>e₊e₋ = 0</m>, <m>e₊+e₋ = 1</m>. This tiny example is the entire later story in miniature.
+<p class="p">$$a+bx\;\longmapsto\;(a+b,\;a-b).$$
+It is multiplicative because $(a+bx)(c+dx)=(ac+bd)+(ad+bc)x$. The idempotents are
+$$e_+=\tfrac{1+x}{2},\qquad e_-=\tfrac{1-x}{2},\qquad e_+e_-=0,\quad e_++e_-=1.$$
+This tiny example is the entire later story in miniature.</p>
 </div></details>
 </div>
 
 <div class="card" id="p7"><a class="anchor" href="#p7">#7</a>
-<p class="p"><span class="num">7.</span> Prove: if <m>G</m> has any element <m>g ≠ 1</m> of finite order, <m>ℝ[G]</m> has zero divisors. Conclude that for finite <m>G</m> with <m>|G| > 1</m>, <m>ℝ[G]</m> is never a domain, hence never a field.</p>
+<p class="p"><span class="num">7.</span> Prove that if $G$ has any element $g\neq 1$ of finite order, then $\mathbb{R}[G]$ has zero divisors. Conclude that for finite $G$ with $|G|>1$, $\mathbb{R}[G]$ is never a domain, hence never a field.</p>
 <details><summary>Answer</summary><div class="body">
-With <m>g</m> of order <m>n>1</m>:
-<div class="disp">(1 − g)(1 + g + g² + ⋯ + g^{n−1}) = 1 − gⁿ = 0</div>
-and both factors are nonzero since <m>1,g,…,g^{n−1}</m> are distinct basis elements. The torsion-free case is the zero-divisor conjecture, open in general — worth knowing it is hard.
+<p class="p">With $g$ of order $n>1$,
+$$(1-g)(1+g+g^2+\cdots+g^{n-1})=1-g^n=0,$$
+and both factors are nonzero since $1,g,\dots,g^{n-1}$ are distinct basis elements. The torsion-free case is the zero-divisor conjecture, open in general; worth knowing that it is hard.</p>
 </div></details>
 </div>
 
-<h2 id="secB">B. Hand computation in ℝ[D₄] <span class="rng">8–15</span></h2>
+<h2 id="secB">B. Hand computation in $\mathbb{R}[D_4]$ <span class="rng">8–15</span></h2>
 
 <div class="card" id="p8"><a class="anchor" href="#p8">#8</a>
-<p class="p"><span class="num">8.</span> List the eight basis elements of <m>ℝ[D₄]</m> in normal form and derive the single reduction rule for <m>(r^a s^b)(r^c s^d)</m>.</p>
+<p class="p"><span class="num">8.</span> List the eight basis elements of $\mathbb{R}[D_4]$ in normal form and derive the single reduction rule for $(r^as^b)(r^cs^d)$.</p>
 <details><summary>Answer</summary><div class="body">
-Basis <m>1, r, r², r³, s, rs, r²s, r³s</m>. From <m>sr = r⁻¹s</m> comes <m>s r^c = r^{−c} s</m>, hence
-<div class="disp">(r^a s^b)(r^c s^d) = r^{a + (−1)^b c} s^{b+d}   (a mod 4, b mod 2)</div>
-Everything below is this rule applied bilinearly. If you derived a general multiplication formula earlier, this is what it specializes to.
+<p class="p">Basis $1,r,r^2,r^3,s,rs,r^2s,r^3s$. From $sr=r^{-1}s$ comes $sr^c=r^{-c}s$, hence
+$$(r^as^b)(r^cs^d)=r^{\,a+(-1)^bc}\,s^{\,b+d}\qquad(a\bmod 4,\;b\bmod 2).$$
+Everything below is this rule applied bilinearly.</p>
 </div></details>
 </div>
 
 <div class="card" id="p9"><a class="anchor" href="#p9">#9</a>
-<p class="p"><span class="num">9.</span> Compute <m>(1 + r)(1 + s)</m> and <m>(1 + s)(1 + r)</m>. Conclude <m>ℝ[D₄]</m> is not commutative, and note which single term is responsible.</p>
+<p class="p"><span class="num">9.</span> Compute $(1+r)(1+s)$ and $(1+s)(1+r)$. Conclude $\mathbb{R}[D_4]$ is not commutative, and note which single term is responsible.</p>
 <details><summary>Answer</summary><div class="body">
-<div class="disp">(1 + r)(1 + s) = 1 + r + s + rs
-(1 + s)(1 + r) = 1 + r + s + sr = 1 + r + s + r³s</div>
-Three of four terms agree; the discrepancy is entirely <m>rs</m> vs <m>r³s</m>.
+<p class="p">$$\begin{aligned}
+(1+r)(1+s)&=1+r+s+rs\\
+(1+s)(1+r)&=1+r+s+sr=1+r+s+r^3s
+\end{aligned}$$
+Three of four terms agree; the discrepancy is entirely $rs$ against $r^3s$.</p>
 </div></details>
 </div>
 
 <div class="card" id="p10"><a class="anchor" href="#p10">#10</a>
-<p class="p"><span class="num">10.</span> Compute <m>(r + s)²</m>, and then <m>(r + s)³</m>.</p>
+<p class="p"><span class="num">10.</span> Compute $(r+s)^2$, and then $(r+s)^3$.</p>
 <details><summary>Answer</summary><div class="body">
-<m>(r+s)² = r² + rs + sr + s² = 1 + r² + rs + r³s</m>. For the cube, use <m>(rs)r = r(sr) = r·r³s = s</m>, <m>(rs)s = r</m>, <m>(r³s)r = r³·r³s = r²s</m>, <m>(r³s)s = r³</m>:
-<div class="disp">(r+s)³ = 2r + 2s + 2r³ + 2r²s</div>
+<p class="p">$(r+s)^2=r^2+rs+sr+s^2=1+r^2+rs+r^3s$. For the cube, use $(rs)r=r(sr)=r\cdot r^3s=s$, $(rs)s=r$, $(r^3s)r=r^3\cdot r^3s=r^2s$, and $(r^3s)s=r^3$:
+$$(r+s)^3=2r+2s+2r^3+2r^2s.$$</p>
 </div></details>
 </div>
 
 <div class="card" id="p11"><a class="anchor" href="#p11">#11</a>
-<p class="p"><span class="num">11.</span> Compute <m>(1 + 2r − s)(3 + r³s)</m> in full, in the normal-form basis.</p>
+<p class="p"><span class="num">11.</span> Compute $(1+2r-s)(3+r^3s)$ in full, in the normal-form basis.</p>
 <details><summary>Answer</summary><div class="body">
-<m>1·3 = 3</m>; <m>1·r³s = r³s</m>; <m>2r·3 = 6r</m>; <m>2r·r³s = 2r⁴s = 2s</m>; <m>(−s)·3 = −3s</m>; <m>(−s)(r³s) = −(sr³)s = −(rs)s = −r</m>.
-<div class="disp">(1 + 2r − s)(3 + r³s) = 3 + 5r − s + r³s</div>
+<p class="p">Term by term: $1\cdot 3=3$; $1\cdot r^3s=r^3s$; $2r\cdot 3=6r$; $2r\cdot r^3s=2r^4s=2s$; $(-s)\cdot 3=-3s$; and $(-s)(r^3s)=-(sr^3)s=-(rs)s=-r$. So
+$$(1+2r-s)(3+r^3s)=3+5r-s+r^3s.$$</p>
 </div></details>
 </div>
 
 <div class="card" id="p12"><a class="anchor" href="#p12">#12</a>
-<p class="p"><span class="num">12.</span> Let <m>T = 1 + r + r² + r³</m>. (a) Compute <m>T²</m>. (b) Show <m>T/4</m> is idempotent. (c) Compute <m>sT</m> and <m>Ts</m>, concluding <m>T</m> is central. (d) Explain (c) in one sentence without computing.</p>
+<p class="p"><span class="num">12.</span> Let $T=1+r+r^2+r^3$. (a) Compute $T^2$. (b) Show $T/4$ is idempotent. (c) Compute $sT$ and $Ts$, concluding $T$ is central. (d) Explain (c) in one sentence without computing.</p>
 <details><summary>Answer</summary><div class="body">
-(a) Each of <m>1,r,r²,r³</m> arises 4 times, so <m>T² = 4T</m>. (b) <m>(T/4)² = 4T/16 = T/4</m>. (c) <m>sT = s + r³s + r²s + rs = Ts</m>. (d) <m>T</m> is the sum over the subgroup <m>⟨r⟩</m>, which is <em>normal</em>; conjugation permutes a normal subgroup and so fixes its sum. Same argument for any normal subgroup.
+<p class="p">(a) Each of $1,r,r^2,r^3$ arises four times, so $T^2=4T$. (b) $(T/4)^2=4T/16=T/4$. (c) $sT=s+r^3s+r^2s+rs=Ts$. (d) $T$ is the sum over the subgroup $\langle r\rangle$, which is <em>normal</em>; conjugation permutes a normal subgroup and so fixes its sum. The same argument works for any normal subgroup.</p>
 </div></details>
 </div>
 
 <div class="card" id="p13"><a class="anchor" href="#p13">#13</a>
-<p class="p"><span class="num">13.</span> Let <m>N = Σ_{g∈D₄} g</m>. (a) Show <m>gN = Ng = N</m> for all <m>g</m>. (b) Deduce <m>N² = 8N</m> and that <m>e = N/8</m> is a central idempotent. (c) Compute <m>αN</m> for general <m>α</m>. (d) Compute <m>(1−e)N</m>.</p>
+<p class="p"><span class="num">13.</span> Let $N=\sum_{g\in D_4}g$. (a) Show $gN=Ng=N$ for all $g$. (b) Deduce $N^2=8N$ and that $e=N/8$ is a central idempotent. (c) Compute $\alpha N$ for general $\alpha$. (d) Compute $(1-e)N$.</p>
 <details><summary>Answer</summary><div class="body">
-(a) Left multiplication by <m>g</m> permutes <m>D₄</m>. (b) <m>N² = Σ_g gN = 8N</m>. (c) <m>αN = (Σ_g a_g)N = ε(α)N</m> — the augmentation shows up on its own. (d) <m>0</m>, so <m>1−e</m> and <m>N</m> are zero divisors.
+<p class="p">(a) Left multiplication by $g$ permutes $D_4$. (b) $N^2=\sum_g gN=8N$. (c) $\alpha N=\big(\sum_g a_g\big)N=\varepsilon(\alpha)N$, so the augmentation shows up on its own. (d) $(1-e)N=0$, so $1-e$ and $N$ are zero divisors.</p>
 </div></details>
 </div>
 
 <div class="card" id="p14"><a class="anchor" href="#p14">#14</a>
-<p class="p"><span class="num">14.</span> (a) Verify <m>(1 − r²)(1 + r²) = 0</m>. (b) Produce a zero-divisor pair not built from <m>⟨r²⟩</m>. (c) Show <m>(1+r²)/2</m> is a central idempotent and compute its product with <m>(1−r²)/2</m>.</p>
+<p class="p"><span class="num">14.</span> (a) Verify $(1-r^2)(1+r^2)=0$. (b) Produce a zero-divisor pair not built from $\langle r^2\rangle$. (c) Show $(1+r^2)/2$ is a central idempotent and compute its product with $(1-r^2)/2$.</p>
 <details><summary>Answer</summary><div class="body">
-(a) <m>1 − r⁴ = 0</m>. (b) <m>(1−s)(1+s) = 0</m>, or the same with any reflection. (c) <m>r²</m> is central of order 2, so <m>((1+r²)/2)² = (2+2r²)/4 = (1+r²)/2</m>, and the two halves multiply to <m>(1−r⁴)/4 = 0</m>. Remember this pair — it is the projector that isolates the 2×2 block in #44.
+<p class="p">(a) $1-r^4=0$. (b) $(1-s)(1+s)=0$, or the same with any reflection. (c) $r^2$ is central of order $2$, so $\big(\tfrac{1+r^2}{2}\big)^2=\tfrac{2+2r^2}{4}=\tfrac{1+r^2}{2}$, and the two halves multiply to $\tfrac{1-r^4}{4}=0$.</p>
+<p class="p">Remember this pair. It is the projector that isolates the $2\times 2$ block in #44.</p>
 </div></details>
 </div>
 
 <div class="card" id="p15"><a class="anchor" href="#p15">#15</a>
-<p class="p"><span class="num">15.</span> Find the centralizer of <m>s</m> in <m>ℝ[D₄]</m>: all <m>α</m> with <m>sα = αs</m>. Give a basis and the dimension.</p>
+<p class="p"><span class="num">15.</span> Find the centralizer of $s$ in $\mathbb{R}[D_4]$: all $\alpha$ with $s\alpha=\alpha s$. Give a basis and the dimension.</p>
 <details class="hint"><summary>Hint</summary><div class="body">
-Since <m>s² = 1</m>, the condition is <m>sαs = α</m>. Conjugation by <m>s</m> permutes the basis; find the orbits, take fixed points and orbit sums.
+<p class="p">Since $s^2=1$, the condition is $s\alpha s=\alpha$. Conjugation by $s$ permutes the basis; find the orbits, then take fixed points and orbit sums.</p>
 </div></details>
 <details><summary>Answer</summary><div class="body">
-Conjugation by <m>s</m> fixes <m>1, r², s, r²s</m> and swaps <m>r ↔ r³</m>, <m>rs ↔ r³s</m>. (Check: <m>s(rs)s = (sr)s·s… = sr = r³s</m>.) Basis of the fixed space:
-<div class="disp">1,  r²,  s,  r²s,  r + r³,  rs + r³s</div>
-Dimension <strong>6</strong>.
+<p class="p">Conjugation by $s$ fixes $1,r^2,s,r^2s$ and swaps $r\leftrightarrow r^3$ and $rs\leftrightarrow r^3s$. (Check one: $s(rs)s=(sr)(ss)=sr=r^3s$.) A basis of the fixed space is
+$$1,\quad r^2,\quad s,\quad r^2s,\quad r+r^3,\quad rs+r^3s,$$
+so the dimension is $\mathbf{6}$.</p>
 </div></details>
 </div>
 
-<h2 id="secC">C. Hand computation in ℝ[Q₈] <span class="rng">16–21</span></h2>
+<h2 id="secC">C. Hand computation in $\mathbb{R}[Q_8]$ <span class="rng">16–21</span></h2>
 
 <div class="card" id="p16"><a class="anchor" href="#p16">#16</a>
-<p class="p"><span class="num">16.</span> <strong>The notation trap.</strong> Let <m>z ∈ Q₈</m> be the element of order 2, normally written <m>−1</m>. Explain why in <m>ℝ[Q₈]</m> the basis element <m>z</m> is <em>not</em> the ring element <m>−1 = (−1)·1_G</m>. Show <m>1 + z ≠ 0</m>, and that <m>1 + z</m> is a zero divisor.</p>
+<p class="p"><span class="num">16.</span> <strong>The notation trap.</strong> Let $z\in Q_8$ be the element of order $2$, normally written $-1$. Explain why in $\mathbb{R}[Q_8]$ the basis element $z$ is <em>not</em> the ring element $-1=(-1)\cdot 1_G$. Show $1+z\neq 0$, and that $1+z$ is a zero divisor.</p>
 <details><summary>Answer</summary><div class="body">
-<m>{1,z,i,zi,j,zj,k,zk}</m> is a basis, so <m>1+z</m> has coordinate vector <m>(1,1,0,…,0) ≠ 0</m>. If <m>z</m> were the scalar <m>−1</m>, the eight basis elements would collapse to four and <m>ℝ[Q₈]</m> would be 4-dimensional; it is 8-dimensional. And
-<div class="disp">(1 + z)(1 − z) = 1 − z² = 0</div>
-The quotient that <em>does</em> identify <m>z</m> with <m>−1</m> is <m>ℝ[Q₈]/(1+z)</m>, and that quotient is ℍ (#38). This is the single most common place to lose an hour.
+<p class="p">$\{1,z,i,zi,j,zj,k,zk\}$ is a basis, so $1+z$ has coordinate vector $(1,1,0,\dots,0)\neq 0$. If $z$ were the scalar $-1$, the eight basis elements would collapse to four and $\mathbb{R}[Q_8]$ would be $4$-dimensional; it is $8$-dimensional. And
+$$(1+z)(1-z)=1-z^2=0.$$
+The quotient that <em>does</em> identify $z$ with $-1$ is $\mathbb{R}[Q_8]/(1+z)$, and that quotient is $\mathbb{H}$ (see #37). This is the single most common place to lose an hour.</p>
 </div></details>
 </div>
 
 <div class="card" id="p17"><a class="anchor" href="#p17">#17</a>
-<p class="p"><span class="num">17.</span> Compute <m>(1+i)(1+j)</m>, <m>(1+j)(1+i)</m>, <m>(1+i)²</m>, and <m>(1+i)(1−i)</m>.</p>
+<p class="p"><span class="num">17.</span> Compute $(1+i)(1+j)$, $(1+j)(1+i)$, $(1+i)^2$, and $(1+i)(1-i)$.</p>
 <details><summary>Answer</summary><div class="body">
-<div class="disp">(1 + i)(1 + j)  = 1 + i + j + k
-(1 + j)(1 + i)  = 1 + i + j + zk
-(1 + i)²        = 1 + z + 2i
-(1 + i)(1 − i)  = 1 − i² = 1 − z</div>
-The last is <em>not</em> zero, but <m>1 − z</m> is itself a zero divisor. In ℍ the same expression is <m>1 − (−1) = 2</m>, a unit. That gap is precisely what the group ring remembers and ℍ forgets.
+<p class="p">$$\begin{aligned}
+(1+i)(1+j)&=1+i+j+k\\
+(1+j)(1+i)&=1+i+j+zk\\
+(1+i)^2&=1+z+2i\\
+(1+i)(1-i)&=1-i^2=1-z
+\end{aligned}$$
+The last is <em>not</em> zero, but $1-z$ is itself a zero divisor. In $\mathbb{H}$ the same expression is $1-(-1)=2$, a unit. That gap is precisely what the group ring remembers and $\mathbb{H}$ forgets.</p>
 </div></details>
 </div>
 
 <div class="card" id="p18"><a class="anchor" href="#p18">#18</a>
-<p class="p"><span class="num">18.</span> Compute <m>(i + j + k)²</m> in the 8-element basis.</p>
+<p class="p"><span class="num">18.</span> Compute $(i+j+k)^2$ in the eight-element basis.</p>
 <details><summary>Answer</summary><div class="body">
-Nine products, using <m>i²=j²=k²=z</m>, <m>ij=k, ji=zk</m>, <m>jk=i, kj=zi</m>, <m>ki=j, ik=zj</m>:
-<div class="disp">(i+j+k)² = 3z + (1 + z)(i + j + k)</div>
-Sanity check: multiply by <m>e₋ = (1−z)/2</m> and the second term dies, leaving <m>3z·e₋ = −3e₋</m>, i.e. "<m>(i+j+k)² = −3</m>", the expected answer in ℍ.
+<p class="p">Nine products, using $i^2=j^2=k^2=z$, $ij=k$, $ji=zk$, $jk=i$, $kj=zi$, $ki=j$, $ik=zj$:
+$$(i+j+k)^2=3z+(1+z)(i+j+k).$$
+Sanity check: multiply by $e_-=\tfrac{1-z}{2}$ and the second term dies, leaving $3z\,e_-=-3e_-$, that is "$(i+j+k)^2=-3$", the expected answer in $\mathbb{H}$.</p>
 </div></details>
 </div>
 
 <div class="card" id="p19"><a class="anchor" href="#p19">#19</a>
-<p class="p"><span class="num">19.</span> Compute <m>(2 + i − zj)(1 + k)</m> in full.</p>
+<p class="p"><span class="num">19.</span> Compute $(2+i-zj)(1+k)$ in full.</p>
 <details><summary>Answer</summary><div class="body">
-<m>i·k = zj</m> and <m>(−zj)k = −z(jk) = −zi</m>, so the <m>zj</m> terms cancel:
-<div class="disp">(2 + i − zj)(1 + k) = 2 + i − zi + 2k</div>
-An accident of these coefficients, not a structural fact.
+<p class="p">Since $ik=zj$ and $(-zj)k=-z(jk)=-zi$, the $zj$ terms cancel:
+$$(2+i-zj)(1+k)=2+i-zi+2k.$$
+An accident of these coefficients, not a structural fact.</p>
 </div></details>
 </div>
 
 <div class="card" id="p20"><a class="anchor" href="#p20">#20</a>
-<p class="p"><span class="num">20.</span> Set <m>e₊ = (1+z)/2</m>, <m>e₋ = (1−z)/2</m>. Show each is idempotent, <m>e₊e₋ = 0</m>, <m>e₊+e₋ = 1</m>, both central. Then compute <m>z·e₋</m> and <m>(i e₋)²</m>.</p>
+<p class="p"><span class="num">20.</span> Set $e_+=\tfrac{1+z}{2}$ and $e_-=\tfrac{1-z}{2}$. Show each is idempotent, $e_+e_-=0$, $e_++e_-=1$, and both are central. Then compute $z\,e_-$ and $(ie_-)^2$.</p>
 <details><summary>Answer</summary><div class="body">
-<m>z</m> central of order 2 gives <m>e_±² = e_±</m> and <m>e₊e₋ = (1−z²)/4 = 0</m>.
-<div class="disp">z·e₋ = (z − 1)/2 = −e₋
-(i e₋)² = i² e₋ = z e₋ = −e₋</div>
-Inside the ring <m>ℝ[Q₈]e₋</m> — whose identity is <m>e₋</m>, not <m>1</m> — the element <m>ie₋</m> squares to minus the identity. That is how ℍ hides inside <m>ℝ[Q₈]</m>.
+<p class="p">$z$ is central of order $2$, giving $e_\pm^2=e_\pm$ and $e_+e_-=\tfrac{1-z^2}{4}=0$. Then
+$$z\,e_-=\frac{z-1}{2}=-e_-,\qquad (ie_-)^2=i^2e_-=z\,e_-=-e_-.$$
+Inside the ring $\mathbb{R}[Q_8]e_-$, whose identity is $e_-$ rather than $1$, the element $ie_-$ squares to minus the identity. That is how $\mathbb{H}$ hides inside $\mathbb{R}[Q_8]$.</p>
 </div></details>
 </div>
 
 <div class="card" id="p21"><a class="anchor" href="#p21">#21</a>
-<p class="p"><span class="num">21.</span> Write down the conjugacy classes of <m>Q₈</m> and of <m>D₄</m> and their class sums. Verify by hand that <m>C = r + r³ ∈ ℝ[D₄]</m> commutes with both <m>r</m> and <m>s</m>.</p>
+<p class="p"><span class="num">21.</span> Write down the conjugacy classes of $Q_8$ and of $D_4$ and their class sums. Verify by hand that $C=r+r^3\in\mathbb{R}[D_4]$ commutes with both $r$ and $s$.</p>
 <details><summary>Answer</summary><div class="body">
-<m>Q₈</m>: <m>{1}, {z}, {i,zi}, {j,zj}, {k,zk}</m>; sums <m>1, z, i+zi, j+zj, k+zk</m>.<br>
-<m>D₄</m>: <m>{1}, {r²}, {r,r³}, {s,r²s}, {rs,r³s}</m>; sums <m>1, r², r+r³, s+r²s, rs+r³s</m>.<br>
-<m>rC = r² + r⁴ = r² + 1 = Cr</m>; <m>sC = r³s + rs = Cs</m>.<br>
-Both groups have <strong>five</strong> classes. Hold onto that for #39.
+<p class="p">$Q_8$: $\{1\},\{z\},\{i,zi\},\{j,zj\},\{k,zk\}$, with sums $1$, $z$, $i+zi$, $j+zj$, $k+zk$.</p>
+<p class="p">$D_4$: $\{1\},\{r^2\},\{r,r^3\},\{s,r^2s\},\{rs,r^3s\}$, with sums $1$, $r^2$, $r+r^3$, $s+r^2s$, $rs+r^3s$.</p>
+<p class="p">$rC=r^2+r^4=r^2+1=Cr$, and $sC=r^3s+rs=Cs$. Both groups have <strong>five</strong> classes; hold onto that for #39.</p>
 </div></details>
 </div>
 
 <h2 id="secD">D. Augmentation, involution, center <span class="rng">22–25</span></h2>
 
 <div class="card" id="p22"><a class="anchor" href="#p22">#22</a>
-<p class="p"><span class="num">22.</span> Define <m>ε: ℝ[G] → ℝ</m>, <m>Σ a_g g ↦ Σ a_g</m>. (a) Prove it is a ring homomorphism. (b) Show <m>ker ε</m> has basis <m>{g − 1 : g ≠ 1}</m>. (c) Evaluate <m>ε</m> on your answers to #11 and #19.</p>
+<p class="p"><span class="num">22.</span> Define $\varepsilon:\mathbb{R}[G]\to\mathbb{R}$ by $\sum a_gg\mapsto\sum a_g$. (a) Prove it is a ring homomorphism. (b) Show $\ker\varepsilon$ has basis $\{g-1: g\neq 1\}$. (c) Evaluate $\varepsilon$ on your answers to #11 and #19.</p>
 <details><summary>Answer</summary><div class="body">
-(a) <m>ε(αβ) = Σ_g Σ_{hk=g} a_h b_k = (Σ_h a_h)(Σ_k b_k)</m>, each pair counted once. (b) Each <m>g−1</m> is in the kernel and they are independent; conversely <m>Σa_g = 0 ⟹ Σ a_g g = Σ_{g≠1} a_g(g−1)</m>. So <m>dim ker ε = |G|−1</m>. (c) <m>ε(3+5r−s+r³s) = 8</m>; <m>ε(2+i−zi+2k) = 4</m>. Cross-check: <m>ε(1+2r−s)·ε(3+r³s) = 2·4 = 8</m>. ✓
+<p class="p">(a) $\varepsilon(\alpha\beta)=\sum_g\sum_{hk=g}a_hb_k=\big(\sum_h a_h\big)\big(\sum_k b_k\big)$, each pair counted once. (b) Each $g-1$ lies in the kernel and they are independent; conversely $\sum a_g=0$ gives $\sum a_gg=\sum_{g\neq 1}a_g(g-1)$. So $\dim\ker\varepsilon=|G|-1$.</p>
+<p class="p">(c) $\varepsilon(3+5r-s+r^3s)=8$ and $\varepsilon(2+i-zi+2k)=4$. Cross-check: $\varepsilon(1+2r-s)\,\varepsilon(3+r^3s)=2\cdot 4=8$. ✓</p>
 </div></details>
 </div>
 
 <div class="card" id="p23"><a class="anchor" href="#p23">#23</a>
-<p class="p"><span class="num">23.</span> (a) If <m>α</m> is a unit, show <m>ε(α) ≠ 0</m>. (b) Show the converse fails, using an element from #16. (c) Show <m>cg</m> is a unit for <m>c ≠ 0</m> ("trivial units").</p>
+<p class="p"><span class="num">23.</span> (a) If $\alpha$ is a unit, show $\varepsilon(\alpha)\neq 0$. (b) Show the converse fails, using an element from #16. (c) Show $cg$ is a unit for $c\neq 0$ (the "trivial units").</p>
 <details><summary>Answer</summary><div class="body">
-(a) <m>αβ = 1 ⟹ ε(α)ε(β) = 1</m>. (b) <m>ε(1+z) = 2 ≠ 0</m>, but <m>1+z</m> is a zero divisor, hence not a unit. (c) <m>(cg)(c⁻¹g⁻¹) = 1</m>. Whether <m>ℝ[G]</m> has <em>non</em>-trivial units is the interesting question; over ℤ it is a whole subject.
+<p class="p">(a) $\alpha\beta=1$ gives $\varepsilon(\alpha)\varepsilon(\beta)=1$. (b) $\varepsilon(1+z)=2\neq 0$, but $1+z$ is a zero divisor and hence not a unit. (c) $(cg)(c^{-1}g^{-1})=1$. Whether $\mathbb{R}[G]$ has <em>non</em>-trivial units is the interesting question; over $\mathbb{Z}$ it is a whole subject.</p>
 </div></details>
 </div>
 
 <div class="card" id="p24"><a class="anchor" href="#p24">#24</a>
-<p class="p"><span class="num">24.</span> Define <m>α* = Σ a_g g⁻¹</m>. (a) Show <m>α** = α</m> and <m>(αβ)* = β*α*</m>. (b) Show the coefficient of <m>1_G</m> in <m>αα*</m> equals <m>Σ_g a_g²</m>. (c) Conclude that over ℝ, <m>αα* = 0 ⟹ α = 0</m>.</p>
+<p class="p"><span class="num">24.</span> Define $\alpha^*=\sum a_g\,g^{-1}$. (a) Show $\alpha^{**}=\alpha$ and $(\alpha\beta)^*=\beta^*\alpha^*$. (b) Show the coefficient of $1_G$ in $\alpha\alpha^*$ equals $\sum_g a_g^2$. (c) Conclude that over $\mathbb{R}$, $\alpha\alpha^*=0$ forces $\alpha=0$.</p>
 <details><summary>Answer</summary><div class="body">
-(a) The coefficient of <m>g⁻¹</m> in <m>(αβ)*</m> is <m>Σ_{hk=g} a_h b_k</m>, and in <m>β*α*</m> it is <m>Σ_{k⁻¹h⁻¹=g⁻¹} b_k a_h</m> — the same sum. (b) Coefficient of 1 in <m>αα*</m> is <m>Σ_{hk⁻¹=1} a_h a_k = Σ_h a_h²</m>. (c) A sum of real squares vanishes only if all terms do. This is genuinely a fact about ℝ — it fails over ℂ and over <m>𝔽₂</m>, and that failure is why Maschke needs a characteristic hypothesis.
+<p class="p">(a) The coefficient of $g^{-1}$ in $(\alpha\beta)^*$ is $\sum_{hk=g}a_hb_k$, and in $\beta^*\alpha^*$ it is $\sum_{k^{-1}h^{-1}=g^{-1}}b_ka_h$, the same sum. (b) The coefficient of $1$ in $\alpha\alpha^*$ is $\sum_{hk^{-1}=1}a_ha_k=\sum_h a_h^2$. (c) A sum of real squares vanishes only if all terms do.</p>
+<p class="p">This is genuinely a fact about $\mathbb{R}$: it fails over $\mathbb{C}$ and over $\mathbb{F}_2$, and that failure is why Maschke needs a characteristic hypothesis.</p>
 </div></details>
 </div>
 
 <div class="card" id="p25"><a class="anchor" href="#p25">#25</a>
-<p class="p"><span class="num">25.</span> Prove the class sums form an ℝ-basis of <m>Z(ℝ[G])</m>, so <m>dim Z(ℝ[G])</m> = number of conjugacy classes. Confirm this gives <strong>5</strong> for both <m>ℝ[D₄]</m> and <m>ℝ[Q₈]</m>.</p>
+<p class="p"><span class="num">25.</span> Prove the class sums form an $\mathbb{R}$-basis of $Z(\mathbb{R}[G])$, so $\dim Z(\mathbb{R}[G])$ is the number of conjugacy classes. Confirm this gives $\mathbf{5}$ for both $\mathbb{R}[D_4]$ and $\mathbb{R}[Q_8]$.</p>
 <details class="hint"><summary>Hint</summary><div class="body">
-<m>α</m> is central iff <m>gαg⁻¹ = α</m> for all <m>g ∈ G</m> (testing on basis elements suffices). Conjugation permutes the basis, so <m>α</m> is central iff its coefficient function is constant on conjugacy classes.
+<p class="p">$\alpha$ is central iff $g\alpha g^{-1}=\alpha$ for all $g\in G$ (testing on basis elements suffices). Conjugation permutes the basis, so $\alpha$ is central iff its coefficient function is constant on conjugacy classes.</p>
 </div></details>
 </div>
 
 <h2 id="secE">E. Left multiplication as a linear map <span class="rng">26–31</span></h2>
 
 <div class="card note">
-<p class="p">You asked whether left multiplication is a linear transformation and whether its spectrum is ever interesting. It is, and it is: what follows is the <strong>left regular representation</strong>, and by the end of section H its characteristic polynomial will have told you the difference between ℍ and <m>M₂(ℝ)</m>.</p>
+<p class="p">Left multiplication by a fixed element is a linear transformation, and its spectrum is worth knowing. What follows is the <strong>left regular representation</strong>; by the end of section H its characteristic polynomial will have told you the difference between $\mathbb{H}$ and $M_2(\mathbb{R})$.</p>
 </div>
 
 <div class="card" id="p26"><a class="anchor" href="#p26">#26</a>
-<p class="p"><span class="num">26.</span> For <m>α ∈ ℝ[G]</m> define <m>L_α: ℝ[G] → ℝ[G]</m>, <m>x ↦ αx</m>. (a) Show <m>L_α</m> is ℝ-linear and <m>α ↦ L_α</m> is an <em>injective</em> ring homomorphism <m>ℝ[G] → End_ℝ(ℝ[G]) ≅ M_{|G|}(ℝ)</m>. (b) Show that right multiplication <m>R_α</m> is also linear, but <m>α ↦ R_α</m> is an <em>anti</em>-homomorphism. Fix it using the involution of #24.</p>
+<p class="p"><span class="num">26.</span> For $\alpha\in\mathbb{R}[G]$ define $L_\alpha:\mathbb{R}[G]\to\mathbb{R}[G]$ by $x\mapsto\alpha x$. (a) Show $L_\alpha$ is $\mathbb{R}$-linear and that $\alpha\mapsto L_\alpha$ is an <em>injective</em> ring homomorphism $\mathbb{R}[G]\to\operatorname{End}_\mathbb{R}(\mathbb{R}[G])\cong M_{|G|}(\mathbb{R})$. (b) Show right multiplication $R_\alpha$ is also linear, but $\alpha\mapsto R_\alpha$ is an <em>anti</em>-homomorphism. Fix it using the involution of #24.</p>
 <details><summary>Answer</summary><div class="body">
-(a) Linearity and multiplicativity are the distributive and associative laws. Injective because <m>L_α(1) = α</m>. So <strong>every group algebra embeds in a matrix algebra</strong> — a version of Cayley's theorem one level up. (b) <m>R_αR_β(x) = (xβ)α = R_{βα}(x)</m>. The map <m>α ↦ R_{α*}</m> is an honest homomorphism.
+<p class="p">(a) Linearity and multiplicativity are the distributive and associative laws; injectivity because $L_\alpha(1)=\alpha$. So <strong>every group algebra embeds in a matrix algebra</strong>, a version of Cayley's theorem one level up.</p>
+<p class="p">(b) $R_\alpha R_\beta(x)=(x\beta)\alpha=R_{\beta\alpha}(x)$. The map $\alpha\mapsto R_{\alpha^*}$ is an honest homomorphism.</p>
 </div></details>
 </div>
 
 <div class="card" id="p27"><a class="anchor" href="#p27">#27</a>
-<p class="p"><span class="num">27.</span> In the ordered basis <m>(1, r, r², r³, s, rs, r²s, r³s)</m> of <m>ℝ[D₄]</m>, write the matrices of <m>L_r</m> and <m>L_s</m>. Give the cycle structure of each as a permutation, and the characteristic polynomial of each.</p>
+<p class="p"><span class="num">27.</span> In the ordered basis $(1,r,r^2,r^3,s,rs,r^2s,r^3s)$ of $\mathbb{R}[D_4]$, write the matrices of $L_r$ and $L_s$. Give the cycle structure of each as a permutation, and the characteristic polynomial of each.</p>
 <details><summary>Answer</summary><div class="body">
-<m>L_r</m>: <m>1→r→r²→r³→1</m> and <m>s→rs→r²s→r³s→s</m>. Two 4-cycles; <m>char(L_r) = (t⁴ − 1)²</m>; eigenvalues <m>1, −1, i, −i</m> each with multiplicity 2.<br>
-<m>L_s</m>: <m>1↔s</m>, <m>r↔r³s</m>, <m>r²↔r²s</m>, <m>r³↔rs</m>. Four transpositions; <m>char(L_s) = (t² − 1)⁴</m>; eigenvalues <m>±1</m> each with multiplicity 4.<br>
-Note both are permutation matrices — that is what left multiplication by a <em>group element</em> always is.
+<p class="p">$L_r$ acts as $1\to r\to r^2\to r^3\to 1$ and $s\to rs\to r^2s\to r^3s\to s$: two $4$-cycles, $\chi_{L_r}(t)=(t^4-1)^2$, eigenvalues $1,-1,i,-i$ each with multiplicity $2$.</p>
+<p class="p">$L_s$ acts as $1\leftrightarrow s$, $r\leftrightarrow r^3s$, $r^2\leftrightarrow r^2s$, $r^3\leftrightarrow rs$: four transpositions, $\chi_{L_s}(t)=(t^2-1)^4$, eigenvalues $\pm 1$ each with multiplicity $4$.</p>
+<p class="p">Both are permutation matrices, which is what left multiplication by a <em>group element</em> always is.</p>
 </div></details>
 </div>
 
 <div class="card" id="p28"><a class="anchor" href="#p28">#28</a>
-<p class="p"><span class="num">28.</span> Generalize. For <m>g ∈ G</m> of order <m>n</m>, show <m>L_g</m> is a permutation matrix whose cycles are all of length <m>n</m>, and there are <m>|G|/n</m> of them. Deduce the characteristic polynomial and the full spectrum with multiplicities. Then compute <m>tr(L_g)</m> for every <m>g</m>.</p>
+<p class="p"><span class="num">28.</span> Generalize. For $g\in G$ of order $n$, show $L_g$ is a permutation matrix whose cycles all have length $n$, and that there are $|G|/n$ of them. Deduce the characteristic polynomial and the full spectrum with multiplicities. Then compute $\operatorname{tr}(L_g)$ for every $g$.</p>
 <details><summary>Answer</summary><div class="body">
-Left translation is a <em>free</em> action: <m>gx = x ⟹ g = 1</m>. So the orbits of <m>⟨g⟩</m> are all of size <m>n</m>, giving <m>|G|/n</m> cycles of length <m>n</m>.
-<div class="disp">char(L_g) = (t^n − 1)^{|G|/n},  spectrum = {n-th roots of unity}, each with multiplicity |G|/n
-
-tr(L_g) = |G| if g = 1,  and 0 otherwise</div>
-That last line is the <strong>regular character</strong>. It is the most useful two-case formula in the subject, and you just proved it by counting fixed points of a permutation.
+<p class="p">Left translation is a <em>free</em> action: $gx=x$ forces $g=1$. So the orbits of $\langle g\rangle$ all have size $n$, giving $|G|/n$ cycles of length $n$. Hence
+$$\chi_{L_g}(t)=(t^n-1)^{|G|/n},$$
+the spectrum is the set of $n$-th roots of unity, each with multiplicity $|G|/n$, and
+$$\operatorname{tr}(L_g)=\begin{cases}|G| & g=1\\ 0 & g\neq 1.\end{cases}$$
+That last line is the <strong>regular character</strong>, the most useful two-case formula in the subject, and you just proved it by counting fixed points of a permutation.</p>
 </div></details>
 </div>
 
 <div class="card" id="p29"><a class="anchor" href="#p29">#29</a>
-<p class="p"><span class="num">29.</span> Deduce that <m>tr(L_α) = |G|·a_1</m> for <m>α = Σ a_g g</m>. Then show <m>⟨α, β⟩ := (1/|G|)·tr(L_{αβ*})</m> equals <m>Σ_g a_g b_g</m>, so the regular representation reconstructs the standard inner product on <m>ℝ[G]</m>.</p>
+<p class="p"><span class="num">29.</span> Deduce that $\operatorname{tr}(L_\alpha)=|G|\,a_1$ for $\alpha=\sum a_gg$. Then show $\langle\alpha,\beta\rangle:=\tfrac{1}{|G|}\operatorname{tr}(L_{\alpha\beta^*})$ equals $\sum_g a_gb_g$, so the regular representation reconstructs the standard inner product on $\mathbb{R}[G]$.</p>
 </div>
 
 <div class="card" id="p30"><a class="anchor" href="#p30">#30</a>
-<p class="p"><span class="num">30.</span> Spectra of the idempotents you have already built. (a) If <m>e² = e</m>, show <m>L_e</m> is a projection, so its only eigenvalues are 0 and 1 and <m>rank(L_e) = dim ℝ[G]e</m>. (b) Compute the rank of <m>L_e</m> for <m>e = N/8</m> in <m>ℝ[D₄]</m>. (c) Compute the rank of <m>L_{e₋}</m> for <m>e₋ = (1−z)/2</m> in <m>ℝ[Q₈]</m>. (d) Compute the spectrum of <m>L_N</m>.</p>
+<p class="p"><span class="num">30.</span> Spectra of idempotents you have already built. (a) If $e^2=e$, show $L_e$ is a projection, so its only eigenvalues are $0$ and $1$ and $\operatorname{rank}(L_e)=\dim\mathbb{R}[G]e$. (b) Compute the rank of $L_e$ for $e=N/8$ in $\mathbb{R}[D_4]$. (c) Compute the rank of $L_{e_-}$ for $e_-=\tfrac{1-z}{2}$ in $\mathbb{R}[Q_8]$. (d) Compute the spectrum of $L_N$.</p>
 <details><summary>Answer</summary><div class="body">
-(b) <m>ℝ[D₄]e = ℝe</m> since <m>ge = e</m> for all <m>g</m>; rank <strong>1</strong>. (c) <m>ℝ[Q₈]e₋</m> has basis <m>e₋, ie₋, je₋, ke₋</m>; rank <strong>4</strong> — and by #20 that 4-dimensional space is ℍ. (d) <m>N² = 8N</m>, so <m>L_N</m> satisfies <m>t² = 8t</m>: eigenvalue 8 with multiplicity 1, eigenvalue 0 with multiplicity 7.
+<p class="p">(b) $\mathbb{R}[D_4]e=\mathbb{R}e$ since $ge=e$ for all $g$, so the rank is $\mathbf{1}$. (c) $\mathbb{R}[Q_8]e_-$ has basis $e_-,ie_-,je_-,ke_-$, so the rank is $\mathbf{4}$, and by #20 that $4$-dimensional space is $\mathbb{H}$. (d) $N^2=8N$, so $L_N$ satisfies $t^2=8t$: eigenvalue $8$ with multiplicity $1$, eigenvalue $0$ with multiplicity $7$.</p>
 </div></details>
 </div>
 
 <div class="card" id="p31"><a class="anchor" href="#p31">#31</a>
-<p class="p"><span class="num">31.</span> Show that if <m>α</m> is <em>central</em> then <m>L_α</m> commutes with every <m>L_β</m> and with every <m>R_β</m>. Explain in one sentence why this forces <m>L_α</m> to act as a <em>scalar</em> on each irreducible block of the decomposition you will build in section G.</p>
+<p class="p"><span class="num">31.</span> Show that if $\alpha$ is <em>central</em> then $L_\alpha$ commutes with every $L_\beta$ and with every $R_\beta$. Explain in one sentence why this forces $L_\alpha$ to act as a <em>scalar</em> on each irreducible block of the decomposition you will build in section G.</p>
 <details class="hint"><summary>Hint</summary><div class="body">
-Schur. An operator commuting with an irreducible action, over an algebraically closed field, is a scalar. Over ℝ it can also be multiplication by a complex or quaternionic unit — which is exactly the gap between #38 and #39.
+<p class="p">Schur. An operator commuting with an irreducible action, over an algebraically closed field, is a scalar. Over $\mathbb{R}$ it can instead be multiplication by a complex or quaternionic unit, which is exactly the gap between #37 and #38.</p>
 </div></details>
 </div>
 
 <h2 id="secF">F. The spectrum is a Fourier transform <span class="rng">32–35</span></h2>
 
 <div class="card note">
-<p class="p">Here is the harmonic-analysis valence you were hoping for. It is not an analogy: for abelian <m>G</m>, "diagonalize left multiplication" and "take the Fourier transform" are the same sentence.</p>
+<p class="p">For abelian $G$, "diagonalize left multiplication" and "take the Fourier transform" are the same sentence. This is not an analogy.</p>
 </div>
 
 <div class="card" id="p32"><a class="anchor" href="#p32">#32</a>
-<p class="p"><span class="num">32.</span> Let <m>C_n = ⟨x⟩</m> and <m>α = Σ_{j} a_j x^j</m>. Show the matrix of <m>L_α</m> in the basis <m>(1, x, …, x^{n−1})</m> is the <strong>circulant</strong> matrix with <m>(i,k)</m> entry <m>a_{i−k mod n}</m>.</p>
+<p class="p"><span class="num">32.</span> Let $C_n=\langle x\rangle$ and $\alpha=\sum_j a_jx^j$. Show the matrix of $L_\alpha$ in the basis $(1,x,\dots,x^{n-1})$ is the <strong>circulant</strong> matrix with $(i,k)$ entry $a_{i-k\bmod n}$.</p>
 </div>
 
 <div class="card" id="p33"><a class="anchor" href="#p33">#33</a>
-<p class="p"><span class="num">33.</span> Work over ℂ, let <m>ω = e^{2πi/n}</m>, and set <m>f_m = Σ_{j=0}^{n−1} ω^{−mj} x^j</m>. (a) Show <m>x·f_m = ω^m f_m</m>. (b) Deduce <m>α·f_m = α̂(m)·f_m</m> where <m>α̂(m) = Σ_j a_j ω^{mj}</m>. (c) Conclude: <strong>the spectrum of <m>L_α</m> is exactly the discrete Fourier transform of its coefficient sequence</strong>, and <m>det L_α = Π_{m} α̂(m)</m>.</p>
+<p class="p"><span class="num">33.</span> Work over $\mathbb{C}$, let $\omega=e^{2\pi i/n}$, and set $f_m=\sum_{j=0}^{n-1}\omega^{-mj}x^j$. (a) Show $x\cdot f_m=\omega^m f_m$. (b) Deduce $\alpha\cdot f_m=\widehat\alpha(m)\,f_m$ where $\widehat\alpha(m)=\sum_j a_j\omega^{mj}$. (c) Conclude that <strong>the spectrum of $L_\alpha$ is exactly the discrete Fourier transform of its coefficient sequence</strong>, and that $\det L_\alpha=\prod_m\widehat\alpha(m)$.</p>
 <details><summary>Answer</summary><div class="body">
-(a) <m>x f_m = Σ_j ω^{−mj}x^{j+1} = Σ_l ω^{−m(l−1)}x^l = ω^m f_m</m>. (b) <m>α f_m = Σ_j a_j x^j f_m = (Σ_j a_j ω^{mj}) f_m</m>. (c) The <m>f_m</m> are <m>n</m> independent eigenvectors, so <m>L_α</m> is diagonalizable with those eigenvalues; the determinant is their product. This is the classical circulant determinant formula, and it is a one-line consequence of group-ring thinking.
+<p class="p">(a) $xf_m=\sum_j\omega^{-mj}x^{j+1}=\sum_l\omega^{-m(l-1)}x^l=\omega^mf_m$. (b) $\alpha f_m=\sum_j a_jx^jf_m=\big(\sum_j a_j\omega^{mj}\big)f_m$. (c) The $f_m$ are $n$ independent eigenvectors, so $L_\alpha$ is diagonalizable with those eigenvalues and the determinant is their product. This is the classical circulant determinant formula, a one-line consequence of group-ring thinking.</p>
 </div></details>
 </div>
 
 <div class="card" id="p34"><a class="anchor" href="#p34">#34</a>
-<p class="p"><span class="num">34.</span> (a) Show <m>e_m = f_m/n</m> are orthogonal primitive idempotents with <m>Σ_m e_m = 1</m>. (b) Conclude <m>ℂ[C_n] ≅ ℂⁿ</m> via <m>α ↦ (α̂(0), …, α̂(n−1))</m>, and state what this map does to a product. (c) Write out all four idempotents for <m>n = 4</m> explicitly.</p>
+<p class="p"><span class="num">34.</span> (a) Show $e_m=f_m/n$ are orthogonal primitive idempotents with $\sum_m e_m=1$. (b) Conclude $\mathbb{C}[C_n]\cong\mathbb{C}^n$ via $\alpha\mapsto(\widehat\alpha(0),\dots,\widehat\alpha(n-1))$, and state what this map does to a product. (c) Write out all four idempotents for $n=4$ explicitly.</p>
 <details><summary>Answer</summary><div class="body">
-(a) <m>f_m f_l = (Σ_j ω^{(l−m)j}) f_l = n δ_{ml} f_l</m>. (b) It is a ring isomorphism carrying <strong>convolution to pointwise multiplication</strong> — the convolution theorem, which here is just "the group ring of a finite abelian group splits along its characters." (c) With <m>ω = i</m>: <m>e_m = ¼(1 + i^{−m}x + i^{−2m}x² + i^{−3m}x³)</m> for <m>m = 0,1,2,3</m>.
+<p class="p">(a) $f_mf_l=\big(\sum_j\omega^{(l-m)j}\big)f_l=n\,\delta_{ml}f_l$. (b) It is a ring isomorphism carrying <strong>convolution to pointwise multiplication</strong>, the convolution theorem, which here is just "the group ring of a finite abelian group splits along its characters." (c) With $\omega=i$,
+$$e_m=\tfrac14\big(1+i^{-m}x+i^{-2m}x^2+i^{-3m}x^3\big),\qquad m=0,1,2,3.$$</p>
 </div></details>
 </div>
 
 <div class="card" id="p35"><a class="anchor" href="#p35">#35</a>
-<p class="p"><span class="num">35.</span> Now do it over ℝ instead of ℂ, for <m>n = 4</m>. Show <m>ℝ[C₄] ≅ ℝ × ℝ × ℂ</m>, and explain precisely which two of the four complex eigenvalues glue together and why.</p>
+<p class="p"><span class="num">35.</span> Now do it over $\mathbb{R}$ instead of $\mathbb{C}$, for $n=4$. Show $\mathbb{R}[C_4]\cong\mathbb{R}\times\mathbb{R}\times\mathbb{C}$, and explain precisely which two of the four complex eigenvalues glue together and why.</p>
 <details><summary>Answer</summary><div class="body">
-<m>ℝ[C₄] ≅ ℝ[t]/(t⁴−1) = ℝ[t]/(t−1) × ℝ[t]/(t+1) × ℝ[t]/(t²+1) ≅ ℝ × ℝ × ℂ</m>. The real idempotents are <m>(1+x+x²+x³)/4</m>, <m>(1−x+x²−x³)/4</m>, and <m>(1−x²)/2</m>. The characters <m>χ₁</m> and <m>χ₃</m> are complex conjugates; over ℝ you cannot separate a character from its conjugate, so their two ℂ-lines fuse into one 2-dimensional real block that <em>is</em> ℂ. Dimensions <m>1+1+2 = 4</m>. ✓ <br>Keep this mechanism in mind: "ℝ cannot separate conjugates" is the entire reason section H comes out the way it does.
+<p class="p">$$\mathbb{R}[C_4]\cong\mathbb{R}[t]/(t^4-1)=\mathbb{R}[t]/(t-1)\times\mathbb{R}[t]/(t+1)\times\mathbb{R}[t]/(t^2+1)\cong\mathbb{R}\times\mathbb{R}\times\mathbb{C}.$$
+The real idempotents are $\tfrac{1+x+x^2+x^3}{4}$, $\tfrac{1-x+x^2-x^3}{4}$, and $\tfrac{1-x^2}{2}$. The characters $\chi_1$ and $\chi_3$ are complex conjugates; over $\mathbb{R}$ you cannot separate a character from its conjugate, so their two $\mathbb{C}$-lines fuse into one $2$-dimensional real block that <em>is</em> $\mathbb{C}$. Dimensions $1+1+2=4$. ✓</p>
+<p class="p">Keep this mechanism in mind. "$\mathbb{R}$ cannot separate conjugates" is the entire reason section H comes out the way it does.</p>
 </div></details>
 </div>
 
 <h2 id="secG">G. Semisimple structure <span class="rng">36–39</span></h2>
 
 <div class="card" id="p36"><a class="anchor" href="#p36">#36</a>
-<p class="p"><span class="num">36.</span> State Maschke's theorem and Artin–Wedderburn. For each, identify exactly which hypothesis is doing the work, and where <m>ℝ</m> vs <m>ℂ</m> vs <m>𝔽₂</m> matters.</p>
+<p class="p"><span class="num">36.</span> State Maschke's theorem and Artin–Wedderburn. For each, identify exactly which hypothesis is doing the work, and where $\mathbb{R}$ versus $\mathbb{C}$ versus $\mathbb{F}_2$ matters.</p>
 <details><summary>Answer</summary><div class="body">
-<strong>Maschke:</strong> <m>G</m> finite and <m>char(k) ∤ |G|</m> ⟹ <m>k[G]</m> semisimple. The hypothesis is that <m>|G|</m> is invertible in <m>k</m>; the averaging idempotent <m>N/|G|</m> of #13 is the entire proof. Over <m>𝔽₂</m>, <m>𝔽₂[D₄]</m> is <em>not</em> semisimple — it is local, with nilpotent radical.<br>
-<strong>Artin–Wedderburn:</strong> a semisimple ring is a finite product <m>Π M_{n_i}(D_i)</m> over division rings. Over ℂ the only finite-dimensional division algebra is ℂ, so you get pure matrix rings. Over ℝ they are ℝ, ℂ, ℍ (Frobenius) — that extra room is what lets <m>ℝ[D₄]</m> and <m>ℝ[Q₈]</m> differ.
+<p class="p"><strong>Maschke.</strong> If $G$ is finite and $\operatorname{char}(k)\nmid|G|$, then $k[G]$ is semisimple. The hypothesis is that $|G|$ is invertible in $k$; the averaging idempotent $N/|G|$ of #13 is the entire proof. Over $\mathbb{F}_2$, $\mathbb{F}_2[D_4]$ is <em>not</em> semisimple: it is local, with nilpotent radical.</p>
+<p class="p"><strong>Artin–Wedderburn.</strong> A semisimple ring is a finite product $\prod_i M_{n_i}(D_i)$ over division rings. Over $\mathbb{C}$ the only finite-dimensional division algebra is $\mathbb{C}$, so you get pure matrix rings. Over $\mathbb{R}$ they are $\mathbb{R},\mathbb{C},\mathbb{H}$ (Frobenius), and that extra room is what lets $\mathbb{R}[D_4]$ and $\mathbb{R}[Q_8]$ differ.</p>
 </div></details>
 </div>
 
 <div class="card" id="p37"><a class="anchor" href="#p37">#37</a>
-<p class="p"><span class="num">37.</span> Using <m>e₊, e₋</m> from #20: show <m>ℝ[Q₈] ≅ ℝ[Q₈]e₊ × ℝ[Q₈]e₋</m>, identify the first factor with <m>ℝ[Q₈/⟨z⟩] = ℝ[C₂×C₂] ≅ ℝ⁴</m>, and the second with ℍ. Check <m>4 + 4 = 8</m>.</p>
+<p class="p"><span class="num">37.</span> Using $e_+,e_-$ from #20, show $\mathbb{R}[Q_8]\cong\mathbb{R}[Q_8]e_+\times\mathbb{R}[Q_8]e_-$, identify the first factor with $\mathbb{R}[Q_8/\langle z\rangle]=\mathbb{R}[C_2\times C_2]\cong\mathbb{R}^4$, and the second with $\mathbb{H}$. Check $4+4=8$.</p>
 <details><summary>Answer</summary><div class="body">
-Central orthogonal idempotents summing to 1 always split a ring as a direct product. On the <m>e₊</m> side <m>z e₊ = e₊</m>, so <m>z</m> acts as the identity and the factor is <m>ℝ[Q₈/⟨z⟩]</m>, with quotient the Klein four group and <m>ℝ[C₂×C₂] ≅ ℝ⁴</m>. On the <m>e₋</m> side <m>ze₋ = −e₋</m>, so the images of <m>i,j,k</m> square to minus the identity and anticommute: basis <m>e₋, ie₋, je₋, ke₋</m>, which is ℍ.
-<div class="disp">ℝ[Q₈] ≅ ℝ × ℝ × ℝ × ℝ × ℍ</div>
+<p class="p">Central orthogonal idempotents summing to $1$ always split a ring as a direct product. On the $e_+$ side $ze_+=e_+$, so $z$ acts as the identity and the factor is $\mathbb{R}[Q_8/\langle z\rangle]$, with quotient the Klein four group and $\mathbb{R}[C_2\times C_2]\cong\mathbb{R}^4$. On the $e_-$ side $ze_-=-e_-$, so the images of $i,j,k$ square to minus the identity and anticommute: basis $e_-,ie_-,je_-,ke_-$, which is $\mathbb{H}$. Hence
+$$\mathbb{R}[Q_8]\;\cong\;\mathbb{R}\times\mathbb{R}\times\mathbb{R}\times\mathbb{R}\times\mathbb{H}.$$</p>
 </div></details>
 </div>
 
 <div class="card" id="p38"><a class="anchor" href="#p38">#38</a>
-<p class="p"><span class="num">38.</span> Do the same for <m>ℝ[D₄]</m>, using the idempotent from #14.</p>
+<p class="p"><span class="num">38.</span> Do the same for $\mathbb{R}[D_4]$, using the idempotent from #14.</p>
 <details><summary>Answer</summary><div class="body">
-<div class="disp">ℝ[D₄] ≅ ℝ × ℝ × ℝ × ℝ × M₂(ℝ)</div>
+<p class="p">$$\mathbb{R}[D_4]\;\cong\;\mathbb{R}\times\mathbb{R}\times\mathbb{R}\times\mathbb{R}\times M_2(\mathbb{R}).$$</p>
 </div></details>
 </div>
 
 <div class="card" id="p39"><a class="anchor" href="#p39">#39</a>
 <p class="p"><span class="num">39.</span> Compare #37 and #38 and say precisely what goes wrong with the guess: "same order, same number of conjugacy classes, same center dimension, therefore isomorphic."</p>
 <details><summary>Answer</summary><div class="body">
-Every numerical invariant you have computed agrees: dimension 8, four 1-dimensional blocks and one 4-dimensional block, 5-dimensional center. But <m>M₂(ℝ)</m> has zero divisors and ℍ is a division ring, so the two are <strong>not</strong> isomorphic. Concretely, <m>1 − s</m> is a zero divisor sitting in <m>ℝ[D₄]</m>'s 4-dimensional block, and <m>ℝ[Q₈]</m> has nothing like it there.<br><br>
-The sharp version, which is #44: over ℂ the two <em>are</em> isomorphic. <m>D₄</m> and <m>Q₈</m> have identical character tables. Real coefficients see a difference complex coefficients cannot — the Frobenius–Schur indicator.
+<p class="p">Every numerical invariant you have computed agrees: dimension $8$, four $1$-dimensional blocks and one $4$-dimensional block, $5$-dimensional center. But $M_2(\mathbb{R})$ has zero divisors and $\mathbb{H}$ is a division ring, so the two are <strong>not</strong> isomorphic. Concretely, $1-s$ is a zero divisor sitting in $\mathbb{R}[D_4]$'s $4$-dimensional block, and $\mathbb{R}[Q_8]$ has nothing like it there.</p>
+<p class="p">The sharp version, which is #44: over $\mathbb{C}$ the two <em>are</em> isomorphic. $D_4$ and $Q_8$ have identical character tables. Real coefficients see a difference complex coefficients cannot, and the name of that difference is the Frobenius–Schur indicator.</p>
 </div></details>
 </div>
 
 <h2 id="secH">H. The group determinant, and one quadratic form that explains everything <span class="rng">40–43</span></h2>
 
 <div class="card note">
-<p class="p">This section is where left multiplication earns its keep. In 1896 Dedekind computed the determinant below for abelian groups, watched it split into linear factors, tried a nonabelian group, watched it fail to split, and wrote to Frobenius. Character theory is what came back.</p>
+<p class="p">In 1896 Dedekind computed the determinant below for abelian groups, watched it split into linear factors, tried a nonabelian group, watched it fail to split, and wrote to Frobenius. Character theory is what came back.</p>
 </div>
 
 <div class="card" id="p40"><a class="anchor" href="#p40">#40</a>
-<p class="p"><span class="num">40.</span> Introduce an indeterminate <m>x_g</m> for each <m>g ∈ G</m> and let <m>X = Σ_g x_g g</m> be the generic element. The <strong>group determinant</strong> is <m>Θ_G = det(L_X) = det(x_{gh⁻¹})_{g,h}</m>. (a) Check the matrix entries really are <m>x_{gh⁻¹}</m>. (b) Compute <m>Θ</m> for <m>C₂</m>, for <m>C₃</m>, and for <m>C₂×C₂</m>.</p>
+<p class="p"><span class="num">40.</span> Introduce an indeterminate $x_g$ for each $g\in G$ and let $X=\sum_g x_gg$ be the generic element. The <strong>group determinant</strong> is $\Theta_G=\det(L_X)=\det\big(x_{gh^{-1}}\big)_{g,h}$. (a) Check the matrix entries really are $x_{gh^{-1}}$. (b) Compute $\Theta$ for $C_2$, for $C_3$, and for $C_2\times C_2$.</p>
 <details><summary>Answer</summary><div class="body">
-(b) <m>Θ_{C₂} = (x_1+x_a)(x_1−x_a)</m>. <m>Θ_{C₃} = (x_1+x_a+x_b)(x_1+ωx_a+ω²x_b)(x_1+ω²x_a+ωx_b)</m> by #33. <m>Θ_{C₂×C₂}</m> is the product of the four <m>(x_1 ± x_a ± x_b ± x_{ab})</m> with the sign on <m>x_{ab}</m> the product of the other two signs. In every abelian case: <m>Θ_G = Π_{χ} (Σ_g χ(g)x_g)</m>, one linear factor per character. That <em>is</em> #33.
+<p class="p">(b) $\Theta_{C_2}=(x_1+x_a)(x_1-x_a)$, and
+$$\Theta_{C_3}=(x_1+x_a+x_b)(x_1+\omega x_a+\omega^2x_b)(x_1+\omega^2x_a+\omega x_b)$$
+by #33. For $C_2\times C_2$ it is the product of the four $(x_1\pm x_a\pm x_b\pm x_{ab})$ with the sign on $x_{ab}$ equal to the product of the other two signs. In every abelian case
+$$\Theta_G=\prod_{\chi}\Big(\sum_g\chi(g)x_g\Big),$$
+one linear factor per character. That <em>is</em> #33.</p>
 </div></details>
 </div>
 
 <div class="card" id="p41"><a class="anchor" href="#p41">#41</a>
-<p class="p"><span class="num">41.</span> Now the nonabelian case, by hand. Use the 2-dimensional representations
-<div class="disp">D₄:  ρ(r) = [ i  0 ]   ρ(s) = [ 0  1 ]        Q₈:  ρ(i) = [ i  0 ]   ρ(j) = [ 0  1 ]
-            [ 0 −i ]          [ 1  0 ]                      [ 0 −i ]          [−1  0 ]</div>
-(a) Verify the defining relations hold in each case. (b) For each group, form <m>Σ_g x_g ρ(g)</m> and compute its determinant. Use the abbreviations
-<m>A = x_1 − x_{r²}</m>, <m>B = x_r − x_{r³}</m>, <m>C = x_s − x_{r²s}</m>, <m>D = x_{rs} − x_{r³s}</m> for <m>D₄</m>, and <m>A = x_1 − x_z</m>, <m>B = x_i − x_{zi}</m>, <m>C = x_j − x_{zj}</m>, <m>D = x_k − x_{zk}</m> for <m>Q₈</m>.</p>
+<p class="p"><span class="num">41.</span> Now the nonabelian case, by hand. Use the two-dimensional representations
+$$D_4:\quad \rho(r)=\begin{pmatrix}i&0\\0&-i\end{pmatrix},\quad \rho(s)=\begin{pmatrix}0&1\\1&0\end{pmatrix};\qquad
+Q_8:\quad \rho(i)=\begin{pmatrix}i&0\\0&-i\end{pmatrix},\quad \rho(j)=\begin{pmatrix}0&1\\-1&0\end{pmatrix}.$$
+(a) Verify the defining relations hold in each case. (b) For each group, form $\sum_g x_g\rho(g)$ and compute its determinant, using
+$$A=x_1-x_{r^2},\quad B=x_r-x_{r^3},\quad C=x_s-x_{r^2s},\quad D=x_{rs}-x_{r^3s}$$
+for $D_4$, and $A=x_1-x_z$, $B=x_i-x_{zi}$, $C=x_j-x_{zj}$, $D=x_k-x_{zk}$ for $Q_8$.</p>
 <details class="hint"><summary>Hint</summary><div class="body">
-Each matrix <m>Σ_g x_g ρ(g)</m> collapses to the shape <m>[[A+iB, ?],[?, A−iB]]</m>. The only thing you have to be careful about is the sign in the off-diagonal entries, and that sign is the whole point of the problem.
+<p class="p">Each matrix $\sum_g x_g\rho(g)$ collapses to the shape $\begin{pmatrix}A+iB&\ast\\ \ast&A-iB\end{pmatrix}$. The only thing to be careful about is the sign in the off-diagonal entries, and that sign is the whole point of the problem.</p>
 </div></details>
 <details><summary>Answer</summary><div class="body">
-For <m>D₄</m>: <m>Σ x_gρ(g) = [[A+iB, C+iD],[C−iD, A−iB]]</m>, so
-<div class="disp">P_D = A² + B² − C² − D²</div>
-For <m>Q₈</m>: <m>Σ x_gρ(g) = [[A+iB, C+iD],[−C+iD, A−iB]]</m>, so
-<div class="disp">P_Q = A² + B² + C² + D²</div>
-And in each case <m>Θ_G = (four linear factors)·P²</m>, degrees <m>4·1 + 2·2 = 8</m>. ✓ (That the irreducible factor of degree <m>n</m> appears to the power <m>n</m> is Frobenius's theorem.)
+<p class="p">For $D_4$,
+$$\sum_g x_g\rho(g)=\begin{pmatrix}A+iB & C+iD\\ C-iD & A-iB\end{pmatrix},\qquad P_D=A^2+B^2-C^2-D^2.$$
+For $Q_8$,
+$$\sum_g x_g\rho(g)=\begin{pmatrix}A+iB & C+iD\\ -C+iD & A-iB\end{pmatrix},\qquad P_Q=A^2+B^2+C^2+D^2.$$
+In each case $\Theta_G=(\text{four linear factors})\cdot P^2$, with degrees $4\cdot 1+2\cdot 2=8$. ✓ That the irreducible factor of degree $n$ appears to the power $n$ is Frobenius's theorem.</p>
 </div></details>
 </div>
 
 <div class="card big" id="p42"><a class="anchor" href="#p42">#42</a>
 <p class="p"><span class="num">42.</span> <strong>The punchline.</strong> Two quadratic forms in four variables, differing by two signs. Prove all of the following from them alone. <span class="tag">juicy</span></p>
-<p class="part"><b>(a)</b> <m>P_Q</m> is <em>anisotropic</em> over ℝ (vanishes only at the origin); <m>P_D</m> is <em>isotropic</em> (find a nonzero zero).</p>
-<p class="part"><b>(b)</b> Deduce, without invoking Wedderburn, that the 4-dimensional block of <m>ℝ[Q₈]</m> is a division algebra and that of <m>ℝ[D₄]</m> is not — hence <m>ℝ[D₄] ≇ ℝ[Q₈]</m>.</p>
-<p class="part"><b>(c)</b> Show that over ℂ the two forms are equivalent, by an explicit change of variables. Predict what that implies about <m>ℂ[D₄]</m> and <m>ℂ[Q₈]</m>, then go do #44.</p>
-<p class="part"><b>(d)</b> Translate the isotropic vector of <m>P_D</m> back into an actual zero divisor in <m>ℝ[D₄]</m>, and check your answer against #14.</p>
+<p class="part"><span class="lbl">(a)</span> $P_Q$ is <em>anisotropic</em> over $\mathbb{R}$ (it vanishes only at the origin); $P_D$ is <em>isotropic</em> (find a nonzero zero).</p>
+<p class="part"><span class="lbl">(b)</span> Deduce, without invoking Wedderburn, that the $4$-dimensional block of $\mathbb{R}[Q_8]$ is a division algebra and that of $\mathbb{R}[D_4]$ is not, hence $\mathbb{R}[D_4]\not\cong\mathbb{R}[Q_8]$.</p>
+<p class="part"><span class="lbl">(c)</span> Show that over $\mathbb{C}$ the two forms are equivalent, by an explicit change of variables. Predict what that implies about $\mathbb{C}[D_4]$ and $\mathbb{C}[Q_8]$, then go do #44.</p>
+<p class="part"><span class="lbl">(d)</span> Translate the isotropic vector of $P_D$ back into an actual zero divisor in $\mathbb{R}[D_4]$, and check your answer against #14.</p>
 <details><summary>Answer</summary><div class="body">
-(a) Sums of real squares; <m>P_D</m> vanishes at <m>(A,B,C,D) = (1,0,1,0)</m>. (b) On the 4-dimensional block, <m>det</m> of left multiplication vanishes exactly when the element is a zero divisor. <m>P_Q ≠ 0</m> off the origin ⟹ every nonzero element of that block is invertible ⟹ division algebra. <m>P_D</m> has a nontrivial zero ⟹ zero divisors. A ring with zero divisors in that block is not isomorphic to one without. (c) Substitute <m>C ↦ iC</m>, <m>D ↦ iD</m>: <m>A²+B²−C²−D² ↦ A²+B²+C²+D²</m>. Over ℂ every nondegenerate quadratic form of a given rank is equivalent to <m>Σ t_i²</m>, so the distinction evaporates and <m>ℂ[D₄] ≅ ℂ[Q₈]</m> becomes plausible. (d) <m>A = 1, C = 1</m> means <m>x_1 − x_{r²} = 1</m> and <m>x_s − x_{r²s} = 1</m>: take <m>1 + s</m>, whose partner is <m>1 − s</m>. ✓<br><br>
-Worth sitting with: <em>two sign changes in a quadratic form</em> is the entire difference between the quaternions and 2×2 real matrices, and therefore the entire difference between <m>ℝ[Q₈]</m> and <m>ℝ[D₄]</m>. The classification of quadratic forms over ℝ (Sylvester) and the classification of these group algebras are the same classification.
+<p class="p">(a) Sums of real squares; $P_D$ vanishes at $(A,B,C,D)=(1,0,1,0)$.</p>
+<p class="p">(b) On the $4$-dimensional block, the determinant of left multiplication vanishes exactly when the element is a zero divisor. $P_Q\neq 0$ off the origin, so every nonzero element of that block is invertible, giving a division algebra; $P_D$ has a nontrivial zero, giving zero divisors. A ring with zero divisors in that block is not isomorphic to one without.</p>
+<p class="p">(c) Substitute $C\mapsto iC$, $D\mapsto iD$: then $A^2+B^2-C^2-D^2\mapsto A^2+B^2+C^2+D^2$. Over $\mathbb{C}$ every nondegenerate quadratic form of a given rank is equivalent to $\sum t_i^2$, so the distinction evaporates and $\mathbb{C}[D_4]\cong\mathbb{C}[Q_8]$ becomes plausible.</p>
+<p class="p">(d) $A=1$ and $C=1$ means $x_1-x_{r^2}=1$ and $x_s-x_{r^2s}=1$: take $1+s$, whose partner is $1-s$. ✓</p>
+<p class="p">Worth sitting with: <em>two sign changes in a quadratic form</em> is the entire difference between the quaternions and $2\times 2$ real matrices, and therefore the entire difference between $\mathbb{R}[Q_8]$ and $\mathbb{R}[D_4]$. Sylvester's classification of real quadratic forms and the classification of these group algebras are the same classification.</p>
 </div></details>
 </div>
 
 <div class="card big" id="p43"><a class="anchor" href="#p43">#43</a>
-<p class="p"><span class="num">43.</span> <strong>Euler's four-square identity, for free.</strong> <m>det</m> is multiplicative, so <m>P_Q</m> is a multiplicative form on the ℍ block. (a) Multiply two general quaternions and read off the identity expressing <m>(a₁²+a₂²+a₃²+a₄²)(b₁²+b₂²+b₃²+b₄²)</m> as a sum of four squares. (b) Explain why the analogous computation in <m>ℝ[D₄]</m> gives a multiplicative identity for <m>A²+B²−C²−D²</m> instead, and write that one down too. (c) Sketch how (a) plus a descent argument yields Lagrange's four-square theorem: <em>every</em> non-negative integer is a sum of four squares. <span class="tag">juicy</span></p>
+<p class="p"><span class="num">43.</span> <strong>Euler's four-square identity, for free.</strong> Determinants are multiplicative, so $P_Q$ is a multiplicative form on the $\mathbb{H}$ block. (a) Multiply two general quaternions and read off the identity expressing $(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2)$ as a sum of four squares. (b) Explain why the analogous computation in $\mathbb{R}[D_4]$ gives a multiplicative identity for $A^2+B^2-C^2-D^2$ instead, and write that one down too. (c) Sketch how (a) plus a descent argument yields Lagrange's four-square theorem: <em>every</em> non-negative integer is a sum of four squares. <span class="tag">juicy</span></p>
 <details><summary>Answer</summary><div class="body">
-(a) With <m>a = a₁+a₂i+a₃j+a₄k</m> and <m>b</m> likewise, <m>ab = c₁+c₂i+c₃j+c₄k</m> where
-<div class="disp">c₁ = a₁b₁ − a₂b₂ − a₃b₃ − a₄b₄
-c₂ = a₁b₂ + a₂b₁ + a₃b₄ − a₄b₃
-c₃ = a₁b₃ − a₂b₄ + a₃b₁ + a₄b₂
-c₄ = a₁b₄ + a₂b₃ − a₃b₂ + a₄b₁</div>
-and <m>N(ab) = N(a)N(b)</m> gives Euler's identity (1748), which Euler found without quaternions and which cost him considerably more effort than it just cost you.<br>
-(c) Multiplicativity reduces Lagrange to the case of a prime <m>p</m>. For odd <m>p</m>, a counting argument gives <m>x,y</m> with <m>x²+y²+1 ≡ 0 (mod p)</m>, so some multiple <m>mp</m> with <m>m < p</m> is a sum of four squares; a descent inside the Hurwitz quaternions (or a direct manipulation) lowers <m>m</m> to 1.<br><br>
-This is the item to notice: you obtained a nontrivial theorem of number theory by computing a determinant of a left-multiplication operator on an 8-dimensional group ring. Nothing in the statement of Lagrange's theorem mentions <m>Q₈</m>.
+<p class="p">(a) With $a=a_1+a_2i+a_3j+a_4k$ and $b$ likewise, $ab=c_1+c_2i+c_3j+c_4k$ where
+$$\begin{aligned}
+c_1&=a_1b_1-a_2b_2-a_3b_3-a_4b_4\\
+c_2&=a_1b_2+a_2b_1+a_3b_4-a_4b_3\\
+c_3&=a_1b_3-a_2b_4+a_3b_1+a_4b_2\\
+c_4&=a_1b_4+a_2b_3-a_3b_2+a_4b_1
+\end{aligned}$$
+and $N(ab)=N(a)N(b)$ gives Euler's identity (1748), which Euler found without quaternions and which cost him considerably more effort than it just cost you.</p>
+<p class="p">(c) Multiplicativity reduces Lagrange to the case of a prime $p$. For odd $p$, a counting argument produces $x,y$ with $x^2+y^2+1\equiv 0\pmod p$, so some multiple $mp$ with $m<p$ is a sum of four squares; a descent inside the Hurwitz quaternions lowers $m$ to $1$.</p>
+<p class="p">This is the item to notice: a nontrivial theorem of number theory, obtained by computing the determinant of a left-multiplication operator on an $8$-dimensional group ring. Nothing in the statement of Lagrange's theorem mentions $Q_8$.</p>
 </div></details>
 </div>
 
-<h2 id="secI">I. Build the isomorphism ℂ[D₄] ≅ ℂ[Q₈] <span class="rng">44</span></h2>
+<h2 id="secI">I. Build the isomorphism $\mathbb{C}[D_4]\cong\mathbb{C}[Q_8]$ <span class="rng">44</span></h2>
 
 <div class="card big" id="p44"><a class="anchor" href="#p44">#44</a>
 <p class="p"><span class="num">44.</span> Multi-part. Two non-isomorphic groups whose complex group algebras are isomorphic. Hints are deliberately thin.</p>
 
-<p class="part"><b>(a)</b> Compute <m>[D₄,D₄]</m> and <m>[Q₈,Q₈]</m>, and both abelianizations. What does this tell you about ring homomorphisms <m>ℂ[G] → ℂ</m>, and how many are there?</p>
-<details class="hint"><summary>Hint</summary><div class="body">A homomorphism into a commutative ring kills every commutator, so it factors through something you already understand from #34.</div></details>
+<p class="part"><span class="lbl">(a)</span> Compute $[D_4,D_4]$ and $[Q_8,Q_8]$, and both abelianizations. What does this tell you about ring homomorphisms $\mathbb{C}[G]\to\mathbb{C}$, and how many are there?</p>
+<details class="hint"><summary>Hint</summary><div class="body"><p class="p">A homomorphism into a commutative ring kills every commutator, so it factors through something you already understand from #34.</p></div></details>
 
-<p class="part"><b>(b)</b> Take the two 2-dimensional representations from #41 and check the relations again, carefully. Note which one needs a minus sign and why.</p>
-<details class="hint"><summary>Hint</summary><div class="body">One group wants a rotation together with a reflection. The other wants two anticommuting square roots of <m>−I</m>. Reflections have determinant <m>−1</m>; the quaternion units do not.</div></details>
+<p class="part"><span class="lbl">(b)</span> Take the two $2$-dimensional representations from #41 and check the relations again, carefully. Note which one needs a minus sign, and why.</p>
+<details class="hint"><summary>Hint</summary><div class="body"><p class="p">One group wants a rotation together with a reflection. The other wants two anticommuting square roots of $-I$. Reflections have determinant $-1$; the quaternion units do not.</p></div></details>
 
-<p class="part"><b>(c)</b> Show each extends to a <em>surjective</em> algebra map <m>ℂ[G] ↠ M₂(ℂ)</m>.</p>
-<details class="hint"><summary>Hint</summary><div class="body">The image is a subalgebra containing a matrix with two distinct eigenvalues. Spectral projections are polynomials in that matrix, so they are in the image too. Now sandwich.</div></details>
+<p class="part"><span class="lbl">(c)</span> Show each extends to a <em>surjective</em> algebra map $\mathbb{C}[G]\twoheadrightarrow M_2(\mathbb{C})$.</p>
+<details class="hint"><summary>Hint</summary><div class="body"><p class="p">The image is a subalgebra containing a matrix with two distinct eigenvalues. Spectral projections are polynomials in that matrix, so they are in the image too. Now sandwich.</p></div></details>
 
-<p class="part"><b>(d)</b> Assemble <m>Ψ_G : ℂ[G] → ℂ⁴ × M₂(ℂ)</m> and prove it is an isomorphism, for both <m>G</m>.</p>
-<details class="hint"><summary>Hint</summary><div class="body">Dimensions already match, so surjectivity is enough. To get the components independently, you need one element that dies in the <m>M₂</m> factor and one that dies in all four ℂ factors. You built both in #14 and #20.</div></details>
+<p class="part"><span class="lbl">(d)</span> Assemble $\Psi_G:\mathbb{C}[G]\to\mathbb{C}^4\times M_2(\mathbb{C})$ and prove it is an isomorphism, for both $G$.</p>
+<details class="hint"><summary>Hint</summary><div class="body"><p class="p">Dimensions already match, so surjectivity is enough. To get the components independently you need one element that dies in the $M_2$ factor and one that dies in all four $\mathbb{C}$ factors. You built both in #14 and #20.</p></div></details>
 
-<p class="part"><b>(e)</b> Conclude <m>ℂ[D₄] ≅ ℂ[Q₈]</m>. Then show that <em>no</em> isomorphism can carry the basis <m>D₄</m> onto <m>±Q₈</m>, and say what this means about how much of <m>G</m> survives inside <m>ℂ[G]</m>.</p>
+<p class="part"><span class="lbl">(e)</span> Conclude $\mathbb{C}[D_4]\cong\mathbb{C}[Q_8]$. Then show that <em>no</em> isomorphism can carry the basis $D_4$ onto $\pm Q_8$, and say what this means about how much of $G$ survives inside $\mathbb{C}[G]$.</p>
 
-<p class="part"><b>(f)</b> Make it explicit: compute <m>Φ(r)</m> and <m>Φ(s)</m> in <m>ℂ[Q₈]</m> for the isomorphism <m>Φ = Ψ_Q^{-1}∘Ψ_D</m> that matches the linear characters via <m>r ↔ i</m>, <m>s ↔ j</m>.</p>
-<details class="hint"><summary>Hint</summary><div class="body">You may choose the five components independently — that is what a direct product means. Four of them want an honest group element. The fifth wants a matrix you cannot get from a group element, but <em>can</em> get from a group element times a scalar. Complex scalars are allowed; that is the whole trick, and it is why this fails over ℝ.</div></details>
+<p class="part"><span class="lbl">(f)</span> Make it explicit: compute $\Phi(r)$ and $\Phi(s)$ in $\mathbb{C}[Q_8]$ for the isomorphism $\Phi=\Psi_Q^{-1}\circ\Psi_D$ that matches the linear characters via $r\leftrightarrow i$ and $s\leftrightarrow j$.</p>
+<details class="hint"><summary>Hint</summary><div class="body"><p class="p">You may choose the five components independently; that is what a direct product means. Four of them want an honest group element. The fifth wants a matrix you cannot get from a group element, but <em>can</em> get from a group element times a scalar. Complex scalars are allowed, and that is the whole trick, and it is why this fails over $\mathbb{R}$.</p></div></details>
 
 <details><summary>Answers</summary><div class="body">
-<strong>(a)</strong> <m>[D₄,D₄] = ⟨r²⟩</m>, <m>[Q₈,Q₈] = ⟨z⟩</m>; both abelianizations are <m>C₂×C₂</m>. So each group algebra has exactly <strong>four</strong> homomorphisms to ℂ, given by <m>(χ(r),χ(s)) ∈ {±1}²</m> and <m>(χ(i),χ(j)) ∈ {±1}²</m>.<br><br>
-<strong>(b)</strong> <m>ρ(r)⁴ = I</m>, <m>ρ(s)² = I</m>, <m>ρ(s)ρ(r)ρ(s) = diag(−i,i) = ρ(r)⁻¹</m>. ✓ For <m>Q₈</m>: <m>ρ(i)² = ρ(j)² = −I = ρ(z)</m>, <m>ρ(i)ρ(j) = [[0,i],[i,0]] = ρ(k)</m>, and <m>ρ(j)ρ(i) = −ρ(k)</m>. ✓ The minus sign in <m>ρ(j)</m> is what makes <m>ρ(j)² = −I</m> rather than <m>+I</m>.<br><br>
-<strong>(c)</strong> Write <m>E = ρ(r)</m> (or <m>ρ(i)</m>) <m>= diag(i,−i)</m>. Then <m>E₁₁ = (I − iE)/2</m> and <m>E₂₂ = (I + iE)/2</m> lie in the image. Sandwiching: <m>E₁₁ρ(s)E₂₂ = E₁₂</m> and <m>E₂₂ρ(s)E₁₁ = E₂₁</m>. All four matrix units are in the image, so it is all of <m>M₂(ℂ)</m>.<br><br>
-<strong>(d)</strong> Let <m>u = (1−r²)/2</m> in <m>ℂ[D₄]</m> (resp. <m>e₋ = (1−z)/2</m> in <m>ℂ[Q₈]</m>). Since <m>ρ(r²) = −I</m> and <m>χ(r²) = 1</m> for all four linear <m>χ</m>, <m>Ψ(u) = (0,0,0,0,I)</m> and <m>Ψ(1−u) = (1,1,1,1,0)</m>. Multiplying by these projects onto either half, so the combined map is surjective; dimensions are <m>8 = 4 + 4</m> on both sides, so it is an isomorphism.<br><br>
-<strong>(e)</strong> Both are <m>≅ ℂ⁴ × M₂(ℂ)</m>, hence isomorphic to each other. If some isomorphism sent <m>D₄</m> into <m>±Q₈</m> it would induce an injection <m>D₄ → Q₈×{±1}</m> respecting products up to sign, forcing <m>D₄ ≅ Q₈</m> — false, since <m>D₄</m> has five elements of order 2 and <m>Q₈</m> has one. So <m>ℂ[G]</m> does <em>not</em> remember <m>G</m>. (Over ℤ the situation is much better: <m>ℤ[D₄] ≇ ℤ[Q₈]</m>, and the general integral isomorphism problem stood until Hertweck's 2001 counterexample.)<br><br>
-<strong>(f)</strong> <m>Φ(r) = i</m>, since <m>r</m> and <m>i</m> agree on all five components. For <m>s</m> you need the four linear components to read <m>χ(j)</m> and the <m>M₂</m> component to read <m>[[0,1],[1,0]]</m>. Note <m>−i·ρ(k) = [[0,1],[1,0]]</m>. So take
-<div class="disp">Φ(s) = j·e₊ + (−i k)·e₋ = ½(j + zj) − (i/2)(k − zk)</div>
-Check: on the linear components <m>Φ(s)² = 1</m>; on <m>M₂</m>, <m>[[0,1],[1,0]]² = I</m>. And <m>Φ(s)Φ(r)Φ(s) = Φ(r)⁻¹</m>. ✓<br>
-Notice what <m>Φ(s)</m> is: not a group element, not <m>±</m> a group element, but a genuinely complex combination of four of them. The isomorphism exists and it destroys the group.
+<p class="p"><strong>(a)</strong> $[D_4,D_4]=\langle r^2\rangle$ and $[Q_8,Q_8]=\langle z\rangle$; both abelianizations are $C_2\times C_2$. So each group algebra has exactly <strong>four</strong> homomorphisms to $\mathbb{C}$, given by $(\chi(r),\chi(s))\in\{\pm1\}^2$ and $(\chi(i),\chi(j))\in\{\pm1\}^2$.</p>
+<p class="p"><strong>(b)</strong> $\rho(r)^4=I$, $\rho(s)^2=I$, and $\rho(s)\rho(r)\rho(s)=\operatorname{diag}(-i,i)=\rho(r)^{-1}$. ✓ For $Q_8$: $\rho(i)^2=\rho(j)^2=-I=\rho(z)$, $\rho(i)\rho(j)=\begin{pmatrix}0&i\\i&0\end{pmatrix}=\rho(k)$, and $\rho(j)\rho(i)=-\rho(k)$. ✓ The minus sign in $\rho(j)$ is what makes $\rho(j)^2=-I$ rather than $+I$.</p>
+<p class="p"><strong>(c)</strong> Write $E=\rho(r)$ (or $\rho(i)$) $=\operatorname{diag}(i,-i)$. Then $E_{11}=\tfrac{I-iE}{2}$ and $E_{22}=\tfrac{I+iE}{2}$ lie in the image. Sandwiching gives $E_{11}\rho(s)E_{22}=E_{12}$ and $E_{22}\rho(s)E_{11}=E_{21}$. All four matrix units are in the image, so it is all of $M_2(\mathbb{C})$.</p>
+<p class="p"><strong>(d)</strong> Let $u=\tfrac{1-r^2}{2}$ in $\mathbb{C}[D_4]$ (respectively $e_-=\tfrac{1-z}{2}$ in $\mathbb{C}[Q_8]$). Since $\rho(r^2)=-I$ and $\chi(r^2)=1$ for all four linear $\chi$, we get $\Psi(u)=(0,0,0,0,I)$ and $\Psi(1-u)=(1,1,1,1,0)$. Multiplying by these projects onto either half, so the combined map is surjective; dimensions are $8=4+4$ on both sides, so it is an isomorphism.</p>
+<p class="p"><strong>(e)</strong> Both are $\cong\mathbb{C}^4\times M_2(\mathbb{C})$, hence isomorphic to each other. If some isomorphism sent $D_4$ into $\pm Q_8$ it would induce an injection $D_4\to Q_8\times\{\pm1\}$ respecting products up to sign, forcing $D_4\cong Q_8$, which is false since $D_4$ has five elements of order $2$ and $Q_8$ has one. So $\mathbb{C}[G]$ does <em>not</em> remember $G$. Over $\mathbb{Z}$ the situation is much better: $\mathbb{Z}[D_4]\not\cong\mathbb{Z}[Q_8]$, and the general integral isomorphism problem stood until Hertweck's 2001 counterexample.</p>
+<p class="p"><strong>(f)</strong> $\Phi(r)=i$, since $r$ and $i$ agree on all five components. For $s$ you need the four linear components to read $\chi(j)$ and the $M_2$ component to read $\begin{pmatrix}0&1\\1&0\end{pmatrix}$. Note that $-i\,\rho(k)=\begin{pmatrix}0&1\\1&0\end{pmatrix}$, so take
+$$\Phi(s)=j\,e_+ +(-ik)\,e_-=\tfrac12(j+zj)-\tfrac{i}{2}(k-zk).$$
+Check: on the linear components $\Phi(s)^2=1$; on $M_2$, $\begin{pmatrix}0&1\\1&0\end{pmatrix}^2=I$; and $\Phi(s)\Phi(r)\Phi(s)=\Phi(r)^{-1}$. ✓</p>
+<p class="p">Notice what $\Phi(s)$ is: not a group element, not $\pm$ a group element, but a genuinely complex combination of four of them. The isomorphism exists, and it destroys the group.</p>
 </div></details>
 </div>
 
 <h2 id="secJ">J. Group rings over a Galois field: cyclic codes <span class="rng">45–48</span></h2>
 
 <div class="card note">
-<p class="p">Change the coefficient ring from ℝ to <m>𝔽_q</m> and the same object becomes the foundation of algebraic coding theory. Every ingredient you have — ideals, idempotents, characters, the Fourier transform — reappears, now with Frobenius doing the bookkeeping.</p>
+<p class="p">Change the coefficient ring from $\mathbb{R}$ to $\mathbb{F}_q$ and the same object becomes the foundation of algebraic coding theory. Every ingredient you have — ideals, idempotents, characters, the Fourier transform — reappears, now with Frobenius doing the bookkeeping.</p>
 </div>
 
 <div class="card" id="p45"><a class="anchor" href="#p45">#45</a>
-<p class="p"><span class="num">45.</span> Show <m>𝔽_q[C_n] ≅ 𝔽_q[X]/(Xⁿ − 1)</m>. Then prove: a subspace of <m>𝔽_qⁿ</m> is invariant under the cyclic coordinate shift <strong>iff</strong> it is an ideal of this ring. (Such subspaces are exactly the <em>cyclic codes</em>.)</p>
+<p class="p"><span class="num">45.</span> Show $\mathbb{F}_q[C_n]\cong\mathbb{F}_q[X]/(X^n-1)$. Then prove that a subspace of $\mathbb{F}_q^n$ is invariant under the cyclic coordinate shift <strong>if and only if</strong> it is an ideal of this ring. (Such subspaces are exactly the <em>cyclic codes</em>.)</p>
 <details><summary>Answer</summary><div class="body">
-The shift is left multiplication by the generator <m>x</m>, i.e. <m>L_x</m>. A subspace closed under <m>L_x</m> is closed under <m>L_{p(x)}</m> for every polynomial, which is every element of the ring. Since the ring is commutative, that is exactly an ideal. And ideals of <m>𝔽_q[X]/(Xⁿ−1)</m> correspond to divisors of <m>Xⁿ−1</m> — so <strong>classifying cyclic codes is factoring <m>Xⁿ−1</m></strong>.
+<p class="p">The shift is left multiplication by the generator $x$, that is $L_x$. A subspace closed under $L_x$ is closed under $L_{p(x)}$ for every polynomial, which is every element of the ring; since the ring is commutative, that is exactly an ideal. And ideals of $\mathbb{F}_q[X]/(X^n-1)$ correspond to divisors of $X^n-1$, so <strong>classifying cyclic codes is factoring $X^n-1$</strong>.</p>
 </div></details>
 </div>
 
 <div class="card" id="p46"><a class="anchor" href="#p46">#46</a>
-<p class="p"><span class="num">46.</span> Take <m>q = 2</m>, <m>n = 7</m>. (a) Factor <m>X⁷ − 1</m> over <m>𝔽₂</m> by hand. (b) Let <m>g = X³+X+1</m> and let <m>C = (g)</m>. Compute <m>dim C</m> and write a generator matrix with rows <m>g, Xg, X²g, X³g</m>. (c) Find the minimum Hamming weight of a nonzero codeword. Identify the code.</p>
+<p class="p"><span class="num">46.</span> Take $q=2$ and $n=7$. (a) Factor $X^7-1$ over $\mathbb{F}_2$ by hand. (b) Let $g=X^3+X+1$ and $C=(g)$. Compute $\dim C$ and write a generator matrix with rows $g,Xg,X^2g,X^3g$. (c) Find the minimum Hamming weight of a nonzero codeword, and identify the code.</p>
 <details><summary>Answer</summary><div class="body">
-(a) <m>X⁷ − 1 = (X+1)(X³+X+1)(X³+X²+1)</m>.<br>
-(b) <m>dim C = 7 − deg g = 4</m>. Rows (low degree first):
-<div class="disp">1 1 0 1 0 0 0
-0 1 1 0 1 0 0
-0 0 1 1 0 1 0
-0 0 0 1 1 0 1</div>
-(c) Minimum weight <strong>3</strong>: this is the <m>[7,4,3]</m> binary Hamming code, the perfect single-error-correcting code. You just built it as an ideal in a group ring.
+<p class="p">(a) $X^7-1=(X+1)(X^3+X+1)(X^3+X^2+1)$.</p>
+<p class="p">(b) $\dim C=7-\deg g=4$, with generator matrix (low degree first)
+$$\begin{pmatrix}
+1&1&0&1&0&0&0\\
+0&1&1&0&1&0&0\\
+0&0&1&1&0&1&0\\
+0&0&0&1&1&0&1
+\end{pmatrix}.$$</p>
+<p class="p">(c) Minimum weight $\mathbf{3}$: this is the $[7,4,3]$ binary Hamming code, the perfect single-error-correcting code. You just built it as an ideal in a group ring.</p>
 </div></details>
 </div>
 
 <div class="card" id="p47"><a class="anchor" href="#p47">#47</a>
-<p class="p"><span class="num">47.</span> <strong>The Galois hop.</strong> Let <m>α</m> generate <m>𝔽₈^×</m> with <m>α³ = α + 1</m>. (a) Verify <m>α</m> is a root of <m>g</m>, and find the other two roots. (b) Explain the factorization in #46(a) via the orbits of the Frobenius <m>y ↦ y²</m> on the 7th roots of unity, i.e. via the 2-cyclotomic cosets mod 7. (c) State the general principle relating irreducible factors of <m>Xⁿ−1</m> over <m>𝔽_q</m> to <m>q</m>-cyclotomic cosets mod <m>n</m>.</p>
+<p class="p"><span class="num">47.</span> <strong>The Galois hop.</strong> Let $\alpha$ generate $\mathbb{F}_8^\times$ with $\alpha^3=\alpha+1$. (a) Verify $\alpha$ is a root of $g$, and find the other two roots. (b) Explain the factorization in #46(a) via the orbits of the Frobenius $y\mapsto y^2$ on the seventh roots of unity, that is, via the $2$-cyclotomic cosets mod $7$. (c) State the general principle relating irreducible factors of $X^n-1$ over $\mathbb{F}_q$ to $q$-cyclotomic cosets mod $n$.</p>
 <details><summary>Answer</summary><div class="body">
-(a) <m>g(α) = α³+α+1 = (α+1)+α+1 = 0</m> in characteristic 2. The other roots are the Frobenius conjugates <m>α²</m> and <m>α⁴</m>.<br>
-(b) Cosets of <m>⟨2⟩</m> acting on <m>ℤ/7</m>: <m>{0}, {1,2,4}, {3,6,5}</m> — sizes <m>1, 3, 3</m>, exactly matching the factor degrees. Each irreducible factor is <m>Π_{e ∈ coset}(X − α^e)</m>.<br>
-(c) The irreducible factors of <m>Xⁿ−1</m> over <m>𝔽_q</m> (with <m>gcd(n,q)=1</m>) are indexed by the orbits of multiplication-by-<m>q</m> on <m>ℤ/n</m>, and the degree of each factor is the size of its orbit — which is the order of <m>q</m> in <m>(ℤ/n)^×</m> restricted to that orbit. Galois theory of finite fields and the ideal structure of <m>𝔽_q[C_n]</m> are the same combinatorics.
+<p class="p">(a) $g(\alpha)=\alpha^3+\alpha+1=(\alpha+1)+\alpha+1=0$ in characteristic $2$. The other roots are the Frobenius conjugates $\alpha^2$ and $\alpha^4$.</p>
+<p class="p">(b) The cosets of $\langle 2\rangle$ acting on $\mathbb{Z}/7$ are $\{0\}$, $\{1,2,4\}$, $\{3,6,5\}$, of sizes $1,3,3$, exactly matching the factor degrees. Each irreducible factor is $\prod_{e\in\text{coset}}(X-\alpha^e)$.</p>
+<p class="p">(c) For $\gcd(n,q)=1$, the irreducible factors of $X^n-1$ over $\mathbb{F}_q$ are indexed by the orbits of multiplication-by-$q$ on $\mathbb{Z}/n$, and the degree of each factor is the size of its orbit. Galois theory of finite fields and the ideal structure of $\mathbb{F}_q[C_n]$ are the same combinatorics.</p>
 </div></details>
 </div>
 
 <div class="card" id="p48"><a class="anchor" href="#p48">#48</a>
-<p class="p"><span class="num">48.</span> <strong>An uncertainty principle over a finite field.</strong> Define the Fourier transform of a codeword by evaluation: <m>ĉ(m) = c(α^m)</m>. (a) Restate <m>C = (g)</m> as: <m>ĉ</m> vanishes on the frequency set <m>{1,2,4}</m>. (b) Prove the <strong>BCH bound</strong> in this case: if <m>ĉ(α^1) = ĉ(α^2) = 0</m> and <m>c ≠ 0</m>, then <m>c</m> has at least 3 nonzero coordinates. (c) Say in one sentence why this deserves to be called an uncertainty principle.</p>
-<details class="hint"><summary>Hint</summary><div class="body">Suppose the support has size 2 and write down the resulting 2×2 linear system in the unknown coefficients. Its matrix is a Vandermonde matrix at distinct nonzero nodes.</div></details>
+<p class="p"><span class="num">48.</span> <strong>An uncertainty principle over a finite field.</strong> Define the Fourier transform of a codeword by evaluation, $\widehat c(m)=c(\alpha^m)$. (a) Restate $C=(g)$ as: $\widehat c$ vanishes on the frequency set $\{1,2,4\}$. (b) Prove the <strong>BCH bound</strong> in this case: if $\widehat c(\alpha)=\widehat c(\alpha^2)=0$ and $c\neq 0$, then $c$ has at least three nonzero coordinates. (c) Say in one sentence why this deserves to be called an uncertainty principle.</p>
+<details class="hint"><summary>Hint</summary><div class="body"><p class="p">Suppose the support has size $2$ and write down the resulting $2\times 2$ linear system in the unknown coefficients. Its matrix is a Vandermonde matrix at distinct nonzero nodes.</p></div></details>
 <details><summary>Answer</summary><div class="body">
-(b) Suppose <m>c = X^{u} + X^{v}</m> with <m>u ≠ v</m> (over <m>𝔽₂</m> the coefficients are 1). Then <m>α^u + α^v = 0</m> and <m>α^{2u} + α^{2v} = 0</m>. The matrix <m>[[α^u, α^v],[α^{2u}, α^{2v}]]</m> has determinant <m>α^{u}α^{v}(α^{v} − α^{u}) ≠ 0</m>, so the only solution is the zero coefficient vector. Contradiction. Weight 1 is even easier. Hence weight <m>≥ 3</m>.<br>
-(c) A nonzero function whose spectrum vanishes on <m>d−1</m> <em>consecutive</em> frequencies cannot be supported on fewer than <m>d</m> points: concentration in the spectrum forces spreading in the support. That is the same shape of statement as the classical uncertainty principle, and over <m>ℤ/p</m> it sharpens to Tao's theorem, <m>|supp f| + |supp f̂| ≥ p+1</m>, whose proof is a fact about roots of unity (Chebotarev) — Galois again.
+<p class="p">(b) Suppose $c=X^u+X^v$ with $u\neq v$ (over $\mathbb{F}_2$ the coefficients are $1$). Then $\alpha^u+\alpha^v=0$ and $\alpha^{2u}+\alpha^{2v}=0$. The matrix
+$$\begin{pmatrix}\alpha^u&\alpha^v\\ \alpha^{2u}&\alpha^{2v}\end{pmatrix}$$
+has determinant $\alpha^u\alpha^v(\alpha^v-\alpha^u)\neq 0$, so the only solution is the zero coefficient vector, a contradiction. Weight $1$ is easier still. Hence the weight is at least $3$.</p>
+<p class="p">(c) A nonzero function whose spectrum vanishes on $d-1$ <em>consecutive</em> frequencies cannot be supported on fewer than $d$ points: concentration in the spectrum forces spreading in the support. That is the same shape of statement as the classical uncertainty principle, and over $\mathbb{Z}/p$ it sharpens to Tao's theorem, $|\operatorname{supp}f|+|\operatorname{supp}\widehat f|\ge p+1$, whose proof is a fact about roots of unity (Chebotarev). Galois again.</p>
 </div></details>
 </div>
 
 <h2 id="secK">K. Capstone: Gauss sums, cyclotomy, quadratic reciprocity <span class="rng">49</span></h2>
 
 <div class="card note">
-<p class="p">One object, three rooms. The Gauss sum is an element of a group ring; its square is a harmonic-analysis computation; the Galois group acts on it; and reducing it modulo a second prime — that is, moving to a group ring over a Galois field — gives quadratic reciprocity. This is the standard three-page proof, and every step is elementary. Take your time.</p>
+<p class="p">One object, three rooms. The Gauss sum is an element of a group ring; its square is a harmonic-analysis computation; the Galois group acts on it; and reducing it modulo a second prime, which is to say moving to a group ring over a Galois field, gives quadratic reciprocity. Every step is elementary. Take your time.</p>
 </div>
 
 <div class="card big" id="p49"><a class="anchor" href="#p49">#49</a>
-<p class="p"><span class="num">49.</span> Multi-part. Let <m>p</m> be an odd prime, <m>ζ = e^{2πi/p}</m>, and <m>(a|p)</m> the Legendre symbol. <span class="tag">juicy</span></p>
+<p class="p"><span class="num">49.</span> Multi-part. Let $p$ be an odd prime, $\zeta=e^{2\pi i/p}$, and $\left(\tfrac{a}{p}\right)$ the Legendre symbol. <span class="tag">juicy</span></p>
 
-<p class="part"><b>(a)</b> Show the map <m>ℤ[C_p] → ℤ[ζ]</m>, <m>x ↦ ζ</m>, is a surjective ring homomorphism with kernel generated by <m>N = 1 + x + ⋯ + x^{p−1}</m>. So <m>ℤ[ζ]</m> is a group ring modulo one relation, and every identity below is really a group-ring identity.</p>
+<p class="part"><span class="lbl">(a)</span> Show the map $\mathbb{Z}[C_p]\to\mathbb{Z}[\zeta]$, $x\mapsto\zeta$, is a surjective ring homomorphism with kernel generated by $N=1+x+\cdots+x^{p-1}$. So $\mathbb{Z}[\zeta]$ is a group ring modulo one relation, and every identity below is really a group-ring identity.</p>
 
-<p class="part"><b>(b)</b> Define the <strong>quadratic Gauss sum</strong> <m>g = Σ_{a=1}^{p−1} (a|p)·ζ^a</m>. Explain why this is the Fourier transform of the quadratic character evaluated at 1, and why that makes it the natural bridge between the multiplicative and additive structures of <m>𝔽_p</m>.</p>
+<p class="part"><span class="lbl">(b)</span> Define the <strong>quadratic Gauss sum</strong>
+$$g=\sum_{a=1}^{p-1}\left(\frac{a}{p}\right)\zeta^a.$$
+Explain why this is the Fourier transform of the quadratic character, and why that makes it the natural bridge between the multiplicative and additive structures of $\mathbb{F}_p$.</p>
 
-<p class="part"><b>(c)</b> Prove <m>Σ_{a=0}^{p−1} ζ^{ac} = p</m> if <m>c ≡ 0</m> and <m>0</m> otherwise. Then prove <m>g·ḡ = p</m>.</p>
-<details class="hint"><summary>Hint</summary><div class="body">In <m>gḡ = Σ_{a,b}(ab|p)ζ^{a−b}</m>, substitute <m>a = bc</m> and let <m>b</m> range. The <m>(b²|p)</m> that appears is 1.</div></details>
+<p class="part"><span class="lbl">(c)</span> Prove $\sum_{a=0}^{p-1}\zeta^{ac}=p$ if $c\equiv 0$ and $0$ otherwise. Then prove $g\overline{g}=p$.</p>
+<details class="hint"><summary>Hint</summary><div class="body"><p class="p">In $g\overline{g}=\sum_{a,b}\left(\tfrac{ab}{p}\right)\zeta^{a-b}$, substitute $a=bc$ and let $b$ range. The $\left(\tfrac{b^2}{p}\right)$ that appears is $1$.</p></div></details>
 
-<p class="part"><b>(d)</b> Show <m>ḡ = (−1|p)·g</m>, and conclude
-<div class="disp">g² = (−1)^{(p−1)/2}·p =: p*</div></p>
+<p class="part"><span class="lbl">(d)</span> Show $\overline{g}=\left(\tfrac{-1}{p}\right)g$, and conclude
+$$g^2=(-1)^{(p-1)/2}\,p=:p^*.$$</p>
 
-<p class="part"><b>(e)</b> <strong>Galois.</strong> For <m>σ_a ∈ Gal(ℚ(ζ)/ℚ) ≅ (ℤ/p)^×</m> defined by <m>ζ ↦ ζ^a</m>, show <m>σ_a(g) = (a|p)·g</m>. Deduce that <m>ℚ(g) = ℚ(√{p*})</m> is <em>the</em> unique quadratic subfield of <m>ℚ(ζ_p)</m>, and say why "unique" is automatic.</p>
-<details class="hint"><summary>Hint</summary><div class="body"><m>(ℤ/p)^×</m> is cyclic. How many subgroups of index 2 does a cyclic group have?</div></details>
+<p class="part"><span class="lbl">(e)</span> <strong>Galois.</strong> For $\sigma_a\in\operatorname{Gal}(\mathbb{Q}(\zeta)/\mathbb{Q})\cong(\mathbb{Z}/p)^\times$ defined by $\zeta\mapsto\zeta^a$, show $\sigma_a(g)=\left(\tfrac{a}{p}\right)g$. Deduce that $\mathbb{Q}(g)=\mathbb{Q}(\sqrt{p^*})$ is <em>the</em> unique quadratic subfield of $\mathbb{Q}(\zeta_p)$, and say why uniqueness is automatic.</p>
+<details class="hint"><summary>Hint</summary><div class="body"><p class="p">$(\mathbb{Z}/p)^\times$ is cyclic. How many subgroups of index $2$ does a cyclic group have?</p></div></details>
 
-<p class="part"><b>(f)</b> <strong>Reduce mod a second prime.</strong> Let <m>q ≠ p</m> be an odd prime and work in <m>ℤ[ζ]/qℤ[ζ]</m> — a group ring over a field of characteristic <m>q</m>. Prove <m>g^q ≡ (q|p)·g</m> two different ways: once using the Frobenius <m>y ↦ y^q</m>, once using <m>g² = p*</m> together with Euler's criterion. Compare the two answers.</p>
-<details class="hint"><summary>Hint</summary><div class="body">In characteristic <m>q</m>, raising a sum to the <m>q</m>-th power is additive — that is the only property of the Frobenius you need. For the second route, <m>g^q = g·(g²)^{(q−1)/2}</m>.</div></details>
+<p class="part"><span class="lbl">(f)</span> <strong>Reduce mod a second prime.</strong> Let $q\neq p$ be another odd prime and work in $\mathbb{Z}[\zeta]/q\mathbb{Z}[\zeta]$, a group ring over a field of characteristic $q$. Prove $g^q\equiv\left(\tfrac{q}{p}\right)g$ two different ways: once using the Frobenius $y\mapsto y^q$, once using $g^2=p^*$ together with Euler's criterion. Compare the two answers.</p>
+<details class="hint"><summary>Hint</summary><div class="body"><p class="p">In characteristic $q$, raising a sum to the $q$-th power is additive; that is the only property of the Frobenius you need. For the second route, $g^q=g\,(g^2)^{(q-1)/2}$.</p></div></details>
 
-<p class="part"><b>(g)</b> Conclude <strong>quadratic reciprocity</strong>: for distinct odd primes <m>p, q</m>,
-<div class="disp">(p|q)(q|p) = (−1)^{((p−1)/2)((q−1)/2)}</div></p>
+<p class="part"><span class="lbl">(g)</span> Conclude <strong>quadratic reciprocity</strong>: for distinct odd primes $p,q$,
+$$\left(\frac{p}{q}\right)\left(\frac{q}{p}\right)=(-1)^{\frac{p-1}{2}\cdot\frac{q-1}{2}}.$$</p>
 
 <details><summary>Answers</summary><div class="body">
-<strong>(a)</strong> Surjective since <m>ζ</m> generates. <m>N ↦ 1 + ζ + ⋯ + ζ^{p−1} = 0</m>, and <m>ℤ[C_p]/(N) ≅ ℤ[X]/(X^p−1, 1+X+⋯+X^{p−1}) = ℤ[X]/Φ_p(X) ≅ ℤ[ζ]</m>.<br><br>
-<strong>(b)</strong> <m>a ↦ (a|p)</m> is the unique nontrivial <em>multiplicative</em> character of <m>𝔽_p^×</m>; <m>a ↦ ζ^a</m> is an <em>additive</em> character. <m>g</m> pairs one against the other. Gauss sums are exactly the change-of-basis coefficients between additive and multiplicative harmonic analysis on <m>𝔽_p</m> — which is why they show up everywhere from Dirichlet <m>L</m>-functions to the Weil conjectures.<br><br>
-<strong>(c)</strong> Geometric series: <m>Σ_a ζ^{ac} = (ζ^{pc}−1)/(ζ^c−1) = 0</m> for <m>c ≢ 0</m>. Then
-<div class="disp">gḡ = Σ_{a,b}(ab|p)ζ^{a−b}   (a = bc)
-   = Σ_{b,c}(b²c|p)ζ^{b(c−1)} = Σ_c (c|p) Σ_b ζ^{b(c−1)}
-   = (1|p)(p−1) − Σ_{c≠1}(c|p) = (p−1) − (0 − 1) = p</div>
-(using <m>Σ_{c}(c|p) = 0</m>).<br><br>
-<strong>(d)</strong> <m>ḡ = Σ_a (a|p)ζ^{−a} = Σ_b (−b|p)ζ^{b} = (−1|p)g</m>. So <m>(−1|p)g² = p</m>, and since <m>(−1|p) = ±1</m>, <m>g² = (−1|p)p = (−1)^{(p−1)/2}p = p*</m>.<br><br>
-<strong>(e)</strong> <m>σ_a(g) = Σ_b (b|p)ζ^{ab} = Σ_c (a⁻¹c|p)ζ^{c} = (a|p)g</m> since <m>(a⁻¹|p) = (a|p)</m>. So <m>g</m> is fixed exactly by <m>σ_a</m> with <m>a</m> a quadratic residue — an index-2 subgroup — hence <m>ℚ(g)</m> is a quadratic extension of ℚ, and <m>g² = p*</m> makes it <m>ℚ(√p*)</m>. Uniqueness: <m>Gal(ℚ(ζ_p)/ℚ) ≅ (ℤ/p)^×</m> is cyclic of order <m>p−1</m>, and a cyclic group has exactly one subgroup of each order dividing the order — so exactly one index-2 subgroup, so exactly one quadratic subfield.
-<div class="disp">The quadratic subfield of ℚ(ζ_p) is ℚ(√((−1)^{(p−1)/2}·p)).</div>
-That is a complete, sharp, nonobvious theorem, and you got it out of a nine-line computation in a group ring.<br><br>
-<strong>(f)</strong> Route 1: in characteristic <m>q</m>, <m>g^q ≡ Σ_a (a|p)^q ζ^{aq} = Σ_a (a|p)ζ^{aq} = σ_q(g) = (q|p)g</m>, using <m>(a|p)^q = (a|p)</m> for odd <m>q</m>.<br>
-Route 2: <m>g^q = g(g²)^{(q−1)/2} = g(p*)^{(q−1)/2} ≡ g·(p*|q)</m> by Euler's criterion.<br>
-So <m>(q|p)g ≡ (p*|q)g (mod q)</m>. Multiply by <m>g</m>: <m>(q|p)p* ≡ (p*|q)p*</m>, and <m>p*</m> is invertible mod <m>q</m>, so <m>(q|p) ≡ (p*|q) (mod q)</m>. Both sides are <m>±1</m> and <m>q > 2</m>, so they are <em>equal</em>.<br><br>
-<strong>(g)</strong> <m>(p*|q) = ((−1)^{(p−1)/2}|q)(p|q) = (−1)^{((p−1)/2)((q−1)/2)}(p|q)</m>, using <m>(−1|q) = (−1)^{(q−1)/2}</m>. Combined with <m>(q|p) = (p*|q)</m>:
-<div class="disp">(q|p) = (−1)^{((p−1)/2)((q−1)/2)}·(p|q)   ⟺   (p|q)(q|p) = (−1)^{((p−1)/2)((q−1)/2)}</div>
-Gauss's <em>theorema aureum</em>, proved by writing down one element of a group ring, squaring it, and reducing it modulo a prime.
+<p class="p"><strong>(a)</strong> Surjective since $\zeta$ generates. $N\mapsto 1+\zeta+\cdots+\zeta^{p-1}=0$, and
+$$\mathbb{Z}[C_p]/(N)\cong\mathbb{Z}[X]/(X^p-1,\,1+X+\cdots+X^{p-1})=\mathbb{Z}[X]/\Phi_p(X)\cong\mathbb{Z}[\zeta].$$</p>
+<p class="p"><strong>(b)</strong> $a\mapsto\left(\tfrac{a}{p}\right)$ is the unique nontrivial <em>multiplicative</em> character of $\mathbb{F}_p^\times$, while $a\mapsto\zeta^a$ is an <em>additive</em> character, and $g$ pairs one against the other. Gauss sums are exactly the change-of-basis coefficients between additive and multiplicative harmonic analysis on $\mathbb{F}_p$, which is why they turn up everywhere from Dirichlet $L$-functions to the Weil conjectures.</p>
+<p class="p"><strong>(c)</strong> Geometric series: $\sum_a\zeta^{ac}=\frac{\zeta^{pc}-1}{\zeta^c-1}=0$ for $c\not\equiv 0$. Then, using $\sum_c\left(\tfrac{c}{p}\right)=0$,
+$$\begin{aligned}
+g\overline{g}&=\sum_{a,b}\left(\tfrac{ab}{p}\right)\zeta^{a-b}
+=\sum_{b,c}\left(\tfrac{b^2c}{p}\right)\zeta^{b(c-1)}
+=\sum_c\left(\tfrac{c}{p}\right)\sum_b\zeta^{b(c-1)}\\
+&=(p-1)-\sum_{c\neq 1}\left(\tfrac{c}{p}\right)=(p-1)-(0-1)=p.
+\end{aligned}$$</p>
+<p class="p"><strong>(d)</strong> $\overline{g}=\sum_a\left(\tfrac{a}{p}\right)\zeta^{-a}=\sum_b\left(\tfrac{-b}{p}\right)\zeta^b=\left(\tfrac{-1}{p}\right)g$. So $\left(\tfrac{-1}{p}\right)g^2=p$, and since $\left(\tfrac{-1}{p}\right)=\pm 1$, $g^2=\left(\tfrac{-1}{p}\right)p=(-1)^{(p-1)/2}p=p^*$.</p>
+<p class="p"><strong>(e)</strong> $\sigma_a(g)=\sum_b\left(\tfrac{b}{p}\right)\zeta^{ab}=\sum_c\left(\tfrac{a^{-1}c}{p}\right)\zeta^c=\left(\tfrac{a}{p}\right)g$, since $\left(\tfrac{a^{-1}}{p}\right)=\left(\tfrac{a}{p}\right)$. So $g$ is fixed exactly by those $\sigma_a$ with $a$ a quadratic residue, an index-$2$ subgroup, hence $\mathbb{Q}(g)$ is a quadratic extension of $\mathbb{Q}$, and $g^2=p^*$ makes it $\mathbb{Q}(\sqrt{p^*})$. Uniqueness: $\operatorname{Gal}(\mathbb{Q}(\zeta_p)/\mathbb{Q})\cong(\mathbb{Z}/p)^\times$ is cyclic of order $p-1$, and a cyclic group has exactly one subgroup of each order dividing the order, so exactly one index-$2$ subgroup, so exactly one quadratic subfield. That is:
+$$\text{the quadratic subfield of }\mathbb{Q}(\zeta_p)\text{ is }\mathbb{Q}\Big(\sqrt{(-1)^{(p-1)/2}p}\Big),$$
+a complete, sharp, nonobvious theorem obtained from a nine-line computation in a group ring.</p>
+<p class="p"><strong>(f)</strong> Route 1: in characteristic $q$, $g^q\equiv\sum_a\left(\tfrac{a}{p}\right)^q\zeta^{aq}=\sum_a\left(\tfrac{a}{p}\right)\zeta^{aq}=\sigma_q(g)=\left(\tfrac{q}{p}\right)g$, using $\left(\tfrac{a}{p}\right)^q=\left(\tfrac{a}{p}\right)$ for odd $q$. Route 2: $g^q=g(g^2)^{(q-1)/2}=g\,(p^*)^{(q-1)/2}\equiv g\left(\tfrac{p^*}{q}\right)$ by Euler's criterion.</p>
+<p class="p">So $\left(\tfrac{q}{p}\right)g\equiv\left(\tfrac{p^*}{q}\right)g\pmod q$. Multiply by $g$ to get $\left(\tfrac{q}{p}\right)p^*\equiv\left(\tfrac{p^*}{q}\right)p^*$, and $p^*$ is invertible mod $q$, so $\left(\tfrac{q}{p}\right)\equiv\left(\tfrac{p^*}{q}\right)\pmod q$. Both sides are $\pm 1$ and $q>2$, so they are <em>equal</em>.</p>
+<p class="p"><strong>(g)</strong> Using $\left(\tfrac{-1}{q}\right)=(-1)^{(q-1)/2}$,
+$$\left(\tfrac{p^*}{q}\right)=\left(\tfrac{(-1)^{(p-1)/2}}{q}\right)\left(\tfrac{p}{q}\right)=(-1)^{\frac{p-1}{2}\frac{q-1}{2}}\left(\tfrac{p}{q}\right),$$
+and combining with $\left(\tfrac{q}{p}\right)=\left(\tfrac{p^*}{q}\right)$ gives
+$$\left(\frac{p}{q}\right)\left(\frac{q}{p}\right)=(-1)^{\frac{p-1}{2}\cdot\frac{q-1}{2}}.$$
+Gauss's <em>theorema aureum</em>, proved by writing down one element of a group ring, squaring it, and reducing it modulo a prime.</p>
 </div></details>
 </div>
 
 <h2 id="secL">L. The corridor: group rings → Laplacians → manifolds and harmonics <span class="rng">50–54</span></h2>
 
 <div class="card note">
-<p class="p">You called it a corridor and that is the right word. Here is the load-bearing sentence: <strong>a group ring is the algebra of translation-invariant operators, and a Laplacian is a translation-invariant operator.</strong> Everything from the <m>n</m>-cycle to spherical harmonics is that one observation at different levels of generality. Problems 51 and 52 are hand computations; 53 and 54 are the doorway.</p>
+<p class="p">The load-bearing sentence: <strong>a group ring is the algebra of translation-invariant operators, and a Laplacian is a translation-invariant operator.</strong> Everything from the $n$-cycle to spherical harmonics is that one observation at different levels of generality. Problems 51 and 52 are hand computations; 53 and 54 are the doorway.</p>
 </div>
 
 <div class="card" id="p50"><a class="anchor" href="#p50">#50</a>
-<p class="p"><span class="num">50.</span> Reinterpret <m>ℂ[G]</m> as the space of functions <m>G → ℂ</m> under convolution. Prove: a linear operator <m>T</m> on <m>ℂ[G]</m> commutes with every <em>right</em> translation <m>R_h</m> if and only if <m>T = L_α</m> for a unique <m>α</m>. So <m>ℂ[G]</m> <em>is</em> the algebra of translation-invariant operators.</p>
+<p class="p"><span class="num">50.</span> Reinterpret $\mathbb{C}[G]$ as the space of functions $G\to\mathbb{C}$ under convolution. Prove that a linear operator $T$ on $\mathbb{C}[G]$ commutes with every <em>right</em> translation $R_h$ if and only if $T=L_\alpha$ for a unique $\alpha$. So $\mathbb{C}[G]$ <em>is</em> the algebra of translation-invariant operators.</p>
 <details><summary>Answer</summary><div class="body">
-(⟸) is associativity. (⟹) Put <m>α = T(1)</m>. Then for any <m>h</m>, <m>T(h) = T(R_h 1) = R_h T(1) = αh</m>, and <m>T = L_α</m> by linearity. Uniqueness because <m>L_α(1) = α</m>.<br><br>
-This one lemma is the corridor. Replace "finite group + counting measure" by "compact group + Haar measure" and it still holds; replace it by "ℝⁿ under translation" and translation-invariant operators are exactly convolution operators, i.e. Fourier multipliers — which is why constant-coefficient differential operators (the Laplacian foremost) are diagonalized by the Fourier transform.
+<p class="p">One direction is associativity. For the other, put $\alpha=T(1)$; then for any $h$, $T(h)=T(R_h1)=R_hT(1)=\alpha h$, so $T=L_\alpha$ by linearity, and uniqueness holds because $L_\alpha(1)=\alpha$.</p>
+<p class="p">This one lemma is the corridor. Replace "finite group with counting measure" by "compact group with Haar measure" and it still holds; replace it by "$\mathbb{R}^n$ under translation" and translation-invariant operators are exactly convolution operators, that is, Fourier multipliers, which is why constant-coefficient differential operators (the Laplacian foremost) are diagonalized by the Fourier transform.</p>
 </div></details>
 </div>
 
 <div class="card" id="p51"><a class="anchor" href="#p51">#51</a>
-<p class="p"><span class="num">51.</span> <strong>The discrete Laplacian is a group-ring element.</strong> In <m>ℝ[C_n]</m>, set <m>Δ = 2·1 − x − x^{n−1}</m>. (a) Show <m>L_Δ</m> is the graph Laplacian of the <m>n</m>-cycle. (b) Compute its full spectrum using #33. (c) Identify <m>ker Δ</m> and the multiplicity pattern of the nonzero eigenvalues, and match it to #35. (d) Rescale by <m>h = 2π/n</m> and let <m>n → ∞</m>: recover the spectrum of <m>−d²/dθ²</m> on the circle.</p>
+<p class="p"><span class="num">51.</span> <strong>The discrete Laplacian is a group-ring element.</strong> In $\mathbb{R}[C_n]$, set $\Delta=2\cdot 1-x-x^{n-1}$. (a) Show $L_\Delta$ is the graph Laplacian of the $n$-cycle. (b) Compute its full spectrum using #33. (c) Identify $\ker\Delta$ and the multiplicity pattern of the nonzero eigenvalues, and match it to #35. (d) Rescale by $h=2\pi/n$ and let $n\to\infty$ to recover the spectrum of $-d^2/d\theta^2$ on the circle.</p>
 <details><summary>Answer</summary><div class="body">
-(a) <m>(Δ·f)(j) = 2f(j) − f(j−1) − f(j+1)</m>, the second-difference operator on the cycle. (b) By #33 the eigenvalue at frequency <m>m</m> is
-<div class="disp">λ_m = 2 − ω^m − ω^{−m} = 2 − 2cos(2πm/n) = 4sin²(πm/n)</div>
-(c) <m>λ_0 = 0</m> with eigenvector the constant function — <m>ker Δ</m> is the constants, one dimension, reflecting that the cycle is connected. For <m>0 < m < n/2</m>, <m>λ_m = λ_{n−m}</m>: eigenvalues come in pairs, because the characters <m>χ_m</m> and <m>χ_{n−m}</m> are complex conjugates and cannot be separated over ℝ. Those pairs are exactly the 2-dimensional real blocks of #35, and over ℝ their eigenvectors are <m>cos(2πmj/n)</m> and <m>sin(2πmj/n)</m>.<br>
-(d) With <m>h = 2π/n</m>, the rescaled eigenvalue is <m>h^{−2}λ_m = h^{−2}(2 − 2cos(mh))</m>, and expanding the cosine gives <m>h^{−2}(m²h² + O(h⁴)) → m²</m> as <m>n → ∞</m>. The eigenvalues of <m>−d²/dθ²</m> on <m>L²(S¹)</m> are <m>m²</m> with eigenfunctions <m>e^{imθ}</m>. The discrete Fourier transform of #33 converges to the Fourier series, and the group ring converges to the convolution algebra of the circle.
+<p class="p">(a) $(\Delta f)(j)=2f(j)-f(j-1)-f(j+1)$, the second-difference operator on the cycle. (b) By #33 the eigenvalue at frequency $m$ is
+$$\lambda_m=2-\omega^m-\omega^{-m}=2-2\cos\!\big(\tfrac{2\pi m}{n}\big)=4\sin^2\!\big(\tfrac{\pi m}{n}\big).$$</p>
+<p class="p">(c) $\lambda_0=0$ with the constant function as eigenvector, so $\ker\Delta$ is one-dimensional, reflecting that the cycle is connected. For $0<m<n/2$ we have $\lambda_m=\lambda_{n-m}$: eigenvalues come in pairs, because $\chi_m$ and $\chi_{n-m}$ are complex conjugates and cannot be separated over $\mathbb{R}$. Those pairs are exactly the $2$-dimensional real blocks of #35, with real eigenvectors $\cos(2\pi mj/n)$ and $\sin(2\pi mj/n)$.</p>
+<p class="p">(d) With $h=2\pi/n$, $h^{-2}\lambda_m=h^{-2}\big(2-2\cos(mh)\big)=h^{-2}\big(m^2h^2+O(h^4)\big)\to m^2$. The eigenvalues of $-d^2/d\theta^2$ on $L^2(S^1)$ are $m^2$ with eigenfunctions $e^{im\theta}$. The discrete Fourier transform of #33 converges to the Fourier series, and the group ring converges to the convolution algebra of the circle.</p>
 </div></details>
 </div>
 
 <div class="card big" id="p52"><a class="anchor" href="#p52">#52</a>
-<p class="p"><span class="num">52.</span> <strong>Nonabelian: representation theory computes graph spectra.</strong> For a symmetric generating set <m>S ⊆ G</m>, the Cayley graph adjacency operator is <m>L_A</m> with <m>A = Σ_{s∈S} s ∈ ℝ[G]</m>.</p>
-<p class="part"><b>(a)</b> Show that if <m>ℂ[G] ≅ Π_i M_{n_i}(ℂ)</m>, then the eigenvalues of <m>L_A</m> are the eigenvalues of <m>ρ_i(A)</m>, each occurring with multiplicity <m>n_i</m>. (Note this needs no centrality of <m>A</m>.)</p>
-<p class="part"><b>(b)</b> Take <m>G = D₄</m>, <m>S = {r, r³, s}</m>. Compute the full 8-element spectrum by hand using the blocks from #44. Check the trace and the top eigenvalue against what you know about a 3-regular graph.</p>
-<p class="part"><b>(c)</b> Take <m>G = Q₈</m>, <m>S = {i, zi, j, zj}</m>. Compute the spectrum. Then identify the graph.</p>
-<details class="hint"><summary>Hint</summary><div class="body">(a) The block <m>M_{n_i}(ℂ)</m> is <m>n_i</m> copies of the <m>n_i</m>-dimensional irreducible module, and left multiplication acts the same way on each copy. (c) The 2×2 block will collapse to something very simple. Then count: a graph with only three distinct eigenvalues, one of them 0 with high multiplicity, is not a mystery.</div></details>
+<p class="p"><span class="num">52.</span> <strong>Nonabelian: representation theory computes graph spectra.</strong> For a symmetric generating set $S\subseteq G$, the Cayley graph adjacency operator is $L_A$ with $A=\sum_{s\in S}s\in\mathbb{R}[G]$.</p>
+<p class="part"><span class="lbl">(a)</span> Show that if $\mathbb{C}[G]\cong\prod_i M_{n_i}(\mathbb{C})$, then the eigenvalues of $L_A$ are the eigenvalues of $\rho_i(A)$, each occurring with multiplicity $n_i$. (Note this needs no centrality of $A$.)</p>
+<p class="part"><span class="lbl">(b)</span> Take $G=D_4$ and $S=\{r,r^3,s\}$. Compute the full eight-element spectrum by hand using the blocks from #44. Check the trace and the top eigenvalue against what you know about a $3$-regular graph.</p>
+<p class="part"><span class="lbl">(c)</span> Take $G=Q_8$ and $S=\{i,zi,j,zj\}$. Compute the spectrum, then identify the graph.</p>
+<details class="hint"><summary>Hint</summary><div class="body"><p class="p">(a) The block $M_{n_i}(\mathbb{C})$ is $n_i$ copies of the $n_i$-dimensional irreducible module, and left multiplication acts the same way on each copy. (c) The $2\times 2$ block will collapse to something very simple. Then count: a graph with only three distinct eigenvalues, one of them $0$ with high multiplicity, is not a mystery.</p></div></details>
 <details><summary>Answer</summary><div class="body">
-(b) Linear blocks: <m>χ(r)+χ(r³)+χ(s) = 2ε₁ + ε₂</m> over <m>(ε₁,ε₂) ∈ {±1}²</m>, giving <m>3, 1, −1, −3</m>. The <m>M₂</m> block: <m>ρ(r)+ρ(r³) = diag(i,−i) + diag(−i,i) = 0</m>, so <m>ρ(A) = ρ(s) = [[0,1],[1,0]]</m>, eigenvalues <m>±1</m>, each with multiplicity 2. Full spectrum:
-<div class="disp">{ 3, 1, 1, 1, −1, −1, −1, −3 }</div>
-Trace 0 ✓ (no generator is the identity). Top eigenvalue 3 with multiplicity 1 ✓ (3-regular and connected). Bottom eigenvalue <m>−3</m> present ⟹ the graph is bipartite — which you can also see directly, since every element of <m>S</m> flips the parity of the exponent of <m>s</m>.<br><br>
-(c) Linear blocks: <m>χ(z) = 1</m>, so <m>χ(i)+χ(zi)+χ(j)+χ(zj) = 2ε₁ + 2ε₂</m>, giving <m>4, 0, 0, −4</m>. The <m>M₂</m> block: <m>ρ(i) + ρ(zi) = 0</m> and <m>ρ(j) + ρ(zj) = 0</m>, so <m>ρ(A) = 0</m> and it contributes eigenvalue 0 with multiplicity 4. Full spectrum:
-<div class="disp">{ 4, 0, 0, 0, 0, 0, 0, −4 }</div>
-Three distinct eigenvalues <m>4, 0, −4</m> on 8 vertices, 4-regular, bipartite: this is <m>K_{4,4}</m>. And indeed the Cayley graph of <m>Q₈</m> on <m>{±i, ±j}</m> joins <m>{1,z,k,zk}</m> to <m>{i,zi,j,zj}</m> completely.<br><br>
-Look at what happened: you computed the spectrum of an 8-vertex graph without ever writing down an 8×8 matrix, by factoring the problem through the representation theory. This is the whole method behind expander constructions and Ramanujan graphs.
+<p class="p">(b) Linear blocks give $\chi(r)+\chi(r^3)+\chi(s)=2\varepsilon_1+\varepsilon_2$ over $(\varepsilon_1,\varepsilon_2)\in\{\pm1\}^2$, that is $3,1,-1,-3$. For the $M_2$ block, $\rho(r)+\rho(r^3)=\operatorname{diag}(i,-i)+\operatorname{diag}(-i,i)=0$, so $\rho(A)=\rho(s)=\begin{pmatrix}0&1\\1&0\end{pmatrix}$, with eigenvalues $\pm1$ each of multiplicity $2$. The full spectrum is
+$$\{\,3,\;1,\;1,\;1,\;-1,\;-1,\;-1,\;-3\,\}.$$
+Trace $0$ ✓ (no generator is the identity). Top eigenvalue $3$ with multiplicity $1$ ✓ ($3$-regular and connected). The presence of $-3$ says the graph is bipartite, which you can also see directly, since every element of $S$ flips the parity of the exponent of $s$.</p>
+<p class="p">(c) Linear blocks: $\chi(z)=1$, so $\chi(i)+\chi(zi)+\chi(j)+\chi(zj)=2\varepsilon_1+2\varepsilon_2$, giving $4,0,0,-4$. For the $M_2$ block, $\rho(i)+\rho(zi)=0$ and $\rho(j)+\rho(zj)=0$, so $\rho(A)=0$ and it contributes eigenvalue $0$ with multiplicity $4$. The full spectrum is
+$$\{\,4,\;0,\;0,\;0,\;0,\;0,\;0,\;-4\,\}.$$
+Three distinct eigenvalues $4,0,-4$ on eight vertices, $4$-regular, bipartite: this is $K_{4,4}$. Indeed the Cayley graph of $Q_8$ on $\{\pm i,\pm j\}$ joins $\{1,z,k,zk\}$ to $\{i,zi,j,zj\}$ completely.</p>
+<p class="p">Look at what happened: you computed the spectrum of an eight-vertex graph without ever writing down an $8\times 8$ matrix, by factoring the problem through the representation theory. This is the whole method behind expander constructions and Ramanujan graphs.</p>
 </div></details>
 </div>
 
 <div class="card" id="p53"><a class="anchor" href="#p53">#53</a>
-<p class="p"><span class="num">53.</span> <strong>Peter–Weyl, stated as a dictionary.</strong> Fill in the right-hand column, then check the <m>G = S¹</m> row by hand: show that #33's argument runs verbatim for trigonometric polynomials under convolution.</p>
-<div class="disp">FINITE G                          COMPACT G
-ℂ[G], dim |G|                     L²(G) with Haar measure
-convolution                       convolution
-ℂ[G] = ⊕_i M_{n_i}(ℂ)             L²(G) = ⊕̂_π (V_π ⊗ V_π*)
-|G| = Σ n_i²                      Plancherel
-characters, DFT (#33-34)          Fourier series / Fourier transform
-class sums span the center (#25)  central functions; Δ is central
-L_α, translation-invariant (#50)  invariant differential operators</div>
+<p class="p"><span class="num">53.</span> <strong>Peter–Weyl, stated as a dictionary.</strong> Fill in the right-hand column, then check the $G=S^1$ row by hand: show that #33's argument runs verbatim for trigonometric polynomials under convolution.</p>
+<div class="scroll">
+<table>
+<tr><th>Finite $G$</th><th>Compact $G$</th></tr>
+<tr><td>$\mathbb{C}[G]$, dimension $|G|$</td><td>$L^2(G)$ with Haar measure</td></tr>
+<tr><td>convolution</td><td>convolution</td></tr>
+<tr><td>$\mathbb{C}[G]=\bigoplus_i M_{n_i}(\mathbb{C})$</td><td>$L^2(G)=\widehat{\bigoplus}_\pi\,(V_\pi\otimes V_\pi^*)$</td></tr>
+<tr><td>$|G|=\sum_i n_i^2$</td><td>Plancherel</td></tr>
+<tr><td>characters, DFT (#33–34)</td><td>Fourier series / Fourier transform</td></tr>
+<tr><td>class sums span the center (#25)</td><td>central functions; $\Delta$ is central</td></tr>
+<tr><td>$L_\alpha$, translation-invariant (#50)</td><td>invariant differential operators</td></tr>
+</table>
+</div>
 <details><summary>Answer</summary><div class="body">
-For <m>G = S¹</m>: characters are <m>e_m(θ) = e^{imθ}</m>, and <m>f * e_m = f̂(m)·e_m</m> — every convolution operator is diagonal in the character basis, with eigenvalue the Fourier coefficient. That is #33 word for word, with <m>Σ_j</m> replaced by <m>∫dθ</m>. All the irreducibles are 1-dimensional because <m>S¹</m> is abelian, so the direct sum is over <m>ℤ</m> and the blocks are <m>1×1</m>.<br><br>
-The Peter–Weyl theorem is exactly the statement that the finite-dimensional row survives the limit: <m>L²(G)</m> for compact <m>G</m> decomposes as a Hilbert direct sum of <m>n_π</m> copies of each irreducible <m>V_π</m>, matrix-coefficient by matrix-coefficient. <m>ℂ[G] = Π M_{n_i}(ℂ)</m> is the finite case of it, and you proved that case for <m>D₄</m> and <m>Q₈</m> by hand in #44.
+<p class="p">For $G=S^1$ the characters are $e_m(\theta)=e^{im\theta}$, and $f*e_m=\widehat f(m)\,e_m$: every convolution operator is diagonal in the character basis, with eigenvalue the Fourier coefficient. That is #33 word for word, with $\sum_j$ replaced by $\int d\theta$. All the irreducibles are $1$-dimensional because $S^1$ is abelian, so the direct sum is over $\mathbb{Z}$ and the blocks are $1\times 1$.</p>
+<p class="p">The Peter–Weyl theorem is exactly the statement that the finite-dimensional row survives the limit: $L^2(G)$ for compact $G$ decomposes as a Hilbert direct sum of $n_\pi$ copies of each irreducible $V_\pi$, matrix coefficient by matrix coefficient. $\mathbb{C}[G]=\prod_i M_{n_i}(\mathbb{C})$ is the finite case of it, and you proved that case for $D_4$ and $Q_8$ by hand in #44.</p>
 </div></details>
 </div>
 
 <div class="card big" id="p54"><a class="anchor" href="#p54">#54</a>
-<p class="p"><span class="num">54.</span> <strong>The far end of the corridor: spherical harmonics.</strong> Let <m>S² = SO(3)/SO(2)</m>.</p>
-<p class="part"><b>(a)</b> Verify that <m>x, y, z</m> are harmonic homogeneous polynomials on <m>ℝ³</m>, that <m>SO(3)</m> preserves their span, and that their restrictions to <m>S²</m> satisfy <m>Δ_{S²}Y = −2Y</m>.</p>
-<p class="part"><b>(b)</b> Let <m>H_ℓ</m> = harmonic homogeneous polynomials of degree <m>ℓ</m> in 3 variables. Compute <m>dim H_ℓ</m> for <m>ℓ = 0,1,2,3</m> by hand, and prove <m>dim H_ℓ = 2ℓ+1</m> in general.</p>
-<p class="part"><b>(c)</b> State why <m>Δ_{S²}</m> acts as a <em>scalar</em> on each <m>H_ℓ</m>, citing the exact problem on this page that is doing the work.</p>
-<p class="part"><b>(d)</b> <m>L²(S²) = ⊕̂_{ℓ≥0} H_ℓ</m>, and <m>H_ℓ</m> is the <m>(2ℓ+1)</m>-dimensional irreducible representation of <m>SO(3)</m>. Explain why <em>every</em> odd-dimensional irreducible appears exactly once, and why the even-dimensional ones do not appear at all.</p>
-<details class="hint"><summary>Hint</summary><div class="body">(c) It is #31, verbatim, for a compact group: an operator commuting with an irreducible action is a scalar. Which action does <m>Δ_{S²}</m> commute with, and why? (d) Functions on <m>G/K</m> are functions on <m>G</m> invariant under right <m>K</m>-translation. So an irreducible <m>V_π</m> contributes <m>dim V_π^K</m> copies. Then ask what <m>SO(2)</m>-fixed vectors look like in each <m>SO(3)</m>-irrep, and remember that the even-dimensional ones are honest representations of <m>SU(2)</m> but not of <m>SO(3)</m>.</div></details>
+<p class="p"><span class="num">54.</span> <strong>The far end of the corridor: spherical harmonics.</strong> Let $S^2=SO(3)/SO(2)$.</p>
+<p class="part"><span class="lbl">(a)</span> Verify that $x,y,z$ are harmonic homogeneous polynomials on $\mathbb{R}^3$, that $SO(3)$ preserves their span, and that their restrictions to $S^2$ satisfy $\Delta_{S^2}Y=-2Y$.</p>
+<p class="part"><span class="lbl">(b)</span> Let $H_\ell$ be the harmonic homogeneous polynomials of degree $\ell$ in three variables. Compute $\dim H_\ell$ for $\ell=0,1,2,3$ by hand, and prove $\dim H_\ell=2\ell+1$ in general.</p>
+<p class="part"><span class="lbl">(c)</span> State why $\Delta_{S^2}$ acts as a <em>scalar</em> on each $H_\ell$, citing the exact problem on this page that is doing the work.</p>
+<p class="part"><span class="lbl">(d)</span> We have $L^2(S^2)=\widehat{\bigoplus}_{\ell\ge0}H_\ell$, with $H_\ell$ the $(2\ell+1)$-dimensional irreducible representation of $SO(3)$. Explain why <em>every</em> odd-dimensional irreducible appears exactly once, and why the even-dimensional ones do not appear at all.</p>
+<details class="hint"><summary>Hint</summary><div class="body"><p class="p">(c) It is #31 verbatim, for a compact group: an operator commuting with an irreducible action is a scalar. Which action does $\Delta_{S^2}$ commute with, and why? (d) Functions on $G/K$ are functions on $G$ invariant under right $K$-translation, so an irreducible $V_\pi$ contributes $\dim V_\pi^K$ copies. Then ask what $SO(2)$-fixed vectors look like in each $SO(3)$-irrep, and remember that the even-dimensional ones are honest representations of $SU(2)$ but not of $SO(3)$.</p></div></details>
 <details><summary>Answer</summary><div class="body">
-(a) <m>Δ x = 0</m> trivially; <m>SO(3)</m> acts by linear substitution, preserving degree, and commutes with <m>Δ</m> because <m>Δ</m> is rotation-invariant. For a harmonic homogeneous <m>p</m> of degree <m>ℓ</m>, separating variables in <m>Δ = ∂_r² + (2/r)∂_r + r^{−2}Δ_{S²}</m> applied to <m>r^ℓ Y</m> gives <m>Δ_{S²}Y = −ℓ(ℓ+1)Y</m>; at <m>ℓ = 1</m> that is <m>−2</m>.<br>
-(b) Homogeneous degree-<m>ℓ</m> polynomials in 3 variables have dimension <m>C(ℓ+2, 2)</m>, and <m>Δ</m> maps them <em>onto</em> degree <m>ℓ−2</m>, so
-<div class="disp">dim H_ℓ = C(ℓ+2,2) − C(ℓ,2) = 2ℓ+1</div>
-giving <m>1, 3, 5, 7</m> for <m>ℓ = 0,1,2,3</m>.<br>
-(c) #31. <m>Δ_{S²}</m> commutes with the <m>SO(3)</m>-action (rotation invariance), so it is an intertwiner of an irreducible representation, so by Schur it is a scalar. In group-ring language: <m>Δ</m> is a <em>central</em> element of the convolution algebra, and central elements act by scalars on each isotypic block — exactly as <m>N</m> did in #30(d) and as the class sums do in #25.<br>
-(d) <m>L²(S²) = L²(SO(3)/SO(2)) = L²(SO(3))^{SO(2)}</m>, so by Peter–Weyl each irreducible <m>V_π</m> appears with multiplicity <m>dim V_π^{SO(2)}</m>. In the <m>(2ℓ+1)</m>-dimensional irrep the <m>SO(2)</m>-weights are <m>−ℓ, …, 0, …, ℓ</m>: exactly one zero weight, so exactly one fixed vector, so multiplicity one. The even-dimensional irreps have half-integer weights, no zero weight, no fixed vector — and in fact they are representations of <m>SU(2)</m> that do not descend to <m>SO(3)</m> at all. Multiplicity zero.<br><br>
-So: the decomposition of <m>L²(S²)</m> into spherical harmonics, the eigenvalues <m>−ℓ(ℓ+1)</m>, and the degeneracy <m>2ℓ+1</m> of each energy level — the structure that makes the periodic table have the shape it has — is <em>the same theorem</em> as <m>ℂ[D₄] ≅ ℂ⁴ × M₂(ℂ)</m>. One is finite and you can do it by hand in an evening; the other is compact and needs an integral. The algebra is identical.
+<p class="p">(a) $\Delta x=0$ trivially; $SO(3)$ acts by linear substitution, preserving degree, and commutes with $\Delta$ because $\Delta$ is rotation-invariant. For a harmonic homogeneous $p$ of degree $\ell$, separating variables in $\Delta=\partial_r^2+\tfrac{2}{r}\partial_r+r^{-2}\Delta_{S^2}$ applied to $r^\ell Y$ gives $\Delta_{S^2}Y=-\ell(\ell+1)Y$; at $\ell=1$ that is $-2$.</p>
+<p class="p">(b) Homogeneous degree-$\ell$ polynomials in three variables have dimension $\binom{\ell+2}{2}$, and $\Delta$ maps them <em>onto</em> degree $\ell-2$, so
+$$\dim H_\ell=\binom{\ell+2}{2}-\binom{\ell}{2}=2\ell+1,$$
+giving $1,3,5,7$ for $\ell=0,1,2,3$.</p>
+<p class="p">(c) #31. $\Delta_{S^2}$ commutes with the $SO(3)$-action by rotation invariance, so it is an intertwiner of an irreducible representation, hence a scalar by Schur. In group-ring language: $\Delta$ is a <em>central</em> element of the convolution algebra, and central elements act by scalars on each isotypic block, exactly as $N$ did in #30(d) and as the class sums do in #25.</p>
+<p class="p">(d) $L^2(S^2)=L^2(SO(3)/SO(2))=L^2(SO(3))^{SO(2)}$, so by Peter–Weyl each irreducible $V_\pi$ appears with multiplicity $\dim V_\pi^{SO(2)}$. In the $(2\ell+1)$-dimensional irrep the $SO(2)$-weights are $-\ell,\dots,0,\dots,\ell$: exactly one zero weight, so exactly one fixed vector, so multiplicity one. The even-dimensional irreps have half-integer weights, no zero weight and no fixed vector, and in fact they are representations of $SU(2)$ that do not descend to $SO(3)$ at all. Multiplicity zero.</p>
+<p class="p">So the decomposition of $L^2(S^2)$ into spherical harmonics, the eigenvalues $-\ell(\ell+1)$, and the degeneracy $2\ell+1$ of each energy level — the structure that gives the periodic table its shape — is <em>the same theorem</em> as $\mathbb{C}[D_4]\cong\mathbb{C}^4\times M_2(\mathbb{C})$. One is finite and can be done by hand in an evening; the other is compact and needs an integral. The algebra is identical.</p>
 </div></details>
 </div>
 
 <div class="card note">
-<p class="p"><strong>Where the three rooms meet.</strong> The through-line of this page is a single move: <em>a group ring turns a group into a linear-algebra problem, and its natural coordinates are characters.</em> In section F those characters are the DFT and the coordinates diagonalize convolution. In section H the failure to fully diagonalize over ℝ is a quadratic form, and the classification of quadratic forms is the classification of the algebra. In section J the characters live in a Galois field and the Frobenius orbits control everything. In section K the character is the Legendre symbol, its Fourier coefficient is a Gauss sum, the Galois group acts on that sum by that same character, and reduction mod <m>q</m> closes the loop.</p>
-<p class="p">And in section L the group is no longer finite: the same characters become Fourier modes, the same central elements become Laplacians, and the same block decomposition becomes Peter–Weyl. The corridor you named runs the whole length of the page, and #50 is its hinge.</p>
-<p class="p">If you want the next rung: <m>|g| = √p</m> is the prototype of <em>square-root cancellation</em>, the phenomenon the Weil conjectures generalize; Tao's uncertainty principle over <m>ℤ/p</m> (#48c) is proved by a Galois-theoretic fact about vanishing sums of roots of unity; and the <m>ℂ[G] → C^*(G)</m> completion of #50 is the doorway into noncommutative geometry, where "manifold" is replaced by the algebra outright. All of these are group-ring statements wearing different hats.</p>
+<p class="p"><strong>Where the rooms meet.</strong> The through-line is a single move: <em>a group ring turns a group into a linear-algebra problem, and its natural coordinates are characters.</em> In section F those characters are the DFT and the coordinates diagonalize convolution. In section H the failure to fully diagonalize over $\mathbb{R}$ is a quadratic form, and the classification of quadratic forms is the classification of the algebra. In section J the characters live in a Galois field and the Frobenius orbits control everything. In section K the character is the Legendre symbol, its Fourier coefficient is a Gauss sum, the Galois group acts on that sum by that same character, and reduction mod $q$ closes the loop. In section L the group is no longer finite: the same characters become Fourier modes, the same central elements become Laplacians, and the same block decomposition becomes Peter–Weyl.</p>
+<p class="p">Next rungs, if you want them: $|g|=\sqrt p$ is the prototype of <em>square-root cancellation</em>, the phenomenon the Weil conjectures generalize; Tao's uncertainty principle over $\mathbb{Z}/p$ (#48c) is proved by a Galois-theoretic fact about vanishing sums of roots of unity; and the completion $\mathbb{C}[G]\to C^*(G)$ of #50 is the doorway into noncommutative geometry, where "manifold" is replaced by the algebra outright.</p>
 </div>
 
 </div>
@@ -704,11 +747,24 @@ So: the decomposition of <m>L²(S²)</m> into spherical harmonics, the eigenvalu
 </div>
 
 <script>
-document.getElementById('all').addEventListener('click',function(){
-  document.querySelectorAll('details').forEach(function(d){d.open=true})
+document.addEventListener("DOMContentLoaded", function () {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "\\[", right: "\\]", display: true},
+      {left: "$",  right: "$",  display: false},
+      {left: "\\(", right: "\\)", display: false}
+    ],
+    ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
+    throwOnError: false,
+    strict: false
+  });
 });
-document.getElementById('none').addEventListener('click',function(){
-  document.querySelectorAll('details').forEach(function(d){d.open=false})
+document.getElementById('all').addEventListener('click', function () {
+  document.querySelectorAll('details').forEach(function (d) { d.open = true });
+});
+document.getElementById('none').addEventListener('click', function () {
+  document.querySelectorAll('details').forEach(function (d) { d.open = false });
 });
 </script>
 </body>
