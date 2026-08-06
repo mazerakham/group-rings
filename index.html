@@ -106,6 +106,7 @@ and everything on this page is downstream of it.</p>
 <li>$Q_8=\{1,z,i,zi,j,zj,k,zk\}$, where $z$ is the unique element of order $2$ (the thing usually written $-1$). Rules: $z$ central, $z^2=1$, $i^2=j^2=k^2=z$, $ij=k$, $jk=i$, $ki=j$, and $ji=zk$, $kj=zi$, $ik=zj$.</li>
 <li>Writing $z$ rather than $-1$ is deliberate; see problem 16.</li>
 <li>$D_4$ and $Q_8$ both have order $8$ despite the subscripts, because the two families index different things.</li>
+<li>$A\times B$ always denotes the <strong>direct product ring</strong>: pairs $(a,b)$ with <em>componentwise</em> addition and multiplication, $(a,b)(a',b')=(aa',bb')$, identity $(1_A,1_B)$. Never a tensor product, never a field extension. Note that any such product has zero divisors, since $(1,0)(0,1)=(0,0)$, so a statement like $\mathbb{R}[C_2]\cong\mathbb{R}\times\mathbb{R}$ is asserting a good deal more than a dimension count. We write $\mathbb{R}^n$ for the $n$-fold product $\mathbb{R}\times\cdots\times\mathbb{R}$ when it is being used as a ring.</li>
 </ul>
 </div>
 
@@ -150,6 +151,7 @@ Pairs $(x,w)$ with $xw=g$ together with factorizations $x=uv$ biject with triple
 
 <div class="card" id="p6"><a class="anchor" href="#p6">#6</a>
 <p class="p"><span class="num">6.</span> Let $C_2=\{1,x\}$. Show $\mathbb{R}[C_2]\cong\mathbb{R}\times\mathbb{R}$ by writing the isomorphism explicitly on $a+bx$, and identify the two idempotents giving the splitting.</p>
+<p class="p" style="color:var(--dim);font-size:14.5px">Here $\mathbb{R}\times\mathbb{R}$ is the componentwise product ring: $(u,v)+(u',v')=(u+u',v+v')$ and $(u,v)(u',v')=(uu',vv')$, with identity $(1,1)$. So you are being asked to exhibit coordinates on $\mathbb{R}[C_2]$ in which multiplication becomes componentwise. Note this is <em>not</em> $\mathbb{C}$, which would need $x^2=-1$; same dimension, different ring. An <strong>idempotent</strong> is an element with $e^2=e$; you can find the two you want either by transporting $(1,0)$ and $(0,1)$ back through your isomorphism, or directly by setting $e=a+bx$ and solving $e^2=e$.</p>
 <details><summary>Answer</summary><div class="body">
 <p class="p">$$a+bx\;\longmapsto\;(a+b,\;a-b).$$
 It is multiplicative because $(a+bx)(c+dx)=(ac+bd)+(ad+bc)x$. The idempotents are
